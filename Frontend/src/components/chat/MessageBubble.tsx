@@ -96,13 +96,13 @@ export function MessageBubble({ role, content }: MessageBubbleProps) {
                     })()}
                   </div>
                   {content.split('|').slice(2).join('|') && (
-                    <div className="bg-[#f4f4f4] px-5 py-3.5 rounded-3xl rounded-tr-sm">
+                    <div className="bg-slate-50 px-5 py-3.5 rounded-3xl rounded-tr-sm">
                       {content.split('|').slice(2).join('|')}
                     </div>
                   )}
                 </>
               ) : (
-                <div className="bg-[#f4f4f4] px-5 py-3.5 rounded-3xl rounded-tr-sm">
+                <div className="bg-slate-50 px-5 py-3.5 rounded-3xl rounded-tr-sm">
                   {content}
                 </div>
               )}

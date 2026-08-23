@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   Stethoscope,
   Building2,
@@ -25,6 +25,7 @@ import { useChatHistory } from "@/context/ChatHistoryContext";
 
 export function PatientMegaMenuNavbar() {
   const pathname = usePathname();
+  const router = useRouter();
   const { user } = useAuth();
   const { createNewThread } = useChatHistory();
   const [moreOpen, setMoreOpen] = useState(false);
@@ -105,7 +106,7 @@ export function PatientMegaMenuNavbar() {
         
         {/* Clickable Brand Logo */}
         <Link 
-          href="/" 
+          href="/?view=home" 
           className="flex items-center gap-2.5 group hover:opacity-95 transition-opacity shrink-0"
           title="Return to Home"
         >
@@ -126,7 +127,10 @@ export function PatientMegaMenuNavbar() {
 
         {/* New Chat Button */}
         <button
-          onClick={() => createNewThread("New Chat")}
+          onClick={() => {
+            createNewThread("New Chat");
+            router.push("/chat");
+          }}
           className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full btn-clay text-xs font-extrabold shrink-0"
           title="Start a New AI Health Chat"
         >

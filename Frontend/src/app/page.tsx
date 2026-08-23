@@ -2,6 +2,7 @@ import WhyUsBento from "@/components/landing/WhyUsBento";
 import { Navbar } from "@/components/layout/Navbar";
 import { HeroSection } from "@/components/landing/HeroSection";
 import dynamic from "next/dynamic";
+import { HomeRedirector } from "@/components/auth/HomeRedirector";
 
 const Footer = dynamic(() => import("@/components/layout/Footer").then(m => m.Footer), { ssr: true });
 const TrustedBySection = dynamic(() => import("@/components/landing/TrustedBySection").then(m => m.TrustedBySection), { ssr: true });
@@ -15,6 +16,7 @@ const FinalCTASection = dynamic(() => import("@/components/landing/FinalCTASecti
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-white flex flex-col overflow-x-hidden w-full selection:bg-slate-900 selection:text-white">
+      <HomeRedirector />
       <Navbar />
 
       <main className="flex-1">

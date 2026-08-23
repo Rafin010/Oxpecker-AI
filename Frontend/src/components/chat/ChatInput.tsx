@@ -147,7 +147,7 @@ export function ChatInput({
               animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
               exit={{ opacity: 0, y: 10, scale: 0.95, filter: "blur(4px)" }}
               transition={{ type: "spring", stiffness: 400, damping: 25 }}
-              className="absolute bottom-full mb-3 left-0 w-[240px] bg-white/80 backdrop-blur-3xl border border-slate-200 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.15)] rounded-[20px] p-1.5 z-50 overflow-hidden"
+              className="absolute bottom-full mb-3 left-0 w-[240px] glass-panel rounded-[20px] p-1.5 z-50 overflow-hidden"
             >
               <div className="relative z-10 flex flex-col">
                 {menuItems.map((item, idx) => (
@@ -191,7 +191,7 @@ export function ChatInput({
               initial={{ opacity: 0, y: 10, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 5, scale: 0.98 }}
-              className="absolute bottom-full mb-3 left-4 sm:left-12 w-[280px] bg-white border border-slate-200 shadow-[0_15px_40px_-10px_rgba(0,0,0,0.15)] rounded-2xl p-1.5 z-50 overflow-hidden"
+              className="absolute bottom-full mb-3 left-4 sm:left-12 w-[280px] glass-panel rounded-2xl p-1.5 z-50 overflow-hidden"
             >
               <div className="px-2 pt-2 pb-1 text-[11px] font-bold text-slate-400 uppercase tracking-wider">Select a Mode</div>
               <div className="flex flex-col max-h-[220px] overflow-y-auto custom-scrollbar">
@@ -235,7 +235,7 @@ export function ChatInput({
         />
 
         {/* Input Container */}
-        <div className="w-full flex items-end gap-1.5 sm:gap-2 bg-white/60 backdrop-blur-xl rounded-xl p-1 sm:p-1.5 min-h-[48px] sm:min-h-[52px] border border-slate-200/80 shadow-sm focus-within:shadow-[0_8px_30px_rgba(0,61,155,0.08)] focus-within:border-primary/20 focus-within:bg-white transition-all duration-300">
+        <div className="w-full flex items-end gap-1.5 sm:gap-2 bg-white/60 backdrop-blur-xl rounded-xl p-1 sm:p-1.5 min-h-[48px] sm:min-h-[52px] border border-slate-200/80 shadow-sm focus-within:spatial-shadow-hover focus-within:border-primary/20 focus-within:bg-white transition-all duration-300">
           
           {/* Left Action (Plus Button) */}
           <button 

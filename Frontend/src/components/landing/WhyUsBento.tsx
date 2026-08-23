@@ -20,7 +20,7 @@ export interface WhyUsBentoProps {
 }
 
 export function WhyUsBento({ className }: WhyUsBentoProps) {
-  const { t, language } = useLanguage();
+  const { t, lang: language } = useLanguage();
 
   return (
     <section id="features" className={cn("py-12 sm:py-16 relative z-10 w-full max-w-[1280px] mx-auto px-4 sm:px-6", className)}>
@@ -28,7 +28,7 @@ export function WhyUsBento({ className }: WhyUsBentoProps) {
         <span className="text-xs font-extrabold uppercase tracking-widest text-sky-600 bg-sky-50 border border-sky-200 px-4 py-1.5 rounded-full inline-block mb-3">
           {t("Smarter Healthcare for Bangladesh", "আধুনিক স্বাস্থ্যসেবা প্রযুক্তি")}
         </span>
-        <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
           {t("Why Choose Oxpecker AI", "কেন অক্সপ্যাকার এআই ব্যবহার করবেন")}
         </h2>
         <p className="text-slate-500 text-sm sm:text-base max-w-2xl mx-auto mt-2">
@@ -45,6 +45,7 @@ export function WhyUsBento({ className }: WhyUsBentoProps) {
         <motion.div 
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
+          transition={{ type: 'spring', bounce: 0, duration: 0.5 }}
           viewport={{ once: true }}
           className="bento-card col-span-1 md:col-span-2 bg-gradient-to-br from-slate-900 to-slate-800 text-white spatial-shadow-md border-0 group"
         >
@@ -72,7 +73,7 @@ export function WhyUsBento({ className }: WhyUsBentoProps) {
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
+          transition={{ type: 'spring', bounce: 0, duration: 0.5, delay: 0.1 }}
           className="bento-card col-span-1 md:col-span-1 flex flex-col justify-between"
         >
           <div>
@@ -96,7 +97,7 @@ export function WhyUsBento({ className }: WhyUsBentoProps) {
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
+          transition={{ type: 'spring', bounce: 0, duration: 0.5, delay: 0.2 }}
           className="bento-card col-span-1 md:col-span-1 flex flex-col justify-between"
         >
           <div>
@@ -120,7 +121,7 @@ export function WhyUsBento({ className }: WhyUsBentoProps) {
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
+          transition={{ type: 'spring', bounce: 0, duration: 0.5, delay: 0.3 }}
           className="bento-card col-span-1 md:col-span-2 flex flex-col justify-between"
         >
           <div>

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Search, Plus, MessageSquare, History, Settings, User, MoreHorizontal, LogOut, Stethoscope, Building2, Pill, Apple, FileText, Calendar, Bookmark, Cpu, BarChart3, ScrollText, Trash2, X as XIcon } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { useChatHistory } from "@/context/ChatHistoryContext";
@@ -11,6 +11,7 @@ import { useMemo } from "react";
 export function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const { user, logout } = useAuth();
   const pathname = usePathname();
+  const router = useRouter();
 
   const navItems = [
     { icon: MessageSquare, label: "Chat", href: "/chat" },
@@ -74,7 +75,7 @@ export function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
       {/* Sidebar */}
       <aside className={`
         fixed 2xl:static inset-y-0 left-0 z-[101]
-        w-[280px] h-screen bg-white border-r border-slate-200
+        w-[280px] h-screen bg-slate-50/95 backdrop-blur-2xl border-r border-slate-200/60
         transition-transform duration-300 ease-out shadow-2xl 2xl:shadow-none
         ${isOpen ? "translate-x-0" : "-translate-x-full 2xl:translate-x-0"}
         flex flex-col
@@ -82,7 +83,7 @@ export function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
         {/* Top Header */}
         <div className="p-4 flex flex-col gap-4 relative">
           <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center px-2">
+            <Link href="/?view=home" className="flex items-center px-2">
               <Image 
                 src="/images/Oxpecker_full_size.png" 
                 alt="Oxpecker AI" 
@@ -100,7 +101,13 @@ export function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
           </div>
 
           <button 
-            onClick={() => createNewThread("New Chat")}
+            onClick={() => {
+              createNewThread("New Chat");
+              if (pathname !== "/chat") {
+                router.push("/chat");
+              }
+              onClose();
+            }}
             className="flex items-center justify-between w-full h-12 px-3 bg-slate-50 hover:bg-slate-100 rounded-xl text-slate-700 transition-colors group mt-2"
           >
             <div className="flex items-center gap-2 font-medium">
@@ -149,7 +156,13 @@ export function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
                   {group.chats.map((chat) => (
                     <div 
                       key={chat.id}
-                      onClick={() => switchThread(chat.id)}
+                      onClick={() => {
+                        switchThread(chat.id);
+                        if (pathname !== "/chat") {
+                          router.push("/chat");
+                        }
+                        onClose();
+                      }}
                       className={`group flex items-center justify-between h-10 px-2 rounded-lg cursor-pointer text-sm transition-colors ${
                         activeThreadId === chat.id 
                           ? "bg-primary/10 text-primary font-medium" 

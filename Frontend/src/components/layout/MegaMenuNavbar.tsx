@@ -24,6 +24,7 @@ import {
 
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/context/LanguageContext";
+import { useAuth } from "@/context/AuthContext";
 
 export interface MegaMenuItem {
   title: string;
@@ -51,7 +52,8 @@ export function MegaMenuNavbar({
   className,
   ...props
 }: MegaMenuNavbarProps) {
-  const { t, language } = useLanguage();
+  const { t, lang: language } = useLanguage();
+  const { isAuthenticated, role } = useAuth();
   const pathname = usePathname();
   const [openMenu, setOpenMenu] = React.useState<DesktopMenu>(null);
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -209,7 +211,7 @@ export function MegaMenuNavbar({
       {...props}
       ref={navRef}
       className={cn(
-        "fixed top-0 left-0 right-0 z-[100] w-full border-b border-slate-200/80 bg-white/90 backdrop-blur-xl transition-all duration-300",
+        "fixed top-0 left-0 right-0 z-[100] w-full border-b border-white/40 glass-panel transition-all duration-300",
         className
       )}
       onMouseLeave={(event) => {
@@ -259,10 +261,10 @@ export function MegaMenuNavbar({
                 </button>
                 <div
                   className={cn(
-                    "absolute left-0 top-full z-50 pt-2 transition-all duration-150",
+                    "absolute left-0 top-full z-50 pt-2 transition-all duration-200 ease-out origin-top-left",
                     openMenu === "services"
-                      ? "visible translate-y-0 opacity-100"
-                      : "invisible translate-y-2 opacity-0 pointer-events-none"
+                      ? "visible scale-100 opacity-100"
+                      : "invisible scale-95 opacity-0 pointer-events-none"
                   )}
                 >
                   <div className="w-[640px] rounded-2xl border border-slate-200 bg-white p-3.5 shadow-2xl">
@@ -342,10 +344,10 @@ export function MegaMenuNavbar({
                 </button>
                 <div
                   className={cn(
-                    "absolute left-0 top-full z-50 pt-2 transition-all duration-150",
+                    "absolute left-0 top-full z-50 pt-2 transition-all duration-200 ease-out origin-top-left",
                     openMenu === "use-cases"
-                      ? "visible translate-y-0 opacity-100"
-                      : "invisible translate-y-2 opacity-0 pointer-events-none"
+                      ? "visible scale-100 opacity-100"
+                      : "invisible scale-95 opacity-0 pointer-events-none"
                   )}
                 >
                   <div className="w-[410px] rounded-2xl border border-slate-200 bg-white p-3 shadow-2xl">
@@ -432,10 +434,10 @@ export function MegaMenuNavbar({
                 </button>
                 <div
                   className={cn(
-                    "absolute left-1/2 -translate-x-1/2 top-full z-50 pt-2 transition-all duration-150",
+                    "absolute left-1/2 -translate-x-1/2 top-full z-50 pt-2 transition-all duration-200 ease-out origin-top",
                     openMenu === "resources"
-                      ? "visible translate-y-0 opacity-100"
-                      : "invisible translate-y-2 opacity-0 pointer-events-none"
+                      ? "visible scale-100 opacity-100"
+                      : "invisible scale-95 opacity-0 pointer-events-none"
                   )}
                 >
                   <div className="grid grid-cols-3 gap-4 w-[600px] rounded-2xl border border-slate-200 bg-white p-4 shadow-2xl">
@@ -492,18 +494,35 @@ export function MegaMenuNavbar({
 
           {/* Right Actions */}
           <div className="flex items-center gap-3">
-            <Link
-              href="/login"
-              className="px-4 py-2 text-sm font-bold text-slate-700 hover:text-slate-900 transition-colors hidden sm:block"
-            >
-              {t("Log In", "লগইন")}
-            </Link>
-            <Link
-              href="/register"
-              className="px-5 py-2.5 text-sm font-bold bg-[#0B1630] hover:bg-slate-800 text-white rounded-xl shadow-md transition-all active:scale-[0.98]"
-            >
-              {t("Get Started", "শুরু করুন")}
-            </Link>
+            {!isAuthenticated ? (
+              <>
+                <Link
+                  href="/login"
+                  className="px-4 py-2 text-sm font-bold text-slate-700 hover:text-slate-900 transition-colors hidden sm:block"
+                >
+                  {t("Log In", "লগইন")}
+                </Link>
+                <Link
+                  href="/register"
+                  className="px-5 py-2.5 text-sm font-bold bg-[#0B1630] hover:bg-slate-800 text-white rounded-xl shadow-md transition-all active:scale-[0.98]"
+                >
+                  {t("Get Started", "শুরু করুন")}
+                </Link>
+              </>
+            ) : (
+              <Link
+                href={
+                  role === "patient" ? "/chat" :
+                  role === "doctor" ? "/doctor/dashboard" :
+                  role === "hospital" ? "/hospital/dashboard" :
+                  role === "admin" ? "/admin/dashboard" :
+                  role === "assistant" ? "/assistant" : "/"
+                }
+                className="px-5 py-2.5 text-sm font-bold bg-[#0ea5e9] hover:bg-sky-600 text-white rounded-xl shadow-md transition-all active:scale-[0.98]"
+              >
+                {t("Dashboard", "ড্যাশবোর্ড")}
+              </Link>
+            )}
           </div>
 
         </div>

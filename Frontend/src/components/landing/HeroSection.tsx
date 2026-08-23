@@ -38,7 +38,7 @@ const POPULAR_SPECIALTIES = [
 ];
 
 export function HeroSection() {
-  const { t, language } = useLanguage();
+  const { t, lang: language } = useLanguage();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("doctors");
   const [searchQuery, setSearchQuery] = useState("");
@@ -70,7 +70,7 @@ export function HeroSection() {
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
+          transition={{ type: 'spring', bounce: 0, duration: 0.4 }}
           className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-50/80 border border-sky-200/80 shadow-xs text-xs font-bold text-sky-800 mb-6 backdrop-blur-md"
         >
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
@@ -81,8 +81,8 @@ export function HeroSection() {
         <motion.h1
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-slate-900 tracking-tight max-w-4xl leading-[1.15] mb-4"
+          transition={{ type: 'spring', bounce: 0, duration: 0.4, delay: 0.1 }}
+          className="font-display text-4xl sm:text-5xl md:text-6xl font-extrabold text-slate-900 tracking-tight max-w-4xl leading-[1.15] mb-4"
         >
           {language === "bn" ? (
             <>
@@ -101,7 +101,7 @@ export function HeroSection() {
         <motion.p
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          transition={{ type: 'spring', bounce: 0, duration: 0.4, delay: 0.2 }}
           className="text-base sm:text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed mb-8 font-medium"
         >
           {t(
@@ -114,7 +114,7 @@ export function HeroSection() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
+          transition={{ type: 'spring', bounce: 0, duration: 0.4, delay: 0.3 }}
           className="w-full max-w-3xl glass-panel spatial-shadow-lg rounded-[2rem] p-3 sm:p-4 text-left relative z-20"
         >
           {/* Search Tabs */}
@@ -197,7 +197,7 @@ export function HeroSection() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+          transition={{ type: 'spring', bounce: 0, duration: 0.4, delay: 0.4 }}
           className="mt-6 flex flex-wrap items-center justify-center gap-2 text-xs"
         >
           <span className="text-slate-500 font-semibold">{t("Explore by specialty:", "বিশেষজ্ঞ বিভাগ খুঁজুন:")}</span>
@@ -216,7 +216,7 @@ export function HeroSection() {
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
+          transition={{ type: 'spring', bounce: 0, duration: 0.4, delay: 0.5 }}
           className="mt-10 pt-6 border-t border-slate-200/80 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 w-full max-w-4xl text-left"
         >
           <div className="flex items-center gap-3 p-2.5 rounded-xl glass-pill spatial-shadow-hover transition-all duration-300">

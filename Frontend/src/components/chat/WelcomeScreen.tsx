@@ -49,7 +49,7 @@ export function WelcomeScreen({ onSelect }: { onSelect: (mode: ChatMode & { prom
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+        transition={{ type: 'spring', bounce: 0, duration: 0.4 }}
         className="text-center mb-10"
       >
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100/90 border border-slate-200 text-slate-600 text-xs font-semibold shadow-xs mb-4">
@@ -70,7 +70,7 @@ export function WelcomeScreen({ onSelect }: { onSelect: (mode: ChatMode & { prom
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
+        transition={{ type: 'spring', bounce: 0, duration: 0.4, delay: 0.1 }}
         className="grid grid-cols-2 md:grid-cols-4 gap-3.5 w-full"
       >
         {suggestions.map((item, idx) => (
@@ -79,7 +79,8 @@ export function WelcomeScreen({ onSelect }: { onSelect: (mode: ChatMode & { prom
             onClick={() => onSelect(item)}
             whileHover={{ y: -4, scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="flex flex-col items-start justify-between w-full h-[100px] sm:h-[115px] p-4 bg-white border border-slate-200/90 rounded-[20px] hover:border-primary/40 hover:shadow-md transition-all text-left shadow-xs group"
+            transition={{ type: 'spring', bounce: 0, duration: 0.3 }}
+            className="flex flex-col items-start justify-between w-full h-[100px] sm:h-[115px] p-4 bg-white border border-slate-200/90 rounded-[20px] hover:border-primary/40 hover:shadow-md text-left shadow-xs group"
           >
             <div className={`w-8 h-8 rounded-xl flex items-center justify-center ${item.bg} ${item.color} group-hover:scale-110 transition-transform`}>
               <item.icon className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={2.2} />

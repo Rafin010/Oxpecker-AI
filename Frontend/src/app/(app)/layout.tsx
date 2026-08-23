@@ -57,7 +57,7 @@ export default function AppLayout({
                 </button>
                 
                 {/* Clickable Logo */}
-                <Link href="/" className="flex items-center gap-2 font-[900] text-slate-800 text-lg tracking-tight hover:opacity-90 transition-opacity">
+                <Link href="/?view=home" className="flex items-center gap-2 font-[900] text-slate-800 text-lg tracking-tight hover:opacity-90 transition-opacity">
                   <div className="w-8 h-8 relative drop-shadow-sm">
                     <Image src="/images/Oxpecker_icon.png" alt="Oxpecker AI" fill sizes="32px" className="object-contain" />
                   </div>
