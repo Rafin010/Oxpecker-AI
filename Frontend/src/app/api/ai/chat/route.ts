@@ -104,19 +104,19 @@ function getProviders(): ProviderConfig[] {
     providers.push({
       name: 'google',
       apiKey: process.env.GOOGLE_API_KEY,
-      model: process.env.GOOGLE_MODEL || 'gemini-2.0-flash',
+      model: process.env.GOOGLE_MODEL || 'gemini-3.6-flash',
       baseUrl: 'https://generativelanguage.googleapis.com/v1beta',
       priority: 1,
       isEnabled: true,
     });
   }
 
-  // Priority 2: Groq AI API (Ultra-Fast Llama 3 70B)
+  // Priority 2: Groq AI API
   if (process.env.GROQ_API_KEY) {
     providers.push({
       name: 'groq',
       apiKey: process.env.GROQ_API_KEY,
-      model: process.env.GROQ_MODEL || 'llama-3.3-70b-versatile',
+      model: process.env.GROQ_MODEL || 'qwen/qwen3.6-27b',
       baseUrl: 'https://api.groq.com/openai/v1',
       priority: 2,
       isEnabled: true,
