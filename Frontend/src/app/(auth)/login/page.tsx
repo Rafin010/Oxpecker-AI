@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 import { toast, Toaster } from "sonner";
 import { useAuth } from "@/context/AuthContext";
 import { supabase } from "@/lib/supabase";
+import { FloatingMedicalBackground } from "@/components/shared/FloatingMedicalBackground";
 
 export default function LoginPage() {
   const { login, isAuthenticated, isLoading, role } = useAuth();
@@ -119,6 +120,7 @@ export default function LoginPage() {
   return (
     <main className="min-h-screen bg-slate-50 flex items-center justify-center p-4 sm:p-8 relative overflow-hidden">
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-50" />
+      <FloatingMedicalBackground />
       <Toaster position="top-center" richColors />
 
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="w-full max-w-md relative z-10">
