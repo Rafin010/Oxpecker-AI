@@ -26,6 +26,7 @@ interface ChatHistoryContextType {
   updateMessageInThread: (threadId: string, messageId: string, content: string) => void;
   updateThreadTitle: (threadId: string, title: string) => void;
   getActiveThread: () => ChatThread | undefined;
+  isLoaded: boolean;
 }
 
 const ChatHistoryContext = createContext<ChatHistoryContextType | undefined>(undefined);
@@ -145,6 +146,7 @@ export function ChatHistoryProvider({ children }: { children: React.ReactNode })
         updateMessageInThread,
         updateThreadTitle,
         getActiveThread,
+        isLoaded,
       }}
     >
       {children}

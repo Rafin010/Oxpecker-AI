@@ -25,14 +25,14 @@ function ChatContent() {
   const initialQuery = searchParams?.get("q");
   const autoSentRef = useRef(false);
 
-  const { activeThreadId, getActiveThread, addMessageToThread, createNewThread, updateMessageInThread, updateThreadTitle } = useChatHistory();
+  const { activeThreadId, getActiveThread, addMessageToThread, createNewThread, updateMessageInThread, updateThreadTitle, isLoaded } = useChatHistory();
   
-  // Create a thread if none exists on mount
+  // Create a thread if none exists on mount, but ONLY after localStorage is loaded
   useEffect(() => {
-    if (!activeThreadId) {
+    if (isLoaded && !activeThreadId) {
       createNewThread("New Chat");
     }
-  }, [activeThreadId, createNewThread]);
+  }, [isLoaded, activeThreadId, createNewThread]);
 
   const activeThread = getActiveThread();
   const messages = activeThread?.messages || [];
@@ -106,6 +106,11 @@ function ChatContent() {
         message: emergencyResult.message,
         callNumber: emergencyResult.callNumber,
       });
+    }
+
+    // Update thread title if this is the first message
+    if (existingMessages.length === 0) {
+      updateThreadTitle(threadIdToUse, threadTitleToUse);
     }
 
     // Create placeholder bot message for streaming
