@@ -178,17 +178,6 @@ export function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
           <div className="p-4 border-t border-slate-100 flex flex-col gap-1 shrink-0 bg-slate-50/50">
             {user ? (
               <>
-                <Link href="/profile" onClick={onClose} className="flex items-center gap-3 w-full h-11 px-3 rounded-lg hover:bg-slate-100 text-slate-700 text-[14px] font-[800] transition-colors">
-                  <div className="w-6 h-6 rounded-full bg-sky-600 text-white flex items-center justify-center text-[10px] shadow-inner relative overflow-hidden shrink-0">
-                    {user?.image ? (
-                      <Image src={user.image} alt={user?.name || "User"} fill className="object-cover" />
-                    ) : (
-                      user?.name?.charAt(0).toUpperCase() || 'U'
-                    )}
-                  </div>
-                  <span className="truncate">{user?.name || 'User'}</span>
-                </Link>
-                
                 <Link href="/settings" onClick={onClose} className="flex items-center gap-3 w-full h-11 px-3 rounded-lg hover:bg-slate-100 text-slate-600 text-[14px] font-medium transition-colors">
                   <Settings size={18} className="text-slate-500" /> Settings
                 </Link>

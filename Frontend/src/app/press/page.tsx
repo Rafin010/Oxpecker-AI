@@ -5,7 +5,7 @@ export default function PressPage() {
     <PageLayout title="Media & Press" breadcrumb="Media">
       <h2>Media Inquiries</h2>
       <p>
-        For press inquiries, interviews, or media kits, please contact our PR team at <strong>press@oxpecker.com</strong>.
+        For press inquiries, interviews, or media kits, please contact our PR team at <strong>press@oxpecker.equisaas-bd.com</strong>.
       </p>
 
       <h2>Brand Assets</h2>

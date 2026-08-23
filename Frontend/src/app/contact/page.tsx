@@ -18,7 +18,7 @@ export default function ContactPage() {
         <div className="p-6 rounded-xl bg-slate-50 border border-slate-100 flex flex-col items-center text-center">
           <Mail className="text-primary mb-4" size={32} />
           <h3 className="font-bold text-slate-800 mb-2">Email Us</h3>
-          <p className="text-slate-600 text-sm">support@oxpecker.com</p>
+          <p className="text-slate-600 text-sm">support@oxpecker.equisaas-bd.com</p>
         </div>
         <div className="p-6 rounded-xl bg-slate-50 border border-slate-100 flex flex-col items-center text-center">
           <MapPin className="text-primary mb-4" size={32} />

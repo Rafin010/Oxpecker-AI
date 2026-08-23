@@ -10,7 +10,7 @@ export default function CareersPage() {
 
       <h2>Current Openings</h2>
       <p>
-        There are currently no open positions. Please check back later, or send your resume to <strong>careers@oxpecker.com</strong> to be considered for future opportunities.
+        There are currently no open positions. Please check back later, or send your resume to <strong>careers@oxpecker.equisaas-bd.com</strong> to be considered for future opportunities.
       </p>
 
       <h2>Why Work With Us?</h2>

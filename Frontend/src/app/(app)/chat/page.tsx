@@ -71,9 +71,9 @@ function ChatContent() {
     let displayContent = userMsgContent;
 
     if (activeMode) {
-      apiContent = userMsgContent 
-        ? `[Action: ${activeMode.title}]\n\n${userMsgContent}` 
-        : `[Action: ${activeMode.title}]`;
+      const additionalText = userMsgContent ? `\n\n${userMsgContent}` : "";
+      const basePrompt = activeMode.promptText ? `\n\n${activeMode.promptText}` : "";
+      apiContent = `[Action: ${activeMode.title}]${basePrompt}${additionalText}`;
       
       displayContent = `|MODE:${activeMode.title}|${userMsgContent}`;
       setSelectedMode(null);
@@ -204,9 +204,14 @@ function ChatContent() {
   }, [initialQuery]);
 
   const handleWelcomeSelect = (modeItem: any) => {
-    const modeObj: ChatMode = { icon: modeItem.icon, title: modeItem.title, description: modeItem.title };
-    const promptText = modeItem.promptText || modeItem.title;
-    handleSend(promptText, modeObj);
+    const modeObj: ChatMode = { 
+      icon: modeItem.icon, 
+      title: modeItem.title, 
+      color: modeItem.color, 
+      bg: modeItem.bg,
+      promptText: modeItem.promptText 
+    };
+    setSelectedMode(modeObj);
   };
 
   const followUpChips = [

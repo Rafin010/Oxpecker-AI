@@ -34,7 +34,7 @@ export default function SuperAdminProfilePage() {
       const prof = res.data.profile || {};
       setFormData({
         name: prof.name || user?.name || "Supreme Admin",
-        email: prof.email || user?.email || "admin@oxpecker.com",
+        email: prof.email || user?.email || "admin@oxpecker.equisaas-bd.com",
         password: prof.password || "supremeadmin",
         phone: prof.phone || "+880 1700-000000",
         title: "Supreme System Administrator"

@@ -66,7 +66,7 @@ export default function AppLayout({
                 
                 {/* Profile Link */}
                 <Link 
-                  href="/profile"
+                  href="/settings"
                   className="w-8 h-8 rounded-full bg-sky-600 text-white flex items-center justify-center text-xs font-black overflow-hidden border border-slate-200 shadow-xs hover:scale-105 transition-transform relative shrink-0"
                   title={user?.name || "User Profile"}
                 >
@@ -81,6 +81,23 @@ export default function AppLayout({
 
             {/* Laptop Horizontal Mega Menu Header (Visible lg to 2xl) */}
             {!isSpecialRoute && <PatientMegaMenuNavbar />}
+
+            {/* Desktop Top-Right Profile (Visible >= 2xl) */}
+            {!isSpecialRoute && (
+              <div className="hidden 2xl:flex absolute top-4 right-6 z-[60]">
+                <Link 
+                  href="/settings"
+                  className="w-10 h-10 rounded-full bg-sky-600 text-white flex items-center justify-center text-sm font-black overflow-hidden border-2 border-white shadow-md hover:scale-105 transition-transform relative"
+                  title={user?.name || "User Profile"}
+                >
+                  {user?.image ? (
+                    <Image src={user.image} alt={user?.name || "User"} fill sizes="40px" className="object-cover" />
+                  ) : (
+                    user?.name ? user.name.charAt(0).toUpperCase() : 'U'
+                  )}
+                </Link>
+              </div>
+            )}
 
             {/* Dynamic Page Content */}
             <main className={`flex-1 overflow-y-auto custom-scrollbar relative ${!isSpecialRoute ? 'pt-14 lg:pt-0 2xl:pt-0 pb-16 md:pb-0' : ''}`}>

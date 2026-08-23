@@ -144,10 +144,10 @@ export function Footer() {
                 <PhoneCall size={15} className="shrink-0 text-slate-400" /> 16263 (24/7)
               </a>
               <a
-                href="mailto:support@oxpecker.com"
+                href="mailto:support@oxpecker.equisaas-bd.com"
                 className="flex items-center gap-2.5 text-slate-500 hover:text-slate-900 transition-colors duration-200"
               >
-                <Mail size={15} className="shrink-0 text-slate-400" /> support@oxpecker.com
+                <Mail size={15} className="shrink-0 text-slate-400" /> support@oxpecker.equisaas-bd.com
               </a>
             </div>
           </div>

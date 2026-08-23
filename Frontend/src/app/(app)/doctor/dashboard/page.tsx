@@ -92,7 +92,7 @@ export default function DoctorDashboardPage() {
       status: 'pending',
       doctorId: user?.id || 'doctor-test-101',
       doctorName: user?.name || 'Dr. Sarah Rahman',
-      doctorEmail: user?.email || 'doctor@oxpecker.com'
+      doctorEmail: user?.email || 'doctor@oxpecker.equisaas-bd.com'
     });
     localStorage.setItem('oxpecker_invites', JSON.stringify(invites));
 

@@ -1,13 +1,25 @@
 import { useState, useRef, useEffect } from "react";
-import { Plus, Mic, Camera, ArrowRight, FileText, Activity, Image as ImageIcon, Pill, Apple, FileOutput, X, Paperclip } from "lucide-react";
+import { Plus, Mic, Camera, ArrowRight, FileText, Activity, Image as ImageIcon, Pill, Apple, FileOutput, X, Paperclip, Stethoscope, Building2, User, HeartPulse } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSpeechToText, VoiceMicButton, VoiceWaveform } from "./VoiceInput";
+
+export const chatModeSuggestions = [
+  { icon: Stethoscope, title: "Analyze my symptoms", promptText: "I would like to analyze my current symptoms. Please help me assess them.", color: "text-blue-500", bg: "bg-blue-50" },
+  { icon: Pill, title: "Compare medicines", promptText: "I want to compare medicines and understand their uses and dosages.", color: "text-purple-500", bg: "bg-purple-50" },
+  { icon: FileText, title: "Scan prescription", promptText: "Can you help me understand a doctor prescription?", color: "text-green-500", bg: "bg-green-50" },
+  { icon: Activity, title: "Analyze blood report", promptText: "I want to analyze a blood test or medical lab report.", color: "text-rose-500", bg: "bg-rose-50" },
+  { icon: Apple, title: "Calculate food calories", promptText: "I want to calculate food calories and get dietary recommendations.", color: "text-orange-500", bg: "bg-orange-50" },
+  { icon: Building2, title: "Find nearby hospitals", promptText: "Can you help me locate nearby hospitals with specialized facilities?", color: "text-indigo-500", bg: "bg-indigo-50" },
+  { icon: User, title: "Find a specialist doctor", promptText: "I need to find a specialist doctor for my health concern.", color: "text-teal-500", bg: "bg-teal-50" },
+  { icon: HeartPulse, title: "Check health risks", promptText: "I want to check potential health risk factors.", color: "text-pink-500", bg: "bg-pink-50" },
+];
 
 export type ChatMode = {
   title: string;
   icon?: any;
   color?: string;
   bg?: string;
+  promptText?: string;
 };
 
 export function ChatInput({ 
@@ -23,6 +35,9 @@ export function ChatInput({
 }) {
   const [text, setText] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showMentionMenu, setShowMentionMenu] = useState(false);
+  const [mentionQuery, setMentionQuery] = useState("");
+  const [mentionIndex, setMentionIndex] = useState(0);
   const [pendingAnalysisType, setPendingAnalysisType] = useState<string | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -56,6 +71,48 @@ export function ChatInput({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value;
+    setText(value);
+    
+    // Check for @mention
+    const cursorPosition = e.target.selectionStart;
+    const textBeforeCursor = value.slice(0, cursorPosition);
+    const match = textBeforeCursor.match(/(?:^|\s)@([a-zA-Z0-9_ -]*)$/);
+    
+    if (match) {
+      setShowMentionMenu(true);
+      setMentionQuery(match[1] || "");
+      setMentionIndex(0);
+    } else {
+      setShowMentionMenu(false);
+    }
+  };
+
+  const filteredSuggestions = chatModeSuggestions.filter(s => 
+    s.title.toLowerCase().includes(mentionQuery.toLowerCase())
+  );
+
+  const handleMentionSelect = (mode: ChatMode) => {
+    if (onSelectMode) {
+      onSelectMode(mode);
+    }
+    // Remove the @query from text
+    const cursorPosition = textareaRef.current?.selectionStart || 0;
+    const textBeforeCursor = text.slice(0, cursorPosition);
+    const textAfterCursor = text.slice(cursorPosition);
+    
+    const match = textBeforeCursor.match(/(?:^|\s)@([a-zA-Z0-9_ -]*)$/);
+    if (match) {
+      const matchLength = match[0].length;
+      const hasLeadingSpace = match[0].startsWith(' ') || match[0].startsWith('\n');
+      const newTextBefore = textBeforeCursor.slice(0, cursorPosition - matchLength) + (hasLeadingSpace ? ' ' : '');
+      setText(newTextBefore + textAfterCursor);
+    }
+    
+    setShowMentionMenu(false);
+  };
+
   const handleSend = () => {
     if (text.trim() || selectedMode) {
       onSend(text); // we can pass text and mode, or let page.tsx handle mode
@@ -63,6 +120,7 @@ export function ChatInput({
       if (textareaRef.current) {
         textareaRef.current.style.height = "auto";
       }
+      setShowMentionMenu(false);
     }
   };
 
@@ -120,6 +178,37 @@ export function ChatInput({
                       </div>
                     </button>
                   </div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Floating Mention Menu */}
+        <AnimatePresence>
+          {showMentionMenu && filteredSuggestions.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 10, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 5, scale: 0.98 }}
+              className="absolute bottom-full mb-3 left-4 sm:left-12 w-[280px] bg-white border border-slate-200 shadow-[0_15px_40px_-10px_rgba(0,0,0,0.15)] rounded-2xl p-1.5 z-50 overflow-hidden"
+            >
+              <div className="px-2 pt-2 pb-1 text-[11px] font-bold text-slate-400 uppercase tracking-wider">Select a Mode</div>
+              <div className="flex flex-col max-h-[220px] overflow-y-auto custom-scrollbar">
+                {filteredSuggestions.map((item, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => handleMentionSelect(item)}
+                    className={`flex items-center gap-3 w-full p-2 rounded-xl transition-all text-left ${idx === mentionIndex ? 'bg-slate-100' : 'hover:bg-slate-50'}`}
+                    onMouseEnter={() => setMentionIndex(idx)}
+                  >
+                    <div className={`w-8 h-8 rounded-xl ${item.bg} flex items-center justify-center ${item.color} shrink-0 shadow-sm border border-black/5`}>
+                      <item.icon size={16} strokeWidth={2.5} />
+                    </div>
+                    <span className="font-bold text-[13px] text-slate-700">
+                      {item.title}
+                    </span>
+                  </button>
                 ))}
               </div>
             </motion.div>
@@ -192,8 +281,30 @@ export function ChatInput({
             <textarea
               ref={textareaRef}
               value={text}
-              onChange={(e) => setText(e.target.value)}
+              onChange={handleTextChange}
               onKeyDown={(e) => {
+                if (showMentionMenu && filteredSuggestions.length > 0) {
+                  if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    setMentionIndex((prev) => (prev + 1) % filteredSuggestions.length);
+                    return;
+                  }
+                  if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    setMentionIndex((prev) => (prev - 1 + filteredSuggestions.length) % filteredSuggestions.length);
+                    return;
+                  }
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    handleMentionSelect(filteredSuggestions[mentionIndex]);
+                    return;
+                  }
+                  if (e.key === 'Escape') {
+                    setShowMentionMenu(false);
+                    return;
+                  }
+                }
+                
                 if (e.key === 'Enter' && !e.shiftKey) {
                   e.preventDefault();
                   handleSend();
