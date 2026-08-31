@@ -496,18 +496,14 @@ export function MegaMenuNavbar({
           <div className="flex items-center gap-3">
             {!isAuthenticated ? (
               <>
-                <Link
-                  href="/login"
-                  className="px-4 py-2 text-sm font-bold text-slate-700 hover:text-slate-900 transition-colors hidden sm:block"
-                >
-                  {t("Log In", "লগইন")}
-                </Link>
-                <Link
-                  href="/register"
-                  className="px-5 py-2.5 text-sm font-bold bg-[#0B1630] hover:bg-slate-800 text-white rounded-xl shadow-md transition-all active:scale-[0.98]"
-                >
-                  {t("Get Started", "শুরু করুন")}
-                </Link>
+                <Link href="/login" className="group relative overflow-hidden px-5 py-2.5 text-sm font-semibold text-slate-600 hover:text-slate-900 transition-all duration-300 hidden sm:block hover:bg-slate-100 rounded-2xl hover:shadow-[inset_0_1px_4px_rgba(0,0,0,0.05)] active:scale-95">
+                    <span className="relative z-10">{t("Log In", "লগ ইন")}</span>
+                    <div className="absolute inset-0 h-full w-[150%] bg-gradient-to-r from-transparent via-slate-300/40 to-transparent -translate-x-[150%] skew-x-[-25deg] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
+                  </Link>
+                <Link href="/register" className="group relative overflow-hidden px-6 py-2.5 text-sm font-semibold bg-slate-900 hover:bg-black text-white rounded-2xl shadow-[0_4px_14px_0_rgb(0,0,0,10%)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.15)] hover:-translate-y-0.5 transition-all duration-300 active:scale-[0.96] flex items-center justify-center">
+                    <span className="relative z-10">{t("Get Started", "শুরু করুন")}</span>
+                    <div className="absolute inset-0 h-full w-[150%] bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-[150%] skew-x-[-25deg] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
+                  </Link>
               </>
             ) : (
               <Link

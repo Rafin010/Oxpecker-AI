@@ -82,19 +82,19 @@ function DoctorPatientsContent() {
   };
 
   return (
-    <div className="p-4 lg:p-8 space-y-6 bg-slate-50 min-h-[calc(100vh-80px)] w-full max-w-[1600px] mx-auto overflow-y-auto pb-24">
+    <div className="p-4 lg:p-8 space-y-6 bg-slate-950 min-h-[calc(100vh-80px)] w-full max-w-[1600px] mx-auto overflow-y-auto pb-24">
       
       {/* Header */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
         <div>
-          <h1 className="text-[28px] font-extrabold text-slate-800 tracking-tight">Patients Database</h1>
+          <h1 className="text-[28px] font-extrabold text-slate-200 tracking-tight">Patients Database</h1>
           <p className="text-[15px] text-slate-500 font-medium mt-1">Manage all patient records, filter, search and export data.</p>
         </div>
         
         <div className="flex items-center gap-3">
           <button 
             onClick={handleExport}
-            className="flex items-center gap-2 px-5 py-2.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-xl font-bold shadow-sm transition-colors"
+            className="flex items-center gap-2 px-5 py-2.5 bg-slate-900 border border-slate-700 hover:bg-slate-950 text-slate-300 rounded-xl font-bold shadow-none transition-colors"
           >
             <Download size={18} /> Export CSV
           </button>
@@ -102,18 +102,18 @@ function DoctorPatientsContent() {
       </div>
 
       {/* Advanced Filters Bar */}
-      <div className="bg-white rounded-[20px] shadow-sm border border-slate-100 p-4 flex flex-col xl:flex-row justify-between items-center gap-4">
+      <div className="bg-slate-900 rounded-[20px] shadow-none border border-slate-800 p-4 flex flex-col xl:flex-row justify-between items-center gap-4">
         
         {/* Type Tabs */}
-        <div className="flex bg-slate-50 p-1.5 rounded-xl border border-slate-100 w-full xl:w-auto">
+        <div className="flex bg-slate-950 p-1.5 rounded-xl border border-slate-800 w-full xl:w-auto">
           {filters.map(filter => (
             <button
               key={filter}
               onClick={() => { setActiveFilter(filter); setCurrentPage(1); }}
               className={`flex-1 xl:flex-none px-6 py-2 rounded-lg text-[14px] font-bold transition-all ${
                 activeFilter === filter 
-                  ? "bg-white text-[#2F80ED] shadow-sm border border-slate-200" 
-                  : "text-slate-500 hover:text-slate-700"
+                  ? "bg-slate-900 text-[#2F80ED] shadow-none border border-slate-700" 
+                  : "text-slate-500 hover:text-slate-300"
               }`}
             >
               {filter}
@@ -127,43 +127,43 @@ function DoctorPatientsContent() {
             <select 
               value={dateRange}
               onChange={(e) => setDateRange(e.target.value)}
-              className="w-full sm:w-[160px] h-11 pl-4 pr-10 bg-slate-50 border border-slate-200 rounded-xl text-[14px] text-slate-700 font-bold focus:outline-none focus:border-[#2F80ED] appearance-none cursor-pointer"
+              className="w-full sm:w-[160px] h-11 pl-4 pr-10 bg-slate-950 border border-slate-700 rounded-xl text-[14px] text-slate-300 font-bold focus:outline-none focus:border-[#2F80ED] appearance-none cursor-pointer"
             >
               <option>All Time</option>
               <option>Today</option>
               <option>This Week</option>
               <option>This Month</option>
             </select>
-            <ChevronDown size={16} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+            <ChevronDown size={16} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
           </div>
 
           <div className="relative flex-1 sm:w-[320px]">
-            <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" />
             <input 
               type="text"
               value={searchQuery}
               onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(1); }}
               placeholder="Search Name, ID or Diagnosis..."
-              className="w-full h-11 pl-11 pr-4 bg-slate-50 border border-slate-200 rounded-xl text-[14px] text-slate-700 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#2F80ED]/20 focus:border-[#2F80ED]/40 transition-all"
+              className="w-full h-11 pl-11 pr-4 bg-slate-950 border border-slate-700 rounded-xl text-[14px] text-slate-300 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-[#2F80ED]/20 focus:border-[#2F80ED]/40 transition-all"
             />
           </div>
         </div>
       </div>
 
       {/* Data Table */}
-      <div className="bg-white rounded-[20px] shadow-sm border border-slate-100 overflow-hidden">
+      <div className="bg-slate-900 rounded-[20px] shadow-none border border-slate-800 overflow-hidden">
         {filteredPatients.length === 0 ? (
-          <div className="py-24 flex flex-col items-center justify-center text-center border-dashed border-2 border-slate-100 m-4 rounded-2xl bg-slate-50/50">
-            <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mb-6 shadow-sm border border-slate-100">
+          <div className="py-24 flex flex-col items-center justify-center text-center border-dashed border-2 border-slate-800 m-4 rounded-2xl bg-slate-950/50">
+            <div className="w-20 h-20 bg-slate-900 rounded-full flex items-center justify-center mb-6 shadow-none border border-slate-800">
               <Search size={32} className="text-slate-300" />
             </div>
-            <h3 className="text-[20px] font-bold text-slate-700 mb-2">No patients found</h3>
+            <h3 className="text-[20px] font-bold text-slate-300 mb-2">No patients found</h3>
             <p className="text-[14px] text-slate-500 max-w-md">Try adjusting your search criteria, or select a different date range.</p>
           </div>
         ) : (
           <div className="overflow-x-auto custom-scrollbar">
             <table className="w-full text-left border-collapse min-w-[1000px]">
-              <thead className="bg-slate-50 border-b border-slate-100">
+              <thead className="bg-slate-950 border-b border-slate-800">
                 <tr className="text-[13px] text-slate-500 font-bold tracking-wide uppercase">
                   <th className="px-6 py-4 rounded-tl-[20px]">Patient Info</th>
                   <th className="px-6 py-4">Diagnosis</th>
@@ -175,40 +175,40 @@ function DoctorPatientsContent() {
               </thead>
               <tbody className="text-[14px]">
                 {currentData.map((patient) => (
-                  <tr key={patient.id} className="border-b border-slate-50 hover:bg-slate-50/80 transition-colors group">
+                  <tr key={patient.id} className="border-b border-slate-50 hover:bg-slate-950/80 transition-colors group">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center font-bold">
+                        <div className="w-10 h-10 rounded-full bg-slate-800 text-slate-500 flex items-center justify-center font-bold">
                           {patient.avatar}
                         </div>
                         <div>
-                          <p className="font-bold text-slate-800">{patient.name}</p>
+                          <p className="font-bold text-slate-200">{patient.name}</p>
                           <p className="text-[12.5px] text-slate-500 font-medium">{patient.id} • {patient.gender}, {patient.age}y</p>
                         </div>
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <span className="font-medium text-slate-700 line-clamp-1 max-w-[200px]">{patient.diagnosis}</span>
+                      <span className="font-medium text-slate-300 line-clamp-1 max-w-[200px]">{patient.diagnosis}</span>
                     </td>
                     <td className="px-6 py-4">
-                      <span className="inline-flex items-center gap-1.5 bg-slate-100 text-slate-600 px-3 py-1 rounded-lg text-[12.5px] font-bold">
+                      <span className="inline-flex items-center gap-1.5 bg-slate-800 text-slate-500 px-3 py-1 rounded-lg text-[12.5px] font-bold">
                         {patient.type === 'Appointment' ? <Calendar size={13}/> : patient.type === 'Walk-in' ? <MapPin size={13}/> : <Activity size={13}/>} 
                         {patient.type}
                       </span>
                     </td>
                     <td className="px-6 py-4">
-                      <p className="font-bold text-slate-700">{new Date(patient.date).toLocaleDateString()}</p>
+                      <p className="font-bold text-slate-300">{new Date(patient.date).toLocaleDateString()}</p>
                       <p className="text-[12.5px] text-slate-500">{new Date(patient.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                     </td>
                     <td className="px-6 py-4">
                       {patient.status === "Completed" && <span className="inline-flex items-center gap-1 text-[#22C55E] bg-[#22C55E]/10 px-2.5 py-1 rounded-md text-[12px] font-bold"><CheckCircle2 size={12}/> Completed</span>}
                       {patient.status === "Waiting" && <span className="inline-flex items-center gap-1 text-[#F59E0B] bg-[#F59E0B]/10 px-2.5 py-1 rounded-md text-[12px] font-bold"><Clock size={12}/> Waiting</span>}
-                      {patient.status === "In Progress" && <span className="inline-flex items-center gap-1 text-[#2F80ED] bg-[#2F80ED]/10 px-2.5 py-1 rounded-md text-[12px] font-bold"><Activity size={12} className="animate-pulse"/> In Progress</span>}
+                      {patient.status === "In Progress" && <span className="inline-flex items-center gap-1 text-[#2F80ED] bg-sky-500/10 px-2.5 py-1 rounded-md text-[12px] font-bold"><Activity size={12} className="animate-pulse"/> In Progress</span>}
                     </td>
                     <td className="px-6 py-4 text-right">
                       <button 
                         onClick={() => setSelectedPatient(patient)}
-                        className="px-4 py-2 bg-white border border-slate-200 text-slate-700 rounded-lg text-[13px] font-bold shadow-sm hover:bg-sky-600 hover:text-white hover:border-primary transition-all"
+                        className="px-4 py-2 bg-slate-900 border border-slate-700 text-slate-300 rounded-lg text-[13px] font-bold shadow-none hover:bg-sky-600 hover:text-white hover:border-primary transition-all"
                       >
                         View Details
                       </button>
@@ -222,7 +222,7 @@ function DoctorPatientsContent() {
         
         {/* Pagination */}
         {totalPages > 1 && (
-          <div className="px-6 py-4 border-t border-slate-100 flex items-center justify-between bg-slate-50/50">
+          <div className="px-6 py-4 border-t border-slate-800 flex items-center justify-between bg-slate-950/50">
             <span className="text-[13px] font-bold text-slate-500">
               Showing {(currentPage - 1) * itemsPerPage + 1} to {Math.min(currentPage * itemsPerPage, filteredPatients.length)} of {filteredPatients.length} entries
             </span>
@@ -230,14 +230,14 @@ function DoctorPatientsContent() {
               <button 
                 disabled={currentPage === 1}
                 onClick={() => setCurrentPage(p => p - 1)}
-                className="w-9 h-9 rounded-lg border border-slate-200 bg-white flex items-center justify-center text-slate-600 hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="w-9 h-9 rounded-lg border border-slate-700 bg-slate-900 flex items-center justify-center text-slate-500 hover:bg-slate-950 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 <ChevronLeft size={18} />
               </button>
               <button 
                 disabled={currentPage === totalPages}
                 onClick={() => setCurrentPage(p => p + 1)}
-                className="w-9 h-9 rounded-lg border border-slate-200 bg-white flex items-center justify-center text-slate-600 hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="w-9 h-9 rounded-lg border border-slate-700 bg-slate-900 flex items-center justify-center text-slate-500 hover:bg-slate-950 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 <ChevronRight size={18} />
               </button>

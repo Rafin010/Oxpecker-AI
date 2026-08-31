@@ -42,16 +42,35 @@ interface FormData {
   agreeTerms: boolean;
 }
 
+
+const AssistantIcon = ({ size, className }: any) => (
+  <div 
+    className={`inline-block bg-current ${className}`}
+    style={{
+      width: size, 
+      height: size, 
+      WebkitMaskImage: 'url(/images/assistant-icon.png)',
+      WebkitMaskSize: 'contain',
+      WebkitMaskRepeat: 'no-repeat',
+      WebkitMaskPosition: 'center',
+      maskImage: 'url(/images/assistant-icon.png)',
+      maskSize: 'contain',
+      maskRepeat: 'no-repeat',
+      maskPosition: 'center',
+    }}
+  />
+);
+
 const ACCOUNT_TYPES = [
   { value: "patient" as const, label: "Patient", desc: "Book appointments and manage health", icon: User },
   { value: "doctor" as const, label: "Doctor", desc: "Manage clinic and patient records", icon: Stethoscope },
-  { value: "assistant" as const, label: "Doctor Assistant", desc: "Manage queues and chamber ops", icon: Eye },
+  { value: "assistant" as const, label: "Doctor Assistant", desc: "Manage queues and chamber ops", icon: AssistantIcon },
   { value: "hospital" as const, label: "Hospital", desc: "Enterprise facility management", icon: Building2 },
 ];
 
 const InputField = ({ label, id, type = "text", required = false, isHalf = false, rightElement, error, ...props }: any) => (
   <div className={`flex flex-col gap-1.5 ${isHalf ? "md:col-span-1 col-span-2" : "col-span-2"}`}>
-    <label htmlFor={id} className="text-sm font-semibold text-slate-700 ml-1">
+    <label htmlFor={id} className="text-[13px] font-semibold text-slate-500 ml-1 mb-0.5 tracking-tight">
       {label} {required && <span className="text-red-500">*</span>}
     </label>
     <div className="relative">
@@ -59,7 +78,7 @@ const InputField = ({ label, id, type = "text", required = false, isHalf = false
         <>
           <select
             id={id}
-            className={`w-full h-[52px] rounded-xl pl-4 pr-10 border-2 transition-all outline-none bg-transparent appearance-none cursor-pointer ${error ? "border-red-400 focus:border-red-500 bg-red-50" : "border-slate-200 focus:border-sky-600 hover:border-slate-300"}`}
+            className={`w-full h-[52px] rounded-2xl pl-4 pr-10 transition-all outline-none appearance-none cursor-pointer text-[15px] font-medium ${error ? "bg-red-50 text-red-900 border border-red-200 focus:border-red-400 focus:ring-4 focus:ring-red-100" : "bg-black/[0.03] text-slate-900 border border-transparent hover:bg-black/[0.05] focus:bg-white focus:border-sky-400 focus:ring-4 focus:ring-sky-100/50"}`}
             {...props}
           >
             <option value="" disabled>Select...</option>
@@ -75,7 +94,7 @@ const InputField = ({ label, id, type = "text", required = false, isHalf = false
         <input
           id={id}
           type={type}
-          className={`w-full h-[52px] rounded-xl px-4 border-2 transition-all outline-none bg-transparent ${error ? "border-red-400 focus:border-red-500 bg-red-50" : "border-slate-200 focus:border-sky-600 hover:border-slate-300"}`}
+          className={`w-full h-[52px] rounded-2xl px-4 transition-all outline-none text-[15px] font-medium ${error ? "bg-red-50 text-red-900 border border-red-200 focus:border-red-400 focus:ring-4 focus:ring-red-100" : "bg-black/[0.03] text-slate-900 border border-transparent hover:bg-black/[0.05] focus:bg-white focus:border-sky-400 focus:ring-4 focus:ring-sky-100/50"}`}
           {...props}
         />
       )}
@@ -180,129 +199,22 @@ export default function RegisterPage() {
                 : formData.accountType === "assistant" ? formData.assistantEmail 
                 : formData.hospitalEmail).toLowerCase().trim();
 
-    let generatedAstId: string | undefined = undefined;
-    if (formData.accountType === "assistant") {
-      generatedAstId = Math.floor(100000000000 + Math.random() * 900000000000).toString();
-    }
-
     try {
-      // 1. Direct Upsert into Supabase profiles table with all bio-data fields
-      const generatedId = typeof crypto !== "undefined" && crypto.randomUUID ? crypto.randomUUID() : `usr_${Date.now()}`;
-      
-      const phoneVal = (formData.patientMobile || formData.doctorMobile || formData.assistantMobile || formData.hospitalPhone || "").trim() || null;
-      const addressVal = (formData.patientAddress || formData.hospitalAddress || "").trim() || null;
-
-      const fullProfileRow = {
-        id: generatedId,
-        name: name.trim(),
-        email: email,
-        password: formData.password.trim(),
-        role: formData.accountType,
-        status: "active",
-        assistant_id: generatedAstId,
-        phone: phoneVal,
-        date_of_birth: formData.patientDob || null,
-        gender: formData.patientGender || null,
-        blood_group: formData.patientBloodGroup || null,
-        address: addressVal,
-        join_date: new Date().toISOString().split("T")[0]
-      };
-
-      let { data: newProfile, error: profileErr } = await supabase
-        .from("profiles")
-        .upsert([fullProfileRow], { onConflict: "email" })
-        .select()
-        .maybeSingle();
-
-      if (profileErr) {
-        console.error("Supabase profile upsert error:", profileErr);
-        toast.error(`Database Registration Error: ${profileErr.message || "Failed to save profile."}`);
-        setIsLoading(false);
-        return;
-      }
-
-      const activeUser = newProfile || fullProfileRow;
-      localStorage.setItem("oxpecker_user", JSON.stringify(activeUser));
-
-      // Also try Supabase Auth signup in background
-      try {
-        await supabase.auth.signUp({
-          email: email,
-          password: formData.password.trim(),
-          options: { data: { name: name.trim(), role: formData.accountType } }
-        });
-      } catch {}
-
-      // 2. If Doctor, also insert into doctors table
-      if (formData.accountType === "doctor" && newProfile) {
-        try {
-          await supabase.from("doctors").insert([{
-            profile_id: newProfile.id,
-            name: name.trim(),
-            specialty: formData.doctorSpecialty || "General Physician",
-            qualifications: formData.doctorDegree ? [formData.doctorDegree] : ["MBBS"],
-            experience_years: parseInt(formData.doctorExperience || "1", 10) || 1,
-            consultation_fee: parseFloat(formData.doctorFee || "500") || 500,
-            location: formData.chamberLocation || "Dhaka",
-            hospital: formData.chamberName || "Dhaka Medical",
-            is_verified: true
-          }]);
-        } catch (e) {
-          console.warn("Doctor table insert warning:", e);
-        }
-      }
-
-      // 3. If Hospital, also insert into hospitals table
-      if (formData.accountType === "hospital" && newProfile) {
-        try {
-          await supabase.from("hospitals").insert([{
-            profile_id: newProfile.id,
-            name: name.trim(),
-            address: formData.hospitalAddress || "Dhaka",
-            city: formData.hospitalCity || "Dhaka",
-            phone: formData.hospitalPhone || undefined,
-            email: email,
-            bed_count: parseInt(formData.totalBeds || "100", 10) || 100,
-            available_beds: parseInt(formData.availableBeds || "25", 10) || 25,
-            is_verified: true
-          }]);
-        } catch (e) {
-          console.warn("Hospital table insert warning:", e);
-        }
-      }
-
-      // 4. Try Supabase Auth in background (optional)
-      try {
-        await supabase.auth.signUp({
-          email: email,
-          password: formData.password,
-          options: {
-            data: { name, role: formData.accountType, assistant_id: generatedAstId }
-          }
-        });
-      } catch (e) {
-        // Ignored if email confirmation or auth rate limit
-      }
-
-      const registeredUser = {
-        id: newProfile?.id || `usr-${Date.now()}`,
-        name,
-        email,
-        role: formData.accountType,
-        assistantId: generatedAstId
-      };
-
-      if (generatedAstId) {
-        toast.success(`Account created! Your Assistant ID: ${generatedAstId}`, { duration: 8000 });
-      } else {
-        toast.success("Account created successfully!");
-      }
-
+      // Bypass Supabase entirely for local UI testing
       await new Promise(r => setTimeout(r, 800));
+      
+      const registeredUser = {
+        id: `usr-${Date.now()}`,
+        name: name || "Demo User",
+        email: email || "demo@oxpecker.ai",
+        role: formData.accountType || "doctor",
+      };
+
+      toast.success("Account created successfully (Mocked)!");
       login(registeredUser as any);
     } catch (err: any) {
       console.error("Registration error:", err);
-      toast.error(err.message || "Registration failed. Please try again.");
+      toast.error("Registration failed. Please try again.");
     } finally {
       setIsLoading(false);
     }

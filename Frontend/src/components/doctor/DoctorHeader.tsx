@@ -51,12 +51,12 @@ export function DoctorHeader({ onMenuClick }: DoctorHeaderProps) {
   const unreadCount = notifications.filter((n) => n.unread).length;
 
   return (
-    <header className="h-16 bg-white/60 backdrop-blur-xl border-b border-slate-200/80 flex items-center justify-between px-4 lg:px-6 shrink-0 w-full shadow-sm">
+    <header className="h-16 bg-slate-900/60 backdrop-blur-xl border-b border-slate-700/80 flex items-center justify-between px-4 lg:px-6 shrink-0 w-full shadow-none">
       {/* Left: Mobile menu + Search */}
       <div className="flex items-center gap-3 flex-1">
         <button
           onClick={onMenuClick}
-          className="lg:hidden p-2 -ml-1 text-slate-500 hover:bg-slate-100 rounded-lg transition-colors"
+          className="lg:hidden p-2 -ml-1 text-slate-500 hover:bg-slate-800 rounded-lg transition-colors"
           aria-label="Toggle menu"
         >
           <Menu size={22} />
@@ -72,20 +72,20 @@ export function DoctorHeader({ onMenuClick }: DoctorHeaderProps) {
             className="rounded-lg"
           />
           <div className="flex items-baseline gap-1.5">
-            <span className="text-[16px] font-bold text-slate-800 tracking-tight">Oxpecker</span>
-            <span className="text-[9px] font-bold text-[#2F80ED] bg-[#2F80ED]/10 px-1.5 py-0.5 rounded-full uppercase tracking-wider">Doctor</span>
+            <span className="text-[16px] font-bold text-slate-200 tracking-tight">Oxpecker</span>
+            <span className="text-[9px] font-bold text-[#2F80ED] bg-sky-500/10 px-1.5 py-0.5 rounded-full uppercase tracking-wider">Doctor</span>
           </div>
         </Link>
 
         {/* Search */}
         <div className="relative max-w-[600px] flex-1 hidden sm:block">
-          <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+          <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" />
           <input
             type="text"
             placeholder="Search patients, appointments..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full h-11 lg:h-12 pl-11 pr-4 bg-slate-50 border border-slate-200 rounded-xl text-[14px] text-slate-700 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#2F80ED]/20 focus:border-[#2F80ED]/40 transition-all shadow-sm"
+            className="w-full h-11 lg:h-12 pl-11 pr-4 bg-slate-950 border border-slate-700 rounded-xl text-[14px] text-slate-300 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-[#2F80ED]/20 focus:border-[#2F80ED]/40 transition-all shadow-none"
           />
         </div>
       </div>
@@ -111,7 +111,7 @@ export function DoctorHeader({ onMenuClick }: DoctorHeaderProps) {
         {/* Fullscreen Toggle */}
         <button
           onClick={toggleFullscreen}
-          className="hidden sm:flex p-2 text-slate-500 hover:bg-slate-100 rounded-lg transition-colors"
+          className="hidden sm:flex p-2 text-slate-500 hover:bg-slate-800 rounded-lg transition-colors"
           aria-label="Toggle Fullscreen"
         >
           {isFullscreen ? <Minimize size={20} /> : <Maximize size={20} />}
@@ -121,7 +121,7 @@ export function DoctorHeader({ onMenuClick }: DoctorHeaderProps) {
         <div className="relative">
           <button
             onClick={() => setShowNotifications(!showNotifications)}
-            className="relative p-2 text-slate-500 hover:bg-slate-100 rounded-lg transition-colors"
+            className="relative p-2 text-slate-500 hover:bg-slate-800 rounded-lg transition-colors"
             aria-label="Notifications"
           >
             <Bell size={20} />
@@ -136,12 +136,12 @@ export function DoctorHeader({ onMenuClick }: DoctorHeaderProps) {
           {showNotifications && (
             <>
               <div className="fixed inset-0 z-40 sm:z-40" onClick={() => setShowNotifications(false)} />
-              <div className="fixed inset-0 z-[99999] bg-slate-50 flex flex-col h-[100dvh] sm:h-auto sm:absolute sm:inset-auto sm:right-0 sm:top-full sm:mt-2 sm:w-80 sm:bg-white/60 sm:backdrop-blur-xl sm:rounded-xl sm:shadow-[0_8px_32px_rgba(0,0,0,0.12)] border-0 sm:border sm:border-white/60 overflow-hidden sm:z-50 animate-in slide-in-from-bottom-2 sm:slide-in-from-top-2 duration-200">
-                <div className="px-4 py-4 sm:py-3 border-b border-slate-200 sm:border-white/50 bg-white sm:bg-white/30 flex items-center justify-between shrink-0">
-                  <h4 className="text-lg sm:text-sm font-bold text-slate-800">Notifications</h4>
+              <div className="fixed inset-0 z-[99999] bg-slate-950 flex flex-col h-[100dvh] sm:h-auto sm:absolute sm:inset-auto sm:right-0 sm:top-full sm:mt-2 sm:w-80 sm:bg-slate-900/60 sm:backdrop-blur-xl sm:rounded-xl sm:shadow-[0_8px_32px_rgba(0,0,0,0.12)] border-0 sm:border sm:border-white/60 overflow-hidden sm:z-50 animate-in slide-in-from-bottom-2 sm:slide-in-from-top-2 duration-200">
+                <div className="px-4 py-4 sm:py-3 border-b border-slate-700 sm:border-white/50 bg-slate-900 sm:bg-slate-900/30 flex items-center justify-between shrink-0">
+                  <h4 className="text-lg sm:text-sm font-bold text-slate-200">Notifications</h4>
                   <button 
                     onClick={() => setShowNotifications(false)}
-                    className="sm:hidden p-2 -mr-2 text-slate-500 hover:bg-slate-100 rounded-full transition-colors"
+                    className="sm:hidden p-2 -mr-2 text-slate-500 hover:bg-slate-800 rounded-full transition-colors"
                   >
                     <X size={20} />
                   </button>
@@ -150,10 +150,10 @@ export function DoctorHeader({ onMenuClick }: DoctorHeaderProps) {
                   {notifications.map((n) => (
                     <div
                       key={n.id}
-                      className={`px-4 py-4 sm:py-3 border-b border-slate-100 sm:border-white/20 last:border-0 hover:bg-slate-100 sm:hover:bg-white/40 transition-colors cursor-pointer ${n.unread ? "bg-blue-50/50 sm:bg-white/30 shadow-sm" : "bg-white sm:bg-transparent"}`}
+                      className={`px-4 py-4 sm:py-3 border-b border-slate-800 sm:border-white/20 last:border-0 hover:bg-slate-800 sm:hover:bg-slate-900/40 transition-colors cursor-pointer ${n.unread ? "bg-blue-50/50 sm:bg-slate-900/30 shadow-none" : "bg-slate-900 sm:bg-transparent"}`}
                     >
-                      <p className="text-[14px] sm:text-[13px] font-medium text-slate-800">{n.text}</p>
-                      <p className="text-[12px] sm:text-[11px] font-bold text-[#2F80ED] sm:text-slate-600 mt-1">{n.time}</p>
+                      <p className="text-[14px] sm:text-[13px] font-medium text-slate-200">{n.text}</p>
+                      <p className="text-[12px] sm:text-[11px] font-bold text-[#2F80ED] sm:text-slate-500 mt-1">{n.time}</p>
                     </div>
                   ))}
                 </div>
@@ -165,14 +165,14 @@ export function DoctorHeader({ onMenuClick }: DoctorHeaderProps) {
               {/* Profile Link */}
         <Link href="/doctor/settings/profile" className="flex items-center gap-2 pl-2">
           <div className="hidden sm:block text-right">
-            <p className="text-xs font-bold text-slate-800 line-clamp-1 max-w-[120px]">
+            <p className="text-xs font-bold text-slate-200 line-clamp-1 max-w-[120px]">
               {user?.name || "Dr. User"}
             </p>
             <p className="text-[10px] text-sky-600 font-extrabold uppercase tracking-wider">
               Specialist
             </p>
           </div>
-          <div className="w-9 h-9 rounded-full bg-sky-600 text-white flex items-center justify-center text-xs font-black overflow-hidden border border-slate-200 shadow-xs relative shrink-0">
+          <div className="w-9 h-9 rounded-full bg-sky-600 text-white flex items-center justify-center text-xs font-black overflow-hidden border border-slate-700 shadow-xs relative shrink-0">
             {user?.image ? (
               <Image src={user.image} alt={user?.name || "Doctor"} fill sizes="36px" className="object-cover" />
             ) : (

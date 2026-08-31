@@ -10,7 +10,8 @@ import {
   ShieldCheck, 
   Bell, 
   ArrowLeft,
-  ChevronRight
+  ChevronRight,
+  LogOut
 } from "lucide-react";
 
 export default function DoctorSettingsLayout({
@@ -31,16 +32,16 @@ export default function DoctorSettingsLayout({
   ];
 
   return (
-    <div className="flex flex-col lg:flex-row min-h-screen bg-slate-50 w-full overflow-hidden">
+    <div className="flex flex-col lg:flex-row min-h-screen bg-slate-950 w-full overflow-hidden">
       
       {/* Settings Sidebar */}
-      <aside className="w-full lg:w-[280px] bg-white border-r border-slate-200 flex flex-col shrink-0 h-auto lg:h-screen sticky top-0">
+      <aside className="w-full lg:w-[280px] bg-slate-900 border-r border-slate-800 flex flex-col shrink-0 h-auto lg:h-screen sticky top-0">
         
         {/* Header / Back Button */}
-        <div className="h-[72px] flex items-center px-6 border-b border-slate-100">
+        <div className="h-[72px] flex items-center px-6 border-b border-slate-800">
           <button 
             onClick={() => router.push('/doctor/dashboard')}
-            className="flex items-center gap-2 text-slate-500 hover:text-sky-600 transition-colors font-medium text-sm group"
+            className="flex items-center gap-2 text-slate-500 hover:text-sky-400 transition-colors font-medium text-sm group"
           >
             <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
             Back to Dashboard
@@ -48,7 +49,7 @@ export default function DoctorSettingsLayout({
         </div>
 
         <div className="p-6 pb-2">
-          <h2 className="text-xl font-bold text-slate-800 tracking-tight">Settings</h2>
+          <h2 className="text-xl font-bold text-slate-200 tracking-tight">Settings</h2>
           <p className="text-sm text-slate-500 mt-1">Manage your professional profile and preferences.</p>
         </div>
 
@@ -61,24 +62,35 @@ export default function DoctorSettingsLayout({
                 key={item.href}
                 href={item.href}
                 className={`
-                  settings-nav-item flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-medium group
+                  settings-nav-item flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-medium transition-all group
                   ${isActive 
-                    ? "bg-sky-600 text-white active shadow-md shadow-primary/20" 
-                    : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                    ? "bg-sky-600 text-white" 
+                    : "text-slate-500 hover:bg-slate-800 hover:text-slate-200"
                   }
                 `}
               >
-                <item.icon size={18} className={`nav-icon ${isActive ? "text-white" : "text-slate-400 group-hover:text-sky-600"}`} />
+                <item.icon size={18} className={`nav-icon ${isActive ? "text-white" : "text-slate-500 group-hover:text-sky-400"}`} />
                 <span className="flex-1">{item.label}</span>
                 {isActive && <ChevronRight size={16} className="opacity-80" />}
               </Link>
             );
           })}
         </nav>
+        
+        {/* Logout Button */}
+        <div className="p-4 border-t border-slate-800 shrink-0">
+          <button 
+            onClick={() => router.push('/')}
+            className="flex items-center gap-3 px-3 py-3 w-full rounded-xl text-sm font-medium text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-all"
+          >
+            <LogOut size={18} />
+            <span>Logout</span>
+          </button>
+        </div>
       </aside>
 
       {/* Main Content Area */}
-      <main className="flex-1 flex flex-col h-screen overflow-y-auto bg-slate-50 relative">
+      <main className="flex-1 flex flex-col h-screen overflow-y-auto bg-slate-950 relative">
         <div className="max-w-4xl w-full mx-auto p-4 sm:p-8 lg:p-10 pb-20">
           {children}
         </div>

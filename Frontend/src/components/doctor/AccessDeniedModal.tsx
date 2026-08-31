@@ -27,7 +27,7 @@ export function AccessDeniedModal() {
         initial={{ opacity: 0, scale: 0.95, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="w-[90%] max-w-[480px] bg-white/80 backdrop-blur-xl border border-white/40 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] rounded-[32px] overflow-hidden relative z-10"
+        className="w-[90%] max-w-[480px] bg-slate-900/80 backdrop-blur-xl border border-white/40 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] rounded-[32px] overflow-hidden relative z-10"
       >
         <div className="p-10 flex flex-col items-center text-center">
           {/* Animated Icon */}
@@ -42,13 +42,13 @@ export function AccessDeniedModal() {
               initial={{ scale: 0, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 0.6, type: "spring" }}
-              className="absolute -bottom-2 -right-2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center border border-slate-100"
+              className="absolute -bottom-2 -right-2 w-10 h-10 bg-slate-900 rounded-full shadow-none flex items-center justify-center border border-slate-800"
             >
               <UserCircle2 size={22} className="text-[#2F80ED]" />
             </motion.div>
           </motion.div>
 
-          <h2 className="text-[28px] font-extrabold text-slate-800 mb-3 tracking-tight">Login Required</h2>
+          <h2 className="text-[28px] font-extrabold text-slate-200 mb-3 tracking-tight">Login Required</h2>
           
           <p className="text-[15px] text-slate-500 leading-relaxed mb-10 px-2 font-medium">
             To view the doctor dashboard and access patient data, please log in to your account first. We prioritize security and privacy.
@@ -67,7 +67,7 @@ export function AccessDeniedModal() {
 
           <button
             onClick={() => router.push("/")}
-            className="mt-6 text-[14px] font-bold text-slate-400 hover:text-slate-600 transition-colors"
+            className="mt-6 text-[14px] font-bold text-slate-500 hover:text-slate-300 transition-colors"
           >
             Return to Homepage
           </button>

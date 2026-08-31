@@ -23,10 +23,10 @@ export default function DoctorDashboardLayout({
   // Loading state
   if (isLoading) {
     return (
-      <div className="flex h-screen bg-slate-50">
-        <div className="w-[280px] bg-white border-r border-slate-200/80 hidden lg:block" />
+      <div className="flex h-screen bg-slate-950">
+        <div className="w-[240px] bg-slate-900 border-r border-slate-800 hidden lg:block" />
         <div className="flex-1">
-          <div className="h-16 bg-white border-b border-slate-200/80" />
+          <div className="h-16 bg-slate-900 border-b border-slate-800" />
           <DoctorDashboardSkeleton />
         </div>
       </div>
@@ -40,7 +40,7 @@ export default function DoctorDashboardLayout({
 
   return (
     <DoctorProvider>
-      <div className="flex h-screen bg-slate-50 overflow-hidden">
+      <div className="flex h-screen bg-[#050B14] overflow-hidden">
         <Toaster position="top-right" richColors closeButton />
 
         {/* Sidebar (Desktop lg:block) */}
@@ -53,7 +53,7 @@ export default function DoctorDashboardLayout({
           <DoctorTopNav onMenuClick={() => setSidebarOpen(true)} />
 
           {/* Page Content */}
-          <main className="flex-1 overflow-y-auto pb-[90px] lg:pb-6 p-4 sm:p-6 lg:p-8">
+          <main className={`flex-1 overflow-y-auto rounded-t-[32px] border-t border-x border-slate-800 bg-slate-950 shadow-2xl shadow-black relative ${pathname.includes('/prescription/new') ? 'p-0 pb-[90px] lg:pb-0' : 'pb-[90px] lg:pb-6 p-4 sm:p-6 lg:p-8'}`}>
             {children}
           </main>
           

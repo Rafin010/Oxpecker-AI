@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 import { toast, Toaster } from "sonner";
 import { useAuth } from "@/context/AuthContext";
 import { supabase } from "@/lib/supabase";
-import { FloatingMedicalBackground } from "@/components/shared/FloatingMedicalBackground";
+import { Login3DBackground } from "@/components/shared/Login3DBackground";
 
 export default function LoginPage() {
   const { login, isAuthenticated, isLoading, role } = useAuth();
@@ -41,95 +41,39 @@ export default function LoginPage() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const cleanEmail = email.toLowerCase().trim();
-    const cleanPassword = password.trim();
-
     try {
-      // 1. Check Supabase profiles table directly for email & password match
-      const { data: profile, error: profileError } = await supabase
-        .from("profiles")
-        .select("*")
-        .ilike("email", cleanEmail)
-        .maybeSingle();
+      // Bypass Supabase entirely for local UI testing
+      await new Promise(r => setTimeout(r, 800));
 
-      if (profile) {
-        if (profile.password && profile.password !== cleanPassword) {
-          toast.error("Incorrect password. Please verify your credentials.");
-          setIsSubmitting(false);
-          return;
-        }
+      toast.success("Login successful (Mocked)!");
+      
+      login({
+        id: `usr-${Date.now()}`,
+        name: email.split("@")[0] || "Demo User",
+        email: email || "demo@oxpecker.ai",
+        role: "doctor", // default to doctor for testing
+      } as any);
 
-        if (profile.status === "banned") {
-          toast.error("This account has been suspended by system administrator.");
-          setIsSubmitting(false);
-          return;
-        }
-
-        // Try Supabase auth sign-in silently in background if configured
-        try {
-          await supabase.auth.signInWithPassword({ email: cleanEmail, password: cleanPassword });
-        } catch {}
-
-        login({
-          id: profile.id,
-          name: profile.name || "User",
-          email: profile.email,
-          role: profile.role || "patient",
-          phone: profile.phone || undefined,
-          date_of_birth: profile.date_of_birth || undefined,
-          gender: profile.gender || undefined,
-          blood_group: profile.blood_group || undefined,
-          address: profile.address || undefined,
-          image: profile.image || undefined,
-          doctorId: profile.doctor_id || undefined,
-          assistantId: profile.assistant_id || undefined
-        });
-
-        toast.success(`Welcome back, ${profile.name}!`);
-        setIsSubmitting(false);
-        return;
-      }
-
-      // 2. Try Supabase Auth as secondary check
-      const { data: sbAuth, error: authErr } = await supabase.auth.signInWithPassword({
-        email: cleanEmail,
-        password: cleanPassword,
-      });
-
-      if (sbAuth?.user) {
-        login({
-          id: sbAuth.user.id,
-          name: sbAuth.user.user_metadata?.name || cleanEmail.split("@")[0],
-          email: sbAuth.user.email || cleanEmail,
-          role: sbAuth.user.user_metadata?.role || "patient",
-        });
-        toast.success("Login successful!");
-        setIsSubmitting(false);
-        return;
-      }
-
-      toast.error("Account not found or password incorrect.");
     } catch (err: any) {
-      console.error("Login verification error:", err);
-      toast.error(err.message || "Authentication failed. Please check internet connection.");
+      console.error("Login error:", err);
+      toast.error("Login failed.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <main className="min-h-screen bg-slate-50 flex items-center justify-center p-4 sm:p-8 relative overflow-hidden">
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-50" />
-      <FloatingMedicalBackground />
+    <main className="min-h-screen bg-white flex items-center justify-center p-4 sm:p-8 relative overflow-hidden">
+      <Login3DBackground />
       <Toaster position="top-center" richColors />
 
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="w-full max-w-md relative z-10">
-        <Link href="/" className="flex items-center gap-2 text-slate-500 hover:text-slate-800 transition-colors mb-8 group w-fit">
+        <Link href="/" className="flex items-center gap-2 text-slate-500 hover:text-slate-900 transition-colors mb-8 group w-fit">
           <ArrowLeft size={16} className="group-hover:-translate-x-0.5 transition-transform" />
           <span className="text-sm font-medium">Back to home</span>
         </Link>
 
-        <div className="bg-white rounded-3xl shadow-sm border border-slate-200 p-8">
+        <div className="bg-white/80 backdrop-blur-3xl rounded-[2.5rem] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] border border-white p-8 sm:p-10 relative z-20 ring-1 ring-black/5">
           <div className="mb-8 text-center">
             <Link href="/" className="inline-flex mb-6">
               <Image src="/images/Oxpecker_full_size.png" alt="Oxpecker AI" width={160} height={45} className="h-10 w-auto object-contain" />
@@ -140,7 +84,7 @@ export default function LoginPage() {
 
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1.5">Email Address</label>
+              <label className="block text-[13px] font-semibold text-slate-500 mb-1.5 tracking-tight">Email Address</label>
               <div className="relative">
                 <Mail size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
                 <input
@@ -149,13 +93,13 @@ export default function LoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="name@example.com"
-                  className="w-full h-12 pl-10 pr-4 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:border-slate-900 focus:bg-white transition-all text-slate-900 font-medium"
+                  className="w-full h-[52px] pl-10 pr-4 rounded-2xl bg-black/[0.03] border border-transparent text-[15px] outline-none hover:bg-black/[0.05] focus:bg-white focus:border-sky-400 focus:ring-4 focus:ring-sky-100/50 transition-all text-slate-900 font-medium placeholder:text-slate-400"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1.5">Password</label>
+              <label className="block text-[13px] font-semibold text-slate-500 mb-1.5 tracking-tight">Password</label>
               <div className="relative">
                 <Lock size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
                 <input

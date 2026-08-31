@@ -184,19 +184,19 @@ export function AwwwardsNav({
       className={cn(
         "fixed bottom-4 left-1/2 z-[100] -translate-x-1/2",
         "h-[64px] w-[min(680px,94vw)] overflow-hidden rounded-2xl border backdrop-blur-2xl transition-shadow",
-        "border-white/80 bg-white/85 text-slate-800 shadow-[0_20px_50px_rgba(0,61,155,0.15)]",
+        "border-slate-800/60 bg-slate-950/80 text-slate-200 shadow-[0_4px_30px_rgba(0,0,0,0.5)]",
         className
       )}
     >
       {/* Expanded mega-menu panel */}
       <div ref={navTopRef} className="absolute inset-x-0 top-0 bottom-[64px] hidden p-3 overflow-y-auto scrollbar-thin">
-        <div className="flex flex-col sm:flex-row h-full w-full gap-4 rounded-xl border border-slate-200/80 bg-slate-50/80 p-4">
+        <div className="flex flex-col sm:flex-row h-full w-full gap-4 rounded-xl border border-slate-800/80 bg-slate-900/60 p-4">
           {columns.map((col, ci) => (
             <div
               key={col.title}
               className={cn(
                 "flex flex-1 flex-col gap-1.5",
-                ci > 0 && "sm:border-l sm:border-dashed sm:border-slate-200 sm:pl-4 pt-3 sm:pt-0 border-t border-slate-100 sm:border-t-0"
+                ci > 0 && "sm:border-l sm:border-dashed sm:border-slate-800 sm:pl-4 pt-3 sm:pt-0 border-t border-slate-800 sm:border-t-0"
               )}
             >
               <div className="mb-2 flex items-center gap-2">
@@ -215,8 +215,8 @@ export function AwwwardsNav({
                     className={cn(
                       "group flex items-center justify-between py-2 px-2.5 rounded-lg text-[13px] font-semibold transition-all",
                       isActive 
-                        ? "bg-sky-600/10 text-sky-600 font-bold" 
-                        : "text-slate-700 hover:bg-slate-200/60 hover:text-slate-900"
+                        ? "bg-sky-500/10 text-sky-400 font-bold" 
+                        : "text-slate-300 hover:bg-slate-800/60 hover:text-slate-100"
                     )}
                   >
                     <div className="flex items-center gap-2">
@@ -253,7 +253,7 @@ export function AwwwardsNav({
           }}
           className={cn(
             "flex shrink-0 cursor-pointer select-none items-center justify-center gap-2 rounded-xl border px-4 text-[13px] font-bold transition-all",
-            "border-slate-200 bg-slate-100/90 text-slate-700 hover:bg-sky-50 hover:text-sky-600 hover:border-sky-200",
+            "border-slate-800 bg-slate-900/90 text-slate-300 hover:bg-slate-800 hover:text-slate-100 hover:border-slate-700",
             showClose && "bg-sky-600 text-white border-sky-600 hover:bg-sky-700 hover:text-white"
           )}
         >
@@ -277,8 +277,8 @@ export function AwwwardsNav({
                 className={cn(
                   "flex h-full flex-1 min-w-[70px] items-center justify-center gap-1.5 rounded-xl border px-2 text-center text-[13px] font-bold transition-all shrink-0",
                   isActive
-                    ? "border-sky-600/30 bg-sky-600/10 text-sky-600 shadow-sm"
-                    : "border-slate-200/80 bg-white/70 text-slate-600 hover:border-sky-300 hover:text-sky-600 hover:bg-sky-50/50"
+                    ? "border-sky-500/30 bg-sky-500/10 text-sky-400 shadow-sm"
+                    : "border-slate-800/80 bg-slate-900/70 text-slate-400 hover:border-slate-700 hover:text-slate-200 hover:bg-slate-800/80"
                 )}
               >
                 {Icon && <Icon size={16} className={isActive ? "text-sky-600" : "text-slate-400"} />}

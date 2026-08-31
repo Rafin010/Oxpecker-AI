@@ -167,17 +167,17 @@ export function TestReportViewer() {
   
   const renderViewer = () => {
     return (
-      <div className="fixed inset-0 z-[99999] sm:static sm:z-auto flex-1 flex flex-col bg-slate-100 overflow-hidden sm:h-full">
-        <div className="bg-white border-b border-slate-200 p-4 sm:px-6 sm:py-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 shrink-0 shadow-sm z-10 pt-safe-top">
+      <div className="fixed inset-0 z-[99999] sm:static sm:z-auto flex-1 flex flex-col bg-slate-800 overflow-hidden sm:h-full">
+        <div className="bg-slate-900 border-b border-slate-800 p-4 sm:px-6 sm:py-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 shrink-0 shadow-sm z-10 pt-safe-top">
           <div className="flex items-center gap-3 sm:gap-4 w-full sm:w-auto">
             <button 
               onClick={() => setSelectedReport(null)}
-              className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center bg-slate-100 text-slate-600 hover:text-slate-900 rounded-full transition-colors shrink-0"
+              className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center bg-slate-800 text-slate-600 hover:text-slate-900 rounded-full transition-colors shrink-0"
             >
               <ChevronLeft size={18} className="sm:w-[20px] sm:h-[20px]" />
             </button>
             <div className="min-w-0">
-              <h2 className="text-[15px] sm:text-[16px] font-bold text-slate-800 flex items-center gap-2 truncate">
+              <h2 className="text-[15px] sm:text-[16px] font-bold text-slate-100 flex items-center gap-2 truncate">
                 {selectedReport.name}
               </h2>
               <p className="text-[11px] sm:text-[12px] text-slate-500 font-medium truncate mt-0.5">
@@ -188,11 +188,11 @@ export function TestReportViewer() {
           
           {/* Controls in Header */}
           <div className="flex items-center justify-between sm:justify-end gap-2 sm:gap-4 w-full sm:w-auto">
-            <div className="flex items-center gap-1.5 sm:gap-3 bg-slate-50 p-1 sm:p-1.5 rounded-xl border border-slate-200">
+            <div className="flex items-center gap-1.5 sm:gap-3 bg-slate-950 p-1 sm:p-1.5 rounded-xl border border-slate-800">
               <button 
                 onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                 disabled={currentPage === 1}
-                className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-lg bg-white shadow-sm border border-slate-200 text-slate-700 disabled:opacity-40 hover:bg-slate-50 transition-colors"
+                className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-lg bg-slate-900 shadow-sm border border-slate-800 text-slate-200 disabled:opacity-40 hover:bg-slate-950 transition-colors"
               >
                 <ChevronLeft size={14} strokeWidth={3} />
               </button>
@@ -202,7 +202,7 @@ export function TestReportViewer() {
               <button 
                 onClick={() => setCurrentPage(p => Math.min(selectedReport.pages, p + 1))}
                 disabled={currentPage === selectedReport.pages}
-                className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-lg bg-white shadow-sm border border-slate-200 text-slate-700 disabled:opacity-40 hover:bg-slate-50 transition-colors"
+                className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-lg bg-slate-900 shadow-sm border border-slate-800 text-slate-200 disabled:opacity-40 hover:bg-slate-950 transition-colors"
               >
                 <ChevronRight size={14} strokeWidth={3} />
               </button>
@@ -223,15 +223,15 @@ export function TestReportViewer() {
                   setIsDrawingMode(!isDrawingMode);
                   if (!isDrawingMode) toast.success("Marking Mode Enabled. Draw directly on the report!");
                 }}
-                className={`w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-lg transition-colors ${isDrawingMode ? 'bg-red-100 text-red-600 ring-2 ring-red-400' : 'text-slate-500 hover:text-slate-800 hover:bg-slate-100'}`}
+                className={`w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-lg transition-colors ${isDrawingMode ? 'bg-red-100 text-red-600 ring-2 ring-red-400' : 'text-slate-500 hover:text-slate-100 hover:bg-slate-800'}`}
                 title="Mark / Annotate"
               >
                 <PenTool size={16} className="sm:w-[18px] sm:h-[18px]" />
               </button>
-              <button className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-lg transition-colors">
+              <button className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center text-slate-500 hover:text-slate-100 hover:bg-slate-800 rounded-lg transition-colors">
                 <Printer size={16} className="sm:w-[18px] sm:h-[18px]" />
               </button>
-              <button className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-lg transition-colors">
+              <button className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center text-slate-500 hover:text-slate-100 hover:bg-slate-800 rounded-lg transition-colors">
                 <Download size={16} className="sm:w-[18px] sm:h-[18px]" />
               </button>
             </div>
@@ -242,10 +242,10 @@ export function TestReportViewer() {
         <div className="flex-1 overflow-y-auto overflow-x-auto bg-slate-200/80 p-4 sm:p-8 custom-scrollbar flex flex-col relative touch-pan-x touch-pan-y">
           {/* Mobile Zoom Controls (Floating at Top Center) */}
           <div className="sticky top-0 left-0 w-full flex justify-center z-40 px-4 pointer-events-none mb-[-56px]">
-            <div className="bg-white/60 backdrop-blur-md border border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.1)] rounded-full px-1.5 py-1.5 flex items-center gap-1 pointer-events-auto">
+            <div className="bg-slate-900/60 backdrop-blur-md border border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.1)] rounded-full px-1.5 py-1.5 flex items-center gap-1 pointer-events-auto">
               <button 
                 onClick={() => setZoom(z => Math.max(0.25, z - 0.25))} 
-                className="w-10 h-10 rounded-full flex items-center justify-center text-slate-800 hover:text-[#2F80ED] bg-white/40 hover:bg-white/80 active:scale-95 transition-all"
+                className="w-10 h-10 rounded-full flex items-center justify-center text-slate-100 hover:text-sky-400 bg-slate-900/40 hover:bg-slate-900/80 active:scale-95 transition-all"
               >
                 <span className="text-xl font-bold leading-none -mt-1">-</span>
               </button>
@@ -254,7 +254,7 @@ export function TestReportViewer() {
               </span>
               <button 
                 onClick={() => setZoom(z => Math.min(2.0, z + 0.25))} 
-                className="w-10 h-10 rounded-full flex items-center justify-center text-slate-800 hover:text-[#2F80ED] bg-white/40 hover:bg-white/80 active:scale-95 transition-all"
+                className="w-10 h-10 rounded-full flex items-center justify-center text-slate-100 hover:text-sky-400 bg-slate-900/40 hover:bg-slate-900/80 active:scale-95 transition-all"
               >
                 <span className="text-xl font-bold leading-none -mt-0.5">+</span>
               </button>
@@ -264,7 +264,7 @@ export function TestReportViewer() {
           <div className="flex-1 flex sm:justify-center min-w-max pb-32 w-fit mx-auto pt-10 sm:pt-4">
             {/* The Document Canvas */}
             <div 
-              className={`bg-white shadow-2xl border border-slate-300/80 ring-1 ring-black/5 rounded-md relative overflow-hidden group origin-top-left sm:origin-top transition-transform duration-200 ease-out ${isDrawingMode ? 'cursor-crosshair touch-none' : ''}`}
+              className={`bg-slate-900 shadow-2xl border border-slate-300/80 ring-1 ring-black/5 rounded-md relative overflow-hidden group origin-top-left sm:origin-top transition-transform duration-200 ease-out ${isDrawingMode ? 'cursor-crosshair touch-none' : ''}`}
               style={{ 
                 width: `${794 * zoom}px`, 
                 height: `${1123 * zoom}px` 
@@ -278,9 +278,9 @@ export function TestReportViewer() {
                     <p className="text-slate-500 mt-1">{selectedReport.name}</p>
                   </div>
                   <div className="text-right">
-                    <p className="font-bold text-slate-800">Page {currentPage} / {selectedReport.pages}</p>
+                    <p className="font-bold text-slate-100">Page {currentPage} / {selectedReport.pages}</p>
                     <p className="text-slate-500">{selectedReport.date}</p>
-                    <p className="font-bold text-slate-800 font-mono bg-slate-100 px-2 py-0.5 rounded-md mt-2 inline-block">
+                    <p className="font-bold text-slate-100 font-mono bg-slate-800 px-2 py-0.5 rounded-md mt-2 inline-block">
                       ID: {mrn}
                     </p>
                   </div>
@@ -288,8 +288,8 @@ export function TestReportViewer() {
                 
                 <div className="flex-1 flex flex-col items-center justify-center opacity-40">
                   <FileText size={64} className="text-slate-300 mb-4" />
-                  <p className="text-xl font-bold text-slate-400">Mock Data / Visual Demo</p>
-                  <p className="text-sm text-slate-400 mt-2">Actual PDF rendering goes here</p>
+                  <p className="text-xl font-bold text-slate-500">Mock Data / Visual Demo</p>
+                  <p className="text-sm text-slate-500 mt-2">Actual PDF rendering goes here</p>
                 </div>
               </div>
 
@@ -313,24 +313,24 @@ export function TestReportViewer() {
         </div>
 
         {/* Bottom floating pagination */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-4 bg-white/90 backdrop-blur-md px-4 sm:px-6 py-2 sm:py-3 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.12)] border border-slate-200/50 pb-safe">
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-4 bg-slate-900/90 backdrop-blur-md px-4 sm:px-6 py-2 sm:py-3 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.12)] border border-slate-800/50 pb-safe">
           <button 
             onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
             disabled={currentPage === 1}
-            className="flex items-center gap-1 sm:gap-2 text-[13px] sm:text-[14px] font-bold text-slate-700 hover:text-[#2F80ED] disabled:opacity-40 transition-colors"
+            className="flex items-center gap-1 sm:gap-2 text-[13px] sm:text-[14px] font-bold text-slate-200 hover:text-sky-400 disabled:opacity-40 transition-colors"
           >
             <ChevronLeft size={18} strokeWidth={3} />
             Prev
           </button>
           <div className="w-px h-6 bg-slate-300"></div>
-          <span className="text-[12px] sm:text-[14px] font-bold text-slate-800 tracking-wide whitespace-nowrap">
+          <span className="text-[12px] sm:text-[14px] font-bold text-slate-100 tracking-wide whitespace-nowrap">
             Page {currentPage} of {selectedReport.pages}
           </span>
           <div className="w-px h-6 bg-slate-300"></div>
           <button 
             onClick={() => setCurrentPage(p => Math.min(selectedReport.pages, p + 1))}
             disabled={currentPage === selectedReport.pages}
-            className="flex items-center gap-1 sm:gap-2 text-[13px] sm:text-[14px] font-bold text-slate-700 hover:text-[#2F80ED] disabled:opacity-40 transition-colors"
+            className="flex items-center gap-1 sm:gap-2 text-[13px] sm:text-[14px] font-bold text-slate-200 hover:text-sky-400 disabled:opacity-40 transition-colors"
           >
             Next
             <ChevronRight size={18} strokeWidth={3} />
@@ -343,18 +343,18 @@ export function TestReportViewer() {
   if (!mounted) return null;
   
   return (
-    <div className="flex flex-col h-auto xl:h-full bg-slate-50 relative border-x border-slate-200">
+    <div className="flex flex-col h-auto xl:h-full bg-slate-950 relative border-x border-slate-800">
       
       {/* Header */}
       {!selectedReport && (
-        <div className="bg-white border-b border-slate-200 p-4 sm:p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 shrink-0 transition-all">
+        <div className="bg-slate-900 border-b border-slate-800 p-4 sm:p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 shrink-0 transition-all">
           <div>
-            <h2 className="text-[18px] sm:text-xl font-bold text-slate-800 flex items-center gap-2">
-              <Activity className="text-[#2F80ED]" size={20} />
+            <h2 className="text-[18px] sm:text-xl font-bold text-slate-100 flex items-center gap-2">
+              <Activity className="text-sky-400" size={20} />
               Lab Test Reports
             </h2>
             <p className="text-[12px] sm:text-sm text-slate-500 mt-1 sm:mt-1.5 leading-relaxed">
-              Reports are automatically forwarded by the Lab using Patient ID: <br className="sm:hidden" /><span className="font-bold font-mono text-slate-700 bg-slate-100 px-2 py-0.5 rounded-md mt-1 sm:mt-0 inline-block">{mrn}</span>
+              Reports are automatically forwarded by the Lab using Patient ID: <br className="sm:hidden" /><span className="font-bold font-mono text-slate-200 bg-slate-800 px-2 py-0.5 rounded-md mt-1 sm:mt-0 inline-block">{mrn}</span>
             </p>
           </div>
           
@@ -371,43 +371,43 @@ export function TestReportViewer() {
           {isLoading ? (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 animate-in fade-in duration-500">
               {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="bg-white p-5 rounded-2xl border border-slate-100 flex flex-col shadow-sm">
+                <div key={i} className="bg-slate-900 p-5 rounded-2xl border border-slate-800 flex flex-col shadow-sm">
                   <div className="flex justify-between items-start mb-4">
                     <div className="flex items-center gap-4 w-full">
-                      <div className="w-12 h-12 bg-slate-100 rounded-xl animate-pulse shrink-0" />
+                      <div className="w-12 h-12 bg-slate-800 rounded-xl animate-pulse shrink-0" />
                       <div className="flex-1 space-y-2">
-                        <div className="h-4 bg-slate-100 rounded-md w-3/4 animate-pulse" />
-                        <div className="h-3 bg-slate-50 rounded-md w-1/2 animate-pulse" />
+                        <div className="h-4 bg-slate-800 rounded-md w-3/4 animate-pulse" />
+                        <div className="h-3 bg-slate-950 rounded-md w-1/2 animate-pulse" />
                       </div>
                     </div>
-                    <div className="w-16 h-6 bg-slate-50 rounded-md animate-pulse shrink-0 ml-4" />
+                    <div className="w-16 h-6 bg-slate-950 rounded-md animate-pulse shrink-0 ml-4" />
                   </div>
                   <div className="mt-2 pt-4 border-t border-slate-50 flex items-center justify-end gap-2">
-                    <div className="w-24 h-9 bg-slate-50 rounded-lg animate-pulse" />
+                    <div className="w-24 h-9 bg-slate-950 rounded-lg animate-pulse" />
                     <div className="w-32 h-9 bg-blue-50/50 rounded-lg animate-pulse" />
                   </div>
                 </div>
               ))}
             </div>
           ) : reportFiles.length === 0 ? (
-            <div className="h-full min-h-[400px] flex flex-col items-center justify-center text-center border-2 border-dashed border-slate-300 rounded-2xl bg-white p-8">
-              <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mb-6">
+            <div className="h-full min-h-[400px] flex flex-col items-center justify-center text-center border-2 border-dashed border-slate-300 rounded-2xl bg-slate-900 p-8">
+              <div className="w-20 h-20 bg-slate-950 rounded-full flex items-center justify-center mb-6">
                 <FileText size={32} className="text-slate-300" />
               </div>
-              <h3 className="text-lg font-bold text-slate-700 mb-2">No Reports Available</h3>
+              <h3 className="text-lg font-bold text-slate-200 mb-2">No Reports Available</h3>
               <p className="text-slate-500 max-w-sm">The pathology lab has not synced any reports for Patient ID <strong>{mrn}</strong> yet.</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               {reportFiles.map((file, idx) => (
-                <div key={idx} className="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex flex-col hover:border-[#2F80ED]/30 transition-colors group cursor-pointer" onClick={() => handleOpenReport(file)}>
+                <div key={idx} className="bg-slate-900 p-5 rounded-2xl shadow-sm border border-slate-800 flex flex-col hover:border-[#2F80ED]/30 transition-colors group cursor-pointer" onClick={() => handleOpenReport(file)}>
                   <div className="flex justify-between items-start mb-4">
                     <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-blue-50 text-[#2F80ED] rounded-xl flex items-center justify-center shrink-0">
+                      <div className="w-12 h-12 bg-blue-50 text-sky-400 rounded-xl flex items-center justify-center shrink-0">
                         <FileText size={24} />
                       </div>
                       <div>
-                        <h4 className="font-bold text-slate-800 text-[15px]">{file.name}</h4>
+                        <h4 className="font-bold text-slate-100 text-[15px]">{file.name}</h4>
                         <p className="text-[13px] text-slate-500 font-medium mt-0.5">{file.type} • {file.date} • {file.pages} {file.pages > 1 ? 'Pages' : 'Page'}</p>
                       </div>
                     </div>
@@ -415,10 +415,10 @@ export function TestReportViewer() {
                       {file.status}
                     </span>
                   </div>
-                <div className="mt-4 pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-2.5 transition-all">
+                <div className="mt-4 pt-4 border-t border-slate-800 flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-2.5 transition-all">
                   <button 
                     onClick={(e) => { e.stopPropagation(); handleOpenReport(file); }}
-                    className="flex justify-center items-center gap-2 text-[13px] font-bold text-[#2F80ED] bg-white border-2 border-[#2F80ED] hover:border-[#2F80ED] hover:bg-[#2F80ED] hover:text-white active:bg-[#256bbd] active:border-[#256bbd] px-4 py-2.5 rounded-lg transition-all duration-300 transform hover:-translate-y-0.5 shadow-sm hover:shadow-[0_4px_12px_rgba(47,128,237,0.3)] active:scale-[0.97]"
+                    className="flex justify-center items-center gap-2 text-[13px] font-bold text-sky-400 bg-slate-900 border-2 border-[#2F80ED] hover:border-[#2F80ED] hover:bg-sky-600 hover:text-white active:bg-[#256bbd] active:border-[#256bbd] px-4 py-2.5 rounded-lg transition-all duration-300 transform hover:-translate-y-0.5 shadow-sm hover:shadow-[0_4px_12px_rgba(47,128,237,0.3)] active:scale-[0.97]"
                   >
                     <Eye size={16} />
                     View Report

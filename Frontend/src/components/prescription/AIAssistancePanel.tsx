@@ -121,15 +121,10 @@ export function AIAssistancePanel() {
 
   // Quick action chips - doctor-focused
   const defaultChips = [
-    { icon: ClipboardList, label: "Write Prescription", prompt: "Write a prescription for this patient. Symptoms: " },
-    { icon: FileSearch, label: "Scan Report", prompt: "[SCAN_REPORT]" },
-    { icon: History, label: "Summarize History", prompt: "[SUMMARIZE_HISTORY]" },
-    { icon: Pill, label: "Medicine Suggestion", prompt: "Suggest appropriate medicines with dosage for: " },
-    { icon: Brain, label: "Differential Diagnosis", prompt: "Provide differential diagnosis for these symptoms: " },
-    { icon: AlertCircle, label: "Drug Interaction Check", prompt: "Check for drug interactions between: " },
-    { icon: Stethoscope, label: "Treatment Plan", prompt: "Create a complete treatment plan. Diagnosis: " },
-    { icon: BookOpen, label: "Generate SOAP Note", prompt: "Generate a SOAP note for this patient: " },
-    { icon: ShieldAlert, label: "Check Allergies", prompt: "Check possible allergies for these medicines: " },
+    { icon: ClipboardList, label: "Write Prescription", desc: "Auto-generate Rx from symptoms", prompt: "Please write a complete prescription for the current patient based on their details.", color: "text-sky-400", bg: "bg-sky-500/10" },
+    { icon: Pill, label: "Medicine Suggestion", desc: "Get smart medicine recommendations", prompt: "Please suggest appropriate medicines for the current patient's diagnosis and symptoms.", color: "text-emerald-400", bg: "bg-emerald-500/10" },
+    { icon: FileSearch, label: "Scan Report", desc: "Upload and analyze lab reports", prompt: "[SCAN_REPORT]", color: "text-purple-400", bg: "bg-purple-500/10" },
+    { icon: History, label: "Summarize History", desc: "Quick overview of past visits", prompt: "[SUMMARIZE_HISTORY]", color: "text-amber-400", bg: "bg-amber-500/10" },
   ];
 
   // Speech Recognition setup
@@ -410,16 +405,16 @@ export function AIAssistancePanel() {
   };
 
   return (
-    <div className="flex flex-col h-full bg-transparent rounded-[16px] xl:rounded-none border border-[#E5E7EB] xl:border-none shadow-[0_4px_16px_rgba(15,23,42,0.08)] xl:shadow-none overflow-hidden relative">
+    <div className="flex flex-col h-full bg-transparent rounded-[16px] xl:rounded-[24px] border border-[#E5E7EB] xl:border-none shadow-[0_4px_16px_rgba(15,23,42,0.08)] xl:shadow-none overflow-hidden relative">
       
       {/* Header */}
-      <div className="bg-white/80 backdrop-blur-xl border-b border-slate-200/50 px-5 py-3.5 flex items-center justify-between shrink-0 z-10">
+      <div className="bg-slate-900/80 backdrop-blur-xl border-b border-slate-800/50 px-5 py-3.5 flex items-center justify-between shrink-0 z-10">
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-full    flex items-center justify-center shadow-sm">
-            <Bot size={16} className="text-white" />
+          <div className="w-8 h-8 rounded-full bg-[#0a0a0a] overflow-hidden border border-slate-700/50 shadow-sm shrink-0">
+            <img src="/dr-pekr.jpg" alt="Dr. pekr" className="w-full h-full object-contain p-0 scale-90" />
           </div>
           <div>
-            <h3 className="font-bold text-[15px] text-slate-800 leading-tight">Oxpecker AI Copilot</h3>
+            <h3 className="font-bold text-[15px] text-slate-200 leading-tight">Dr. pekr</h3>
             <p className="text-[11px] font-semibold text-slate-500 flex items-center gap-1">
               <span className="w-1.5 h-1.5 rounded-full bg-[#6DDA6E] inline-block animate-pulse"></span>
               Doctor's Assistant
@@ -428,7 +423,7 @@ export function AIAssistancePanel() {
         </div>
         <button
           onClick={() => { setMessages([]); setPrescriptionDraft(null); }}
-          className="w-7 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-400 transition-colors"
+          className="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-200 flex items-center justify-center text-slate-400 transition-colors"
           title="New conversation"
         >
           <RefreshCw size={14} />
@@ -452,15 +447,11 @@ export function AIAssistancePanel() {
       <div className="flex-1 overflow-y-auto custom-scrollbar p-5 flex flex-col gap-4 bg-transparent min-h-0">
         {messages.length === 0 ? (
           /* Default State - Quick Actions */
-          <div className="flex flex-col items-center justify-center h-full text-center mt-4">
-            <div className="w-14 h-14    rounded-2xl shadow-md flex items-center justify-center mb-4 relative">
-              <Bot size={28} className="text-white" />
-              <div className="absolute top-0.5 right-0.5 w-3 h-3 bg-[#6DDA6E] rounded-full border-2 border-white"></div>
-            </div>
-            <h4 className="font-black text-slate-800 text-[18px] mb-1">How can I assist you?</h4>
-            <p className="text-[13px] text-slate-500 mb-6 max-w-[260px]">Prescriptions, report analysis, medicine suggestions - all in one place.</p>
+          <div className="flex flex-col h-full mt-2">
+            <h4 className="font-black text-slate-100 text-[18px] mb-1.5 px-1">How can I assist you?</h4>
+            <p className="text-[13px] text-slate-400 mb-6 px-1">Select an action to get started.</p>
             
-            <div className="flex flex-wrap gap-2 justify-center">
+            <div className="flex flex-col gap-3 w-full">
               {defaultChips.map((chip, idx) => (
                 <button
                   key={idx}
@@ -468,13 +459,18 @@ export function AIAssistancePanel() {
                     if (chip.prompt === "[SCAN_REPORT]") {
                       fileInputRef.current?.click();
                     } else {
-                      setInputValue(chip.prompt);
+                      handleSend(chip.prompt);
                     }
                   }}
-                  className="flex items-center gap-2 bg-white border border-slate-200 text-slate-700 hover:border-blue-300 hover:text-blue-600 hover:bg-blue-50 hover:shadow-sm transition-all px-3 py-2 rounded-xl text-[12px] font-bold"
+                  className="flex items-center gap-4 bg-slate-900/60 backdrop-blur-md border border-slate-800/80 hover:border-slate-600 hover:bg-slate-800/80 shadow-sm transition-all px-4 py-4 rounded-[16px] w-full text-left group"
                 >
-                  <chip.icon size={14} />
-                  {chip.label}
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 transition-colors ${chip.bg} ${chip.color} group-hover:scale-110 duration-300`}>
+                    <chip.icon size={18} strokeWidth={2.5} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h5 className="font-bold text-slate-200 text-[14px] mb-0.5 group-hover:text-white transition-colors">{chip.label}</h5>
+                    <p className="text-[12px] text-slate-500 truncate">{chip.desc}</p>
+                  </div>
                 </button>
               ))}
             </div>
@@ -485,7 +481,7 @@ export function AIAssistancePanel() {
             {messages.map((msg) => (
               <div key={msg.id} className={`flex flex-col ${msg.role === "user" ? "items-end" : "items-start"}`}>
                 {msg.role === "user" ? (
-                  <div className="bg-blue-600 text-white px-4 py-2.5 rounded-[16px] rounded-tr-[4px] max-w-[85%] text-[14px] shadow-sm whitespace-pre-wrap">
+                  <div className="bg-slate-700/80 border border-slate-600/50 text-slate-100 px-4 py-2.5 rounded-[16px] rounded-tr-[4px] max-w-[85%] text-[14px] shadow-sm whitespace-pre-wrap">
                     {msg.content?.split(/(\*\*.*?\*\*)/g).map((part, i) =>
                       part.startsWith("**") && part.endsWith("**") ? (
                         <strong key={i}>{part.slice(2, -2)}</strong>
@@ -495,7 +491,7 @@ export function AIAssistancePanel() {
                     )}
                   </div>
                 ) : (
-                  <div className="w-full bg-white border border-slate-200 rounded-[14px] shadow-sm overflow-hidden">
+                  <div className="w-full bg-slate-900 border border-slate-800 rounded-[14px] shadow-sm overflow-hidden">
                     {!msg.content && (
                       <div className="px-4 py-4 flex items-center gap-2 text-slate-400">
                         <div className="flex gap-1">
@@ -514,7 +510,7 @@ export function AIAssistancePanel() {
                           return (
                             <div className="space-y-3">
                               {cleanedText && (
-                                <div className="prose prose-slate max-w-none text-[14px] text-slate-700 leading-relaxed prose-p:mb-2 prose-headings:font-semibold prose-a:text-blue-600 hover:prose-a:underline prose-code:bg-slate-100 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-pre:bg-slate-50 prose-pre:border prose-pre:border-slate-200 prose-pre:text-slate-800">
+                                <div className="prose prose-slate max-w-none text-[14px] text-slate-300 leading-relaxed prose-p:mb-2 prose-headings:font-semibold prose-a:text-sky-400 hover:prose-a:underline prose-code:bg-slate-800 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-pre:bg-slate-950 prose-pre:border prose-pre:border-slate-800 prose-pre:text-slate-200">
                                   <ReactMarkdown>{cleanedText}</ReactMarkdown>
                                 </div>
                               )}
@@ -541,7 +537,7 @@ export function AIAssistancePanel() {
 
             {/* Prescription Draft Card */}
             {prescriptionDraft && (
-              <div className="w-full bg-white border-2 border-blue-200 rounded-[14px] shadow-md overflow-hidden">
+              <div className="w-full bg-slate-900 border-2 border-blue-200 rounded-[14px] shadow-md overflow-hidden">
                 <div className="   px-4 py-3 flex items-center justify-between">
                   <div className="flex items-center gap-2 text-white">
                     <Clipboard size={16} />
@@ -553,23 +549,23 @@ export function AIAssistancePanel() {
                   {prescriptionDraft.chiefComplaint && (
                     <div>
                       <p className="font-bold text-slate-400 text-[11px] uppercase tracking-wider">Chief Complaint</p>
-                      <p className="text-slate-700 mt-0.5">{prescriptionDraft.chiefComplaint}</p>
+                      <p className="text-slate-300 mt-0.5">{prescriptionDraft.chiefComplaint}</p>
                     </div>
                   )}
                   {prescriptionDraft.diagnosis && (
                     <div>
                       <p className="font-bold text-slate-400 text-[11px] uppercase tracking-wider">Diagnosis</p>
-                      <p className="text-slate-800 font-semibold mt-0.5">{prescriptionDraft.diagnosis}</p>
+                      <p className="text-slate-200 font-semibold mt-0.5">{prescriptionDraft.diagnosis}</p>
                     </div>
                   )}
                   {prescriptionDraft.medicines && prescriptionDraft.medicines.length > 0 && (
                     <div>
                       <p className="font-bold text-slate-400 text-[11px] uppercase tracking-wider mb-1.5">Rx ({prescriptionDraft.medicines.length})</p>
                       {prescriptionDraft.medicines.map((med, i) => (
-                        <div key={i} className="bg-slate-50 rounded-lg p-2 mb-1 border border-slate-100">
-                          <p className="font-bold text-slate-800 text-[13px]">{med.name} <span className="font-normal text-slate-400">{med.strength}</span></p>
+                        <div key={i} className="bg-slate-950 rounded-lg p-2 mb-1 border border-slate-100">
+                          <p className="font-bold text-slate-200 text-[13px]">{med.name} <span className="font-normal text-slate-400">{med.strength}</span></p>
                           <p className="text-[11px] text-slate-400 italic">{med.generic}</p>
-                          <p className="text-[12px] text-blue-600 mt-0.5">{med.dosage} • {med.frequency} • {med.duration} • {med.instructions}</p>
+                          <p className="text-[12px] text-sky-400 mt-0.5">{med.dosage} • {med.frequency} • {med.duration} • {med.instructions}</p>
                         </div>
                       ))}
                     </div>
@@ -577,19 +573,19 @@ export function AIAssistancePanel() {
                   {prescriptionDraft.investigations && prescriptionDraft.investigations.length > 0 && (
                     <div>
                       <p className="font-bold text-slate-400 text-[11px] uppercase tracking-wider">Investigations</p>
-                      <p className="text-slate-700 mt-0.5">{prescriptionDraft.investigations.join(", ")}</p>
+                      <p className="text-slate-300 mt-0.5">{prescriptionDraft.investigations.join(", ")}</p>
                     </div>
                   )}
                   {prescriptionDraft.advice && (
                     <div>
                       <p className="font-bold text-slate-400 text-[11px] uppercase tracking-wider">Advice</p>
-                      <p className="text-slate-700 mt-0.5">{prescriptionDraft.advice}</p>
+                      <p className="text-slate-300 mt-0.5">{prescriptionDraft.advice}</p>
                     </div>
                   )}
                   {prescriptionDraft.followUp && (
                     <div>
                       <p className="font-bold text-slate-400 text-[11px] uppercase tracking-wider">Follow Up</p>
-                      <p className="text-slate-700 mt-0.5">{prescriptionDraft.followUp}</p>
+                      <p className="text-slate-300 mt-0.5">{prescriptionDraft.followUp}</p>
                     </div>
                   )}
                 </div>
@@ -603,7 +599,7 @@ export function AIAssistancePanel() {
                   </button>
                   <button
                     onClick={() => handleSend("Revise this prescription and suggest better medicines.")}
-                    className="h-[36px] px-3 border border-slate-200 text-slate-600 text-[12px] font-bold rounded-xl hover:bg-slate-50 transition-colors flex items-center gap-1"
+                    className="h-[36px] px-3 border border-slate-800 text-slate-400 text-[12px] font-bold rounded-xl hover:bg-slate-950 transition-colors flex items-center gap-1"
                   >
                     <RefreshCw size={12} /> Revise
                   </button>
@@ -616,20 +612,20 @@ export function AIAssistancePanel() {
       </div>
 
       {/* Input Area */}
-      <div className="p-4 pb-8 xl:pb-4 bg-white border-t border-slate-200 mt-auto shrink-0 z-10 sticky bottom-0" style={{ paddingBottom: 'max(env(safe-area-inset-bottom), 1rem)' }}>
+      <div className="p-4 pb-8 xl:pb-4 bg-slate-900 border-t border-slate-800 mt-auto shrink-0 z-10 sticky bottom-0" style={{ paddingBottom: 'max(env(safe-area-inset-bottom), 1rem)' }}>
         {/* Quick re-access buttons */}
         {messages.length > 0 && (
           <div className="flex gap-1.5 mb-2 overflow-x-auto pb-1 scrollbar-none">
-            <button onClick={() => fileInputRef.current?.click()} className="flex items-center gap-1 bg-sky-50 text-sky-600 text-[11px] font-bold px-2.5 py-1 rounded-lg shrink-0 hover:bg-sky-100 transition-colors">
+            <button onClick={() => fileInputRef.current?.click()} className="flex items-center gap-1 bg-sky-900/30 text-sky-400 text-[11px] font-bold px-2.5 py-1 rounded-lg shrink-0 hover:bg-sky-900/50 transition-colors">
               <Camera size={12} /> Scan Report
             </button>
-            <button onClick={() => setInputValue("Write a prescription for: ")} className="flex items-center gap-1 bg-blue-50 text-blue-600 text-[11px] font-bold px-2.5 py-1 rounded-lg shrink-0 hover:bg-blue-100 transition-colors">
+            <button onClick={() => setInputValue("Write a prescription for: ")} className="flex items-center gap-1 bg-sky-900/30 text-sky-400 text-[11px] font-bold px-2.5 py-1 rounded-lg shrink-0 hover:bg-sky-900/50 transition-colors">
               <ClipboardList size={12} /> Prescription
             </button>
-            <button onClick={() => setInputValue("Check drug interactions for: ")} className="flex items-center gap-1 bg-red-50 text-red-600 text-[11px] font-bold px-2.5 py-1 rounded-lg shrink-0 hover:bg-red-100 transition-colors">
+            <button onClick={() => setInputValue("Check drug interactions for: ")} className="flex items-center gap-1 bg-red-900/30 text-red-400 text-[11px] font-bold px-2.5 py-1 rounded-lg shrink-0 hover:bg-red-900/50 transition-colors">
               <AlertCircle size={12} /> Interactions
             </button>
-            <button onClick={() => setInputValue("Suggest medicines for: ")} className="flex items-center gap-1 bg-emerald-50 text-emerald-600 text-[11px] font-bold px-2.5 py-1 rounded-lg shrink-0 hover:bg-emerald-100 transition-colors">
+            <button onClick={() => setInputValue("Suggest medicines for: ")} className="flex items-center gap-1 bg-emerald-900/30 text-emerald-400 text-[11px] font-bold px-2.5 py-1 rounded-lg shrink-0 hover:bg-emerald-900/50 transition-colors">
               <Pill size={12} /> Medicines
             </button>
           </div>
@@ -642,7 +638,7 @@ export function AIAssistancePanel() {
               className={`absolute left-2 w-9 h-9 flex items-center justify-center rounded-full transition-all z-10 ${
                 isListening 
                   ? "bg-rose-500 text-white shadow-[0_0_12px_rgba(239,68,68,0.4)] animate-pulse" 
-                  : "text-slate-400 hover:text-blue-600 hover:bg-blue-50"
+                  : "text-slate-400 hover:text-sky-400 hover:bg-sky-900/20"
               }`}
             >
               {isListening ? <MicOff size={18} /> : <Mic size={18} />}
@@ -653,13 +649,13 @@ export function AIAssistancePanel() {
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleSend(inputValue)}
-            placeholder="Ask Copilot (e.g. Write prescription...)"
-            className={`w-full h-[48px] bg-slate-100/50 hover:bg-slate-100 focus:bg-white border border-slate-200/60 rounded-full py-2 ${isVoiceSupported ? 'pl-12' : 'pl-5'} pr-14 text-[14px] text-slate-800 focus:outline-none focus:border-blue-400 focus:ring-4 focus:ring-blue-400/10 transition-all placeholder:text-slate-400 font-medium shadow-sm`}
+            placeholder="Ask Dr. pekr (e.g. Write prescription...)"
+            className={`w-full h-[48px] bg-slate-950/50 hover:bg-slate-950 focus:bg-slate-900 border border-slate-800/60 rounded-full py-2 ${isVoiceSupported ? 'pl-12' : 'pl-5'} pr-14 text-[14px] text-slate-200 focus:outline-none focus:border-blue-400 focus:ring-4 focus:ring-blue-400/10 transition-all placeholder:text-slate-400 font-medium shadow-sm`}
           />
           <button 
             onClick={() => handleSend(inputValue)}
             disabled={!inputValue.trim() || isLoading}
-            className="absolute right-1.5 bg-blue-600 hover:bg-blue-700 active:scale-95 disabled:bg-slate-200 disabled:text-slate-400 text-white w-8 h-8 rounded-full flex items-center justify-center transition-all shadow-sm z-10"
+            className="absolute right-1.5 bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 active:scale-95 disabled:opacity-50 text-white w-8 h-8 rounded-full flex items-center justify-center transition-all shadow-md z-10"
           >
             <ArrowUp size={18} strokeWidth={2.5} />
           </button>

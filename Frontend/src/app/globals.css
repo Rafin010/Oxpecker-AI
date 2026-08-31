@@ -146,45 +146,53 @@
 }
 
 /* =========================================
-   CANDY UI UNIVERSAL SCROLLBARS
+   ULTRA SLEEK DARK SCROLLBARS (CODEX STYLE)
    ========================================= */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(241, 245, 249, 0.5);
-  border-radius: 9999px;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
+  background: #334155;
   border-radius: 9999px;
-  border: 1.5px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.3);
-  transition: all 0.3s ease;
+  border: none;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%);
-  box-shadow: 0 2px 12px rgba(2, 132, 199, 0.5);
+  background: #475569;
 }
 
 /* Firefox Scrollbar */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #38bdf8 rgba(241, 245, 249, 0.5);
+  scrollbar-color: #334155 transparent;
 }
 
 .candy-scrollbar::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 4px;
+  height: 4px;
 }
 .candy-scrollbar::-webkit-scrollbar-track {
   background: transparent;
 }
 .candy-scrollbar::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+  background: #334155;
   border-radius: 9999px;
+}
+@keyframes breathing {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+.animate-breathing {
+  animation: breathing 2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
 }

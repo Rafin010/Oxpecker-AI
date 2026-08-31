@@ -20,10 +20,10 @@ export default function DoctorSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="w-[280px] h-screen bg-white border-r border-slate-200 flex flex-col flex-shrink-0 sticky top-0 left-0 overflow-hidden z-50 spatial-layer border-r-0">
-      <div className="h-[80px] flex items-center px-6 border-b border-slate-200 shrink-0">
+    <aside className="w-[280px] h-screen bg-slate-950 border-r border-slate-800 flex flex-col flex-shrink-0 sticky top-0 left-0 overflow-hidden z-50">
+      <div className="h-[80px] flex items-center px-6 border-b border-slate-800 shrink-0">
         <Link href="/">
-          <Image src="/images/Oxpecker_Full.png" alt="Oxpecker AI" width={180} height={60} className="h-10 w-auto object-contain" />
+          <Image src="/images/Oxpecker_full_size.png" alt="Oxpecker AI" width={180} height={60} className="h-10 w-auto object-contain brightness-0 invert" />
         </Link>
       </div>
       
@@ -35,25 +35,18 @@ export default function DoctorSidebar() {
               <Link 
                 key={item.name} 
                 href={item.href}
-                className={`flex items-center gap-4 h-[52px] px-4 rounded-[14px] transition-all duration-200 ${
+                className={`flex items-center gap-4 h-[52px] px-4 rounded-[14px] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] ${
                   isActive 
-                    ? "bg-[#2F80ED] text-white font-semibold shadow-[0_4px_12px_rgba(47,128,237,0.3)]" 
-                    : "text-slate-500 hover:bg-slate-50 hover:text-slate-800"
+                    ? "bg-[#2F80ED] text-white font-semibold" 
+                    : "text-slate-500 hover:bg-slate-800/50 hover:text-slate-200"
                 }`}
               >
-                <item.icon size={22} className={isActive ? "text-white" : "text-slate-400"} />
+                <item.icon size={22} className={isActive ? "text-white" : "text-slate-500 group-hover:text-slate-200"} />
                 <span className="text-[15px]">{item.name}</span>
               </Link>
             )
           })}
         </div>
-      </div>
-
-      <div className="p-4 border-t border-slate-200 shrink-0">
-        <button className="flex items-center gap-4 h-[52px] px-4 w-full rounded-[14px] text-red-500 hover:bg-red-50 transition-all font-medium">
-          <LogOut size={22} />
-          <span className="text-[15px]">Logout</span>
-        </button>
       </div>
     </aside>
   );

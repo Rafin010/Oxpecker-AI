@@ -377,16 +377,16 @@ export function DoctorAIAssistant({
         animate={{ x: 0 }}
         exit={{ x: "100%" }}
         transition={{ type: "spring", damping: 25, stiffness: 200 }}
-        className="fixed top-0 right-0 w-full lg:max-w-[520px] h-full bg-white shadow-2xl z-[101] flex flex-col border-l border-slate-200"
+        className="fixed top-0 right-0 w-full lg:max-w-[520px] h-full bg-slate-900 shadow-2xl z-[101] flex flex-col border-l border-slate-700"
       >
         {/* Header */}
-        <div className="h-[72px] px-5 border-b border-slate-100 flex items-center justify-between    shrink-0">
+        <div className="h-[72px] px-5 border-b border-slate-800 flex items-center justify-between    shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl    flex items-center justify-center text-white shadow-md">
+            <div className="w-10 h-10 rounded-xl    flex items-center justify-center text-white shadow-none">
               <Bot size={22} />
             </div>
             <div>
-              <h2 className="text-[16px] font-black text-slate-800">Oxpecker AI</h2>
+              <h2 className="text-[16px] font-black text-slate-200">Oxpecker AI</h2>
               <p className="text-[12px] text-slate-500 font-medium">Doctor&apos;s Clinical Assistant</p>
             </div>
           </div>
@@ -397,13 +397,13 @@ export function DoctorAIAssistant({
                 setShowActions(true);
                 setPrescriptionDraft(null);
               }}
-              className="w-9 h-9 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:text-slate-600 transition-colors"
+              className="w-9 h-9 rounded-lg bg-slate-900 border border-slate-700 flex items-center justify-center text-slate-500 hover:text-slate-300 transition-colors"
             >
               <RefreshCw size={16} />
             </button>
             <button
               onClick={onClose}
-              className="w-9 h-9 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:text-slate-600 transition-colors"
+              className="w-9 h-9 rounded-lg bg-slate-900 border border-slate-700 flex items-center justify-center text-slate-500 hover:text-slate-300 transition-colors"
             >
               <X size={16} />
             </button>
@@ -411,16 +411,16 @@ export function DoctorAIAssistant({
         </div>
 
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50/30">
+        <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-950/30">
           {messages.map((msg) => (
             <div key={msg.id} className={`flex ${msg.role === "doctor" ? "justify-end" : "justify-start"}`}>
               <div className={`max-w-[85%] ${
                 msg.role === "doctor"
                   ? "bg-blue-600 text-white rounded-2xl rounded-br-md px-4 py-3"
-                  : "bg-white border border-slate-200 rounded-2xl rounded-bl-md px-4 py-3 shadow-sm"
+                  : "bg-slate-900 border border-slate-700 rounded-2xl rounded-bl-md px-4 py-3 shadow-none"
               }`}>
                 {msg.role === "ai" && !msg.content && (
-                  <div className="flex items-center gap-2 text-slate-400">
+                  <div className="flex items-center gap-2 text-slate-500">
                     <div className="flex gap-1">
                       {[0, 1, 2].map(i => (
                         <motion.div
@@ -435,7 +435,7 @@ export function DoctorAIAssistant({
                   </div>
                 )}
                 <div className={`text-[14px] leading-relaxed whitespace-pre-wrap ${
-                  msg.role === "doctor" ? "text-white" : "text-slate-700"
+                  msg.role === "doctor" ? "text-white" : "text-slate-300"
                 }`}>
                   {msg.content.split(/(\*\*.*?\*\*)/g).map((part, i) =>
                     part.startsWith("**") && part.endsWith("**") ? (
@@ -466,7 +466,7 @@ export function DoctorAIAssistant({
                       textareaRef.current?.focus();
                     }
                   }}
-                  className={`flex flex-col items-start gap-2 p-3 rounded-xl border text-left hover:shadow-sm transition-all ${action.color}`}
+                  className={`flex flex-col items-start gap-2 p-3 rounded-xl border text-left hover:shadow-none transition-all ${action.color}`}
                 >
                   <action.icon size={20} />
                   <div>
@@ -485,7 +485,7 @@ export function DoctorAIAssistant({
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="bg-white border-2 border-blue-200 rounded-2xl overflow-hidden shadow-md"
+                className="bg-slate-900 border-2 border-blue-200 rounded-2xl overflow-hidden shadow-none"
               >
                 <div className="   px-4 py-3 flex items-center justify-between">
                   <div className="flex items-center gap-2 text-white">
@@ -495,7 +495,7 @@ export function DoctorAIAssistant({
                   <div className="flex gap-1.5">
                     <button
                       onClick={() => setIsEditing(!isEditing)}
-                      className="px-3 py-1 bg-white/20 text-white text-[12px] font-bold rounded-lg hover:bg-white/30 transition-colors flex items-center gap-1"
+                      className="px-3 py-1 bg-slate-900/20 text-white text-[12px] font-bold rounded-lg hover:bg-slate-900/30 transition-colors flex items-center gap-1"
                     >
                       <Edit3 size={12} /> Edit
                     </button>
@@ -505,23 +505,23 @@ export function DoctorAIAssistant({
                 <div className="p-4 space-y-3 text-[13px]">
                   {prescriptionDraft.chiefComplaint && (
                     <div>
-                      <p className="font-bold text-slate-400 text-[11px] uppercase tracking-wider">Chief Complaint</p>
-                      <p className="text-slate-700 mt-0.5">{prescriptionDraft.chiefComplaint}</p>
+                      <p className="font-bold text-slate-500 text-[11px] uppercase tracking-wider">Chief Complaint</p>
+                      <p className="text-slate-300 mt-0.5">{prescriptionDraft.chiefComplaint}</p>
                     </div>
                   )}
                   {prescriptionDraft.diagnosis && (
                     <div>
-                      <p className="font-bold text-slate-400 text-[11px] uppercase tracking-wider">Diagnosis</p>
-                      <p className="text-slate-700 font-semibold mt-0.5">{prescriptionDraft.diagnosis}</p>
+                      <p className="font-bold text-slate-500 text-[11px] uppercase tracking-wider">Diagnosis</p>
+                      <p className="text-slate-300 font-semibold mt-0.5">{prescriptionDraft.diagnosis}</p>
                     </div>
                   )}
                   {prescriptionDraft.medicines && prescriptionDraft.medicines.length > 0 && (
                     <div>
-                      <p className="font-bold text-slate-400 text-[11px] uppercase tracking-wider mb-1.5">Medicines ({prescriptionDraft.medicines.length})</p>
+                      <p className="font-bold text-slate-500 text-[11px] uppercase tracking-wider mb-1.5">Medicines ({prescriptionDraft.medicines.length})</p>
                       {prescriptionDraft.medicines.map((med, i) => (
-                        <div key={i} className="bg-slate-50 rounded-lg p-2.5 mb-1.5 border border-slate-100">
-                          <p className="font-bold text-slate-800">{med.name} <span className="font-normal text-slate-400">{med.strength}</span></p>
-                          <p className="text-[11px] text-slate-400 italic">{med.generic}</p>
+                        <div key={i} className="bg-slate-950 rounded-lg p-2.5 mb-1.5 border border-slate-800">
+                          <p className="font-bold text-slate-200">{med.name} <span className="font-normal text-slate-500">{med.strength}</span></p>
+                          <p className="text-[11px] text-slate-500 italic">{med.generic}</p>
                           <p className="text-[12px] text-blue-600 mt-1">
                             {med.dosage} • {med.frequency} • {med.duration} • {med.instructions}
                           </p>
@@ -531,14 +531,14 @@ export function DoctorAIAssistant({
                   )}
                   {prescriptionDraft.advice && (
                     <div>
-                      <p className="font-bold text-slate-400 text-[11px] uppercase tracking-wider">Advice</p>
-                      <p className="text-slate-700 mt-0.5">{prescriptionDraft.advice}</p>
+                      <p className="font-bold text-slate-500 text-[11px] uppercase tracking-wider">Advice</p>
+                      <p className="text-slate-300 mt-0.5">{prescriptionDraft.advice}</p>
                     </div>
                   )}
                   {prescriptionDraft.followUp && (
                     <div>
-                      <p className="font-bold text-slate-400 text-[11px] uppercase tracking-wider">Follow Up</p>
-                      <p className="text-slate-700 mt-0.5">{prescriptionDraft.followUp}</p>
+                      <p className="font-bold text-slate-500 text-[11px] uppercase tracking-wider">Follow Up</p>
+                      <p className="text-slate-300 mt-0.5">{prescriptionDraft.followUp}</p>
                     </div>
                   )}
                 </div>
@@ -552,7 +552,7 @@ export function DoctorAIAssistant({
                   </button>
                   <button
                     onClick={() => handleSend("এই প্রেসক্রিপশনটি আবার রিভাইজ করুন এবং আরো ভালো ওষুধ সাজেস্ট করুন।")}
-                    className="h-[40px] px-4 border border-slate-200 text-slate-600 text-[13px] font-bold rounded-xl hover:bg-slate-50 transition-colors flex items-center gap-1.5"
+                    className="h-[40px] px-4 border border-slate-700 text-slate-500 text-[13px] font-bold rounded-xl hover:bg-slate-950 transition-colors flex items-center gap-1.5"
                   >
                     <RefreshCw size={14} /> Revise
                   </button>
@@ -578,7 +578,7 @@ export function DoctorAIAssistant({
         />
 
         {/* Input Area */}
-        <div className="p-3 border-t border-slate-100 bg-white shrink-0">
+        <div className="p-3 border-t border-slate-800 bg-slate-900 shrink-0">
           {/* Patient context bar */}
           {patient && (
             <div className="flex items-center gap-2 mb-2 px-2">
@@ -595,7 +595,7 @@ export function DoctorAIAssistant({
             {/* Quick actions toggle */}
             <button
               onClick={() => setShowActions(!showActions)}
-              className="w-[40px] h-[40px] rounded-xl bg-slate-100 text-slate-500 flex items-center justify-center hover:bg-slate-200 transition-colors shrink-0"
+              className="w-[40px] h-[40px] rounded-xl bg-slate-800 text-slate-500 flex items-center justify-center hover:bg-slate-800 transition-colors shrink-0"
             >
               <Bot size={18} />
             </button>
@@ -603,13 +603,13 @@ export function DoctorAIAssistant({
             {/* Report upload */}
             <button
               onClick={() => fileInputRef.current?.click()}
-              className="w-[40px] h-[40px] rounded-xl bg-slate-100 text-slate-500 flex items-center justify-center hover:bg-slate-200 transition-colors shrink-0"
+              className="w-[40px] h-[40px] rounded-xl bg-slate-800 text-slate-500 flex items-center justify-center hover:bg-slate-800 transition-colors shrink-0"
             >
               <Camera size={18} />
             </button>
 
             {/* Text input */}
-            <div className="flex-1 bg-slate-100 rounded-xl px-3 py-1">
+            <div className="flex-1 bg-slate-800 rounded-xl px-3 py-1">
               <textarea
                 ref={textareaRef}
                 value={input}
@@ -621,7 +621,7 @@ export function DoctorAIAssistant({
                   }
                 }}
                 placeholder="কমান্ড দিন বা প্রশ্ন করুন..."
-                className="w-full bg-transparent resize-none outline-none text-[14px] text-slate-800 placeholder:text-slate-400 py-2 max-h-[80px] leading-tight"
+                className="w-full bg-transparent resize-none outline-none text-[14px] text-slate-200 placeholder:text-slate-500 py-2 max-h-[80px] leading-tight"
                 rows={1}
               />
             </div>
@@ -636,8 +636,8 @@ export function DoctorAIAssistant({
               disabled={!input.trim() || isLoading}
               className={`w-[40px] h-[40px] rounded-xl flex items-center justify-center transition-all shrink-0 ${
                 input.trim() && !isLoading
-                  ? "bg-blue-600 text-white shadow-md hover:bg-blue-700"
-                  : "bg-slate-100 text-slate-400"
+                  ? "bg-blue-600 text-white shadow-none hover:bg-blue-700"
+                  : "bg-slate-800 text-slate-500"
               }`}
             >
               <Send size={18} />

@@ -1,10 +1,12 @@
 import React, { useRef, useState } from "react";
 import { X, Download, ImagePlus, Printer, Loader2, ChevronLeft, Palette, Trash2, AlertCircle, User, Activity, Edit3, Save, ChevronRight, Share2, ScanBarcode, ZoomIn, ZoomOut } from "lucide-react";
 import { useReactToPrint } from "react-to-print";
+import { toJpeg } from "html-to-image";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePrescription } from "@/context/PrescriptionContext";
 import { toast } from "sonner";
 import { QRCodeSVG } from 'qrcode.react';
+
 
 interface PrescriptionPreviewModalProps {
   isOpen: boolean;
@@ -17,6 +19,7 @@ export function PrescriptionPreviewModal({ isOpen, onClose }: PrescriptionPrevie
   const fileInputRef = useRef<HTMLInputElement>(null);
   const watermarkInputRef = useRef<HTMLInputElement>(null);
   const [isDownloading, setIsDownloading] = useState(false);
+  const [isDownloadingJPG, setIsDownloadingJPG] = useState(false);
   const [activeView, setActiveView] = useState<'preview' | 'theme-settings'>('preview');
   const [currentPage, setCurrentPage] = useState(1);
   const [zoom, setZoom] = useState(1);
@@ -47,6 +50,46 @@ export function PrescriptionPreviewModal({ isOpen, onClose }: PrescriptionPrevie
       toast.error("Failed to initialize printing.");
     }
   });
+
+  
+  const handleDownloadJPG = async () => {
+    if (!printRef.current) return;
+    setIsDownloadingJPG(true);
+    
+    const originalOpacity = printRef.current.style.opacity;
+    const originalTop = printRef.current.style.top;
+    const originalPosition = printRef.current.style.position;
+    const originalZIndex = printRef.current.style.zIndex;
+    
+    printRef.current.style.opacity = '1';
+    printRef.current.style.top = '0';
+    printRef.current.style.position = 'fixed';
+    printRef.current.style.zIndex = '-9999';
+    
+    try {
+      // html-to-image handles modern CSS (like Tailwind v4's oklab colors) much better than html2canvas
+      const dataUrl = await toJpeg(printRef.current, {
+        quality: 1.0,
+        backgroundColor: "#ffffff",
+        pixelRatio: 2,
+      });
+      
+      const link = document.createElement("a");
+      link.download = `Prescription_${new Date().getTime()}.jpg`;
+      link.href = dataUrl;
+      link.click();
+      toast.success("Prescription downloaded as JPG!");
+    } catch (err) {
+      console.error("Error generating JPG:", err);
+      toast.error("Failed to download JPG");
+    } finally {
+      printRef.current.style.opacity = originalOpacity;
+      printRef.current.style.top = originalTop;
+      printRef.current.style.position = originalPosition;
+      printRef.current.style.zIndex = originalZIndex;
+      setIsDownloadingJPG(false);
+    }
+  };
 
   if (!isOpen) return null;
 
@@ -359,32 +402,32 @@ Tests: ${data.investigationsList?.join(', ') || 'None'}`;
           initial={{ opacity: 0, scale: 0.95, y: 10 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 10 }}
-          className="bg-slate-100 w-full max-w-5xl h-[100dvh] md:h-full md:max-h-[90vh] rounded-none md:rounded-2xl shadow-2xl flex flex-col md:flex-row overflow-hidden"
+          className="bg-slate-950 w-full max-w-5xl h-[100dvh] md:h-full md:max-h-[90vh] rounded-none md:rounded-2xl shadow-2xl flex flex-col md:flex-row overflow-hidden"
         >
           {/* Main Content Area */}
           <div className="flex-1 flex flex-col h-full overflow-hidden relative">
             {/* Header */}
-            <div className="bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between shrink-0">
-              <h2 className="text-lg font-bold text-slate-800 flex items-center gap-4">
+            <div className="bg-slate-900 border-b border-slate-800 px-6 py-4 flex items-center justify-between shrink-0">
+              <h2 className="text-lg font-bold text-slate-200 flex items-center gap-4">
                 {activeView === 'theme-settings' ? 'Theme Settings' : 'Prescription Preview'}
               </h2>
               
               <div className="flex items-center gap-4">
                 {activeView === 'preview' && (
-                  <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-lg border border-slate-200/60 hidden sm:flex">
+                  <div className="flex items-center gap-1 bg-slate-950 p-1 rounded-lg border border-slate-800 hidden sm:flex">
                     <button 
                       onClick={() => setZoom(z => Math.max(0.25, z - 0.25))} 
-                      className="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-white rounded shadow-sm transition-colors active:scale-95"
+                      className="p-1.5 text-slate-400 hover:text-slate-200 hover:bg-slate-800 rounded shadow-none transition-colors active:scale-95"
                       title="Zoom Out"
                     >
                       <ZoomOut size={16}/>
                     </button>
-                    <span className="text-[11px] font-bold text-slate-600 w-12 text-center select-none">
+                    <span className="text-[11px] font-bold text-slate-300 w-12 text-center select-none">
                       {Math.round(zoom * 100)}%
                     </span>
                     <button 
                       onClick={() => setZoom(z => Math.min(2.0, z + 0.25))} 
-                      className="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-white rounded shadow-sm transition-colors active:scale-95"
+                      className="p-1.5 text-slate-400 hover:text-slate-200 hover:bg-slate-800 rounded shadow-none transition-colors active:scale-95"
                       title="Zoom In"
                     >
                       <ZoomIn size={16}/>
@@ -392,7 +435,7 @@ Tests: ${data.investigationsList?.join(', ') || 'None'}`;
                   </div>
                 )}
                 
-                <button onClick={onClose} className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-50 rounded-xl transition-colors">
+                <button onClick={onClose} className="p-2 text-slate-400 hover:text-slate-200 hover:bg-slate-800 rounded-xl transition-colors">
                   <X size={20} />
                 </button>
               </div>
@@ -415,12 +458,12 @@ Tests: ${data.investigationsList?.join(', ') || 'None'}`;
 
             {/* Body Content */}
             {activeView === 'theme-settings' ? (
-              <div className="flex-1 overflow-y-auto p-4 md:p-8 bg-slate-50 flex justify-center">
-                <div className="w-full max-w-5xl bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8 flex flex-col gap-10 h-fit">
+              <div className="flex-1 overflow-y-auto p-4 md:p-8 bg-slate-950 flex justify-center">
+                <div className="w-full max-w-5xl bg-slate-900 rounded-2xl shadow-none border border-slate-800 p-6 md:p-8 flex flex-col gap-10 h-fit">
                   
                   {/* Default Themes */}
                   <div>
-                    <h3 className="text-lg font-bold text-slate-800 mb-4">Default Themes</h3>
+                    <h3 className="text-lg font-bold text-slate-200 mb-4">Default Themes</h3>
                     <div className="flex flex-wrap gap-4 md:gap-6">
                       {['modern', 'classic', 'minimal'].map((t) => (
                         <div 
@@ -507,14 +550,14 @@ Tests: ${data.investigationsList?.join(', ') || 'None'}`;
             ) : (
               <div className="flex-1 relative flex flex-col overflow-hidden">
                 {/* Preview Area (Shows current page only) */}
-                <div className="flex-1 overflow-auto custom-scrollbar bg-slate-200/50 flex flex-col relative touch-pan-x touch-pan-y">
+                <div className="flex-1 overflow-auto custom-scrollbar bg-slate-950 flex flex-col relative touch-pan-x touch-pan-y">
                   
                   {/* Mobile Zoom Controls (Floating at Top Center) */}
                   <div className="sm:hidden sticky top-4 left-0 w-full flex justify-center z-40 px-4 pointer-events-none mb-[-56px]">
                     <div className="bg-white/20 backdrop-blur-md border border-white/40 shadow-[0_8px_32px_rgba(0,0,0,0.1)] rounded-full px-1.5 py-1.5 flex items-center gap-1 pointer-events-auto">
                       <button 
                         onClick={() => setZoom(z => Math.max(0.25, z - 0.25))} 
-                        className="w-10 h-10 rounded-full flex items-center justify-center text-slate-800 hover:text-[#2F80ED] bg-white/20 hover:bg-white/50 active:scale-95 transition-all"
+                        className="w-10 h-10 rounded-full flex items-center justify-center text-slate-200 hover:text-sky-400 bg-slate-800/50 hover:bg-slate-700/50 active:scale-95 transition-all"
                       >
                         <ZoomOut size={18}/>
                       </button>
@@ -523,7 +566,7 @@ Tests: ${data.investigationsList?.join(', ') || 'None'}`;
                       </span>
                       <button 
                         onClick={() => setZoom(z => Math.min(2.0, z + 0.25))} 
-                        className="w-10 h-10 rounded-full flex items-center justify-center text-slate-800 hover:text-[#2F80ED] bg-white/20 hover:bg-white/50 active:scale-95 transition-all"
+                        className="w-10 h-10 rounded-full flex items-center justify-center text-slate-200 hover:text-sky-400 bg-slate-800/50 hover:bg-slate-700/50 active:scale-95 transition-all"
                       >
                         <ZoomIn size={18}/>
                       </button>
@@ -557,22 +600,22 @@ Tests: ${data.investigationsList?.join(', ') || 'None'}`;
           </div>
 
           {/* Action Sidebar (Desktop) / Bottom Bar (Mobile) */}
-          <div className="w-full md:w-[260px] bg-white border-t md:border-t-0 md:border-l border-slate-200 shrink-0 flex flex-row md:flex-col p-4 md:p-5 gap-3 z-20 justify-center md:justify-start">
+          <div className="w-full md:w-[260px] bg-slate-900 border-t md:border-t-0 md:border-l border-slate-800 shrink-0 flex flex-row md:flex-col p-4 md:p-5 gap-3 z-20 justify-center md:justify-start">
             <h3 className="hidden md:block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">Actions</h3>
             
             {activeView === 'preview' ? (
               <>
                 <button 
                   onClick={() => setActiveView('theme-settings')}
-                  className="flex flex-1 md:flex-none items-center justify-center md:justify-start gap-3 text-[13px] font-bold text-slate-700 bg-slate-50 border border-slate-200 px-0 md:px-4 py-3.5 rounded-xl hover:bg-slate-100 transition-colors shrink-0 group"
+                  className="flex flex-1 md:flex-none items-center justify-center md:justify-start gap-3 text-[13px] font-bold text-slate-300 bg-slate-800 border border-slate-700 px-0 md:px-4 py-3.5 rounded-xl hover:bg-slate-700 transition-colors shrink-0 group"
                   title="Theme Settings"
                 >
-                  <Palette size={20} className="text-[#2F80ED] group-hover:scale-110 transition-transform md:w-[18px] md:h-[18px]" /> 
+                  <Palette size={20} className="text-sky-400 group-hover:scale-110 transition-transform md:w-[18px] md:h-[18px]" /> 
                   <span className="hidden md:inline">Theme Settings</span>
                 </button>
                 <button 
                   onClick={() => handleDownloadPDF()} 
-                  className="flex flex-1 md:flex-none items-center justify-center md:justify-start gap-3 text-[13px] font-bold text-slate-700 bg-slate-50 border border-slate-200 px-0 md:px-4 py-3.5 rounded-xl hover:bg-slate-100 transition-colors shrink-0 group"
+                  className="flex flex-1 md:flex-none items-center justify-center md:justify-start gap-3 text-[13px] font-bold text-slate-300 bg-slate-800 border border-slate-700 px-0 md:px-4 py-3.5 rounded-xl hover:bg-slate-700 transition-colors shrink-0 group"
                   title="Print"
                 >
                   <Printer size={20} className="text-slate-500 group-hover:text-slate-700 group-hover:scale-110 transition-all md:w-[18px] md:h-[18px]" /> 
@@ -581,18 +624,29 @@ Tests: ${data.investigationsList?.join(', ') || 'None'}`;
                 <button 
                   onClick={() => handleDownloadPDF()}
                   disabled={isDownloading}
-                  className="flex flex-[2] md:flex-none items-center justify-center md:justify-start gap-2 md:gap-3 text-[13px] font-bold text-white bg-[#2F80ED] hover:bg-[#256bbd] px-0 md:px-4 py-3.5 rounded-xl shadow-sm shadow-[#2F80ED]/20 transition-all active:scale-95 disabled:opacity-70 disabled:cursor-wait shrink-0 group"
+                  className="flex flex-[2] md:flex-none items-center justify-center md:justify-start gap-2 md:gap-3 text-[13px] font-bold text-white bg-sky-600 hover:bg-sky-500 px-0 md:px-4 py-3.5 rounded-xl shadow-sm shadow-sky-500/20 transition-all active:scale-95 disabled:opacity-70 disabled:cursor-wait shrink-0 group"
                   title="Download PDF"
                 >
                   {isDownloading ? <Loader2 size={20} className="animate-spin md:w-[18px] md:h-[18px]" /> : <Download size={20} className="group-hover:-translate-y-0.5 transition-transform md:w-[18px] md:h-[18px]" />}
                   <span className="hidden md:inline">{isDownloading ? "Generating..." : "Download PDF"}</span>
                   <span className="md:hidden ml-1">{isDownloading ? "..." : "PDF"}</span>
                 </button>
+
+                <button 
+                  onClick={() => handleDownloadJPG()}
+                  disabled={isDownloadingJPG}
+                  className="flex flex-[2] md:flex-none items-center justify-center md:justify-start gap-2 md:gap-3 text-[13px] font-bold text-white bg-emerald-600 hover:bg-emerald-500 px-0 md:px-4 py-3.5 rounded-xl shadow-sm shadow-emerald-600/20 transition-all active:scale-95 disabled:opacity-70 disabled:cursor-wait shrink-0 group"
+                  title="Download JPG"
+                >
+                  {isDownloadingJPG ? <Loader2 size={20} className="animate-spin md:w-[18px] md:h-[18px]" /> : <Download size={20} className="group-hover:-translate-y-0.5 transition-transform md:w-[18px] md:h-[18px]" />}
+                  <span className="hidden md:inline">{isDownloadingJPG ? "Generating..." : "Download JPG"}</span>
+                  <span className="md:hidden ml-1">{isDownloadingJPG ? "..." : "JPG"}</span>
+                </button>
               </>
             ) : (
               <button 
                 onClick={() => setActiveView('preview')}
-                className="flex flex-1 md:flex-none items-center justify-center md:justify-start gap-3 text-[13px] font-bold text-slate-700 bg-slate-50 border border-slate-200 px-0 md:px-4 py-3.5 rounded-xl hover:bg-slate-100 transition-colors shrink-0 group"
+                className="flex flex-1 md:flex-none items-center justify-center md:justify-start gap-3 text-[13px] font-bold text-slate-300 bg-slate-800 border border-slate-700 px-0 md:px-4 py-3.5 rounded-xl hover:bg-slate-700 transition-colors shrink-0 group"
                 title="Back to Preview"
               >
                 <ChevronLeft size={20} className="text-slate-500 group-hover:-translate-x-0.5 transition-transform md:w-[18px] md:h-[18px]" /> 

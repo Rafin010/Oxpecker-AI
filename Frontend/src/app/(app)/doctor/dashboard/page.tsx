@@ -11,12 +11,12 @@ import { useDoctor } from '@/context/DoctorContext';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const stats = [
-  { title: "Today's Appointments", count: "42", icon: Users, color: "text-[#2F80ED]", bg: "bg-[#2F80ED]/10" },
+  { title: "Today's Appointments", count: "42", icon: Users, color: "text-sky-400", bg: "bg-sky-500/10" },
   { title: "Patients Waiting", count: "12", icon: Clock, color: "text-[#F59E0B]", bg: "bg-[#F59E0B]/10" },
   { title: "Completed", count: "18", icon: UserCheck, color: "text-[#22C55E]", bg: "bg-[#22C55E]/10" },
   { title: "Walk-in Patients", count: "14", icon: Activity, color: "text-[#8B5CF6]", bg: "bg-[#8B5CF6]/10" },
   { title: "Online Consultations", count: "8", icon: Smartphone, color: "text-[#00C2A8]", bg: "bg-[#00C2A8]/10" },
-  { title: "Revenue", count: "৳28K", icon: MonitorPlay, color: "text-slate-700", bg: "bg-slate-100" },
+  { title: "Revenue", count: "৳28K", icon: MonitorPlay, color: "text-slate-300", bg: "bg-slate-800" },
 ];
 
 const chartData = [
@@ -113,14 +113,14 @@ export default function DoctorDashboardPage() {
   };
 
   return (
-    <div className="p-4 lg:p-6 space-y-4 lg:space-y-6 bg-slate-50 min-h-full w-full max-w-[1600px] mx-auto">
+    <div className="p-4 lg:p-6 space-y-4 lg:space-y-6 bg-slate-950 min-h-full w-full max-w-[1600px] mx-auto">
       {/* HEADER */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0 mb-2">
-        <h1 className="text-[20px] lg:text-[24px] font-bold text-slate-800">Live Monitor & Team Dashboard</h1>
+        <h1 className="text-[20px] lg:text-[24px] font-bold text-slate-200">Live Monitor & Team Dashboard</h1>
         <div className="flex gap-4">
-          <div className="px-4 py-2 bg-white rounded-full shadow-sm flex items-center gap-2 border border-slate-100">
+          <div className="px-4 py-2 bg-slate-900 rounded-full shadow-none flex items-center gap-2 border border-slate-800">
             <span className="w-2.5 h-2.5 bg-[#22C55E] rounded-full animate-pulse"></span>
-            <span className="text-[14px] font-bold text-slate-700 hidden sm:inline">Live Sync Active</span>
+            <span className="text-[14px] font-bold text-slate-300 hidden sm:inline">Live Sync Active</span>
           </div>
         </div>
       </div>
@@ -133,7 +133,7 @@ export default function DoctorDashboardPage() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: idx * 0.05 }}
-            className="bg-white rounded-[20px] p-4 sm:p-5 shadow-sm border border-slate-100 flex flex-col justify-between hover:shadow-md transition-shadow h-full min-h-[140px]"
+            className="bg-slate-900 rounded-[20px] p-4 sm:p-5 shadow-none border border-slate-800 flex flex-col justify-between hover:shadow-none transition-shadow h-full min-h-[140px]"
           >
             <div className="flex justify-between items-start mb-4">
               <div className={`w-[40px] h-[40px] rounded-[12px] flex items-center justify-center ${stat.bg}`}>
@@ -141,7 +141,7 @@ export default function DoctorDashboardPage() {
               </div>
             </div>
             <div>
-              <h3 className="text-[28px] sm:text-[32px] font-extrabold text-slate-800 leading-none mb-1.5">{stat.count}</h3>
+              <h3 className="text-[28px] sm:text-[32px] font-extrabold text-slate-200 leading-none mb-1.5">{stat.count}</h3>
               <p className="text-[12px] sm:text-[13px] font-semibold text-slate-500 leading-snug">{stat.title}</p>
             </div>
           </motion.div>
@@ -153,13 +153,13 @@ export default function DoctorDashboardPage() {
         <motion.div 
           initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="xl:col-span-2 bg-white rounded-[20px] shadow-sm border border-slate-100 p-5 lg:p-8 flex flex-col gap-6 lg:gap-8"
+          className="xl:col-span-2 bg-slate-900 rounded-[20px] shadow-none border border-slate-800 p-5 lg:p-8 flex flex-col gap-6 lg:gap-8"
         >
           <div className="flex justify-between items-end">
             <div className="w-full">
-              <h2 className="text-[20px] font-bold text-slate-800 mb-3">Current Queue Progress</h2>
-              <div className="w-full max-w-[400px] h-[12px] bg-slate-100 rounded-full overflow-hidden">
-                <div className="h-full bg-[#2F80ED] rounded-full w-[45%]"></div>
+              <h2 className="text-[20px] font-bold text-slate-200 mb-3">Current Queue Progress</h2>
+              <div className="w-full max-w-[400px] h-[12px] bg-slate-800 rounded-full overflow-hidden">
+                <div className="h-full bg-sky-600 rounded-full w-[45%]"></div>
               </div>
               <p className="text-[13px] text-slate-500 mt-2">18 of 42 patients completed</p>
             </div>
@@ -177,29 +177,29 @@ export default function DoctorDashboardPage() {
                   window.location.href = `/doctor/dashboard/prescription/new?patientName=${encodeURIComponent(queue[0].name || "")}&patientId=${queue[0].token || ""}&appointmentTime=10:00+AM`;
                 }
               }}
-              className="bg-[#F7FAFC] p-6 rounded-[16px] border border-slate-100 relative overflow-hidden group flex flex-col justify-between h-full cursor-pointer hover:border-[#2F80ED]/30 hover:shadow-md transition-all"
+              className="bg-gradient-to-br from-sky-900/30 via-slate-900 to-slate-900 p-6 rounded-[16px] border border-sky-500/20 relative overflow-hidden group flex flex-col justify-between h-full cursor-pointer hover:border-sky-500/40 hover:shadow-[0_0_20px_rgba(14,165,233,0.1)] transition-all"
             >
               <div>
                 <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <button className="text-[12px] bg-[#6DDA6E] text-white shadow-sm px-4 py-1.5 rounded-full font-bold hover:bg-[#5bc95c] transition-colors">Start Consultation</button>
+                  <button className="text-[12px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-none px-4 py-1.5 rounded-full font-bold hover:bg-emerald-500 hover:text-white transition-colors">Start Consultation</button>
                 </div>
-                <span className="text-[14px] text-slate-500 font-semibold uppercase tracking-wider flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#2F80ED] animate-pulse"></span>
+                <span className="text-[14px] text-sky-400 font-semibold uppercase tracking-wider flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse shadow-[0_0_8px_rgba(56,189,248,0.8)]"></span>
                   Current Patient
                 </span>
                 <div className="mt-4 flex items-center justify-between">
                   <div>
-                    <span className="text-[54px] font-extrabold text-[#2F80ED] leading-none block mb-2">{queue[0]?.token || "-"}</span>
-                    <span className="text-[18px] font-bold text-slate-800">{queue[0]?.name || "No Patient"}</span>
-                    <p className="text-[14px] text-slate-500">{queue[0]?.info || ""}</p>
+                    <span className="text-[54px] font-extrabold text-white drop-shadow-[0_2px_10px_rgba(56,189,248,0.2)] leading-none block mb-2">{queue[0]?.token || "-"}</span>
+                    <span className="text-[18px] font-bold text-slate-200">{queue[0]?.name || "No Patient"}</span>
+                    <p className="text-[14px] text-slate-400">{queue[0]?.info || ""}</p>
                   </div>
-                  <div className="w-[70px] h-[70px] rounded-full bg-[#2F80ED]/10 hidden sm:flex items-center justify-center text-[24px] font-bold text-[#2F80ED]">
+                  <div className="w-[70px] h-[70px] rounded-full bg-sky-500/10 border border-sky-500/20 hidden sm:flex items-center justify-center text-[24px] font-bold text-sky-400 shadow-[inset_0_2px_10px_rgba(56,189,248,0.1)]">
                     {queue[0]?.name?.charAt(0) || "-"}
                   </div>
                 </div>
               </div>
               
-              <div className="mt-6 pt-5 border-t border-slate-200 flex gap-3">
+              <div className="mt-6 pt-5 border-t border-slate-700/50 flex gap-3">
                 <button 
                   onClick={(e) => {
                     e.stopPropagation();
@@ -207,7 +207,7 @@ export default function DoctorDashboardPage() {
                   }}
                   disabled={previousQueue.length === 0}
                   title="Undo Call Next"
-                  className="w-[60px] h-[52px] shrink-0 bg-[#F59E0B]/10 hover:bg-[#F59E0B] text-[#D97706] hover:text-white border border-[#F59E0B]/30 font-bold rounded-xl flex items-center justify-center transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="w-[60px] h-[52px] shrink-0 bg-amber-500/10 hover:bg-amber-500 text-amber-500 hover:text-white border border-amber-500/30 font-bold rounded-xl flex items-center justify-center transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                   <Undo2 size={20} />
                 </button>
@@ -217,7 +217,7 @@ export default function DoctorDashboardPage() {
                     handleNextPatient();
                   }}
                   disabled={queue.length === 0}
-                  className="flex-1 bg-[#2F80ED] hover:bg-[#2563EB] text-white font-bold h-[52px] rounded-xl shadow-md transition-all active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 bg-sky-600 hover:bg-sky-500 text-white font-bold h-[52px] rounded-xl shadow-none transition-all active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <CheckCircle2 size={20} /> Call Next
                 </button>
@@ -225,16 +225,16 @@ export default function DoctorDashboardPage() {
             </div>
 
             {/* Next Patient */}
-            <div className="bg-white p-6 rounded-[16px] border border-slate-200 flex flex-col">
+            <div className="bg-slate-900 p-6 rounded-[16px] border border-slate-700 flex flex-col">
               <span className="text-[14px] text-slate-500 font-semibold uppercase tracking-wider">Next Patient</span>
               <div className="mt-4 flex items-center justify-between opacity-80">
                 <div>
-                  <span className="text-[40px] font-bold text-slate-400 leading-none block mb-2">{queue[1]?.token || "-"}</span>
-                  <span className="text-[16px] font-bold text-slate-700">{queue[1]?.name || "End of Queue"}</span>
+                  <span className="text-[40px] font-bold text-slate-500 leading-none block mb-2">{queue[1]?.token || "-"}</span>
+                  <span className="text-[16px] font-bold text-slate-300">{queue[1]?.name || "End of Queue"}</span>
                   <p className="text-[14px] text-slate-500">{queue[1]?.info || ""}</p>
                 </div>
                 {queue[1] && (
-                  <div className="w-[60px] h-[60px] rounded-full bg-slate-100 hidden sm:flex items-center justify-center text-[20px] font-bold text-slate-500">
+                  <div className="w-[60px] h-[60px] rounded-full bg-slate-800 hidden sm:flex items-center justify-center text-[20px] font-bold text-slate-500">
                     {queue[1].name.charAt(0)}
                   </div>
                 )}
@@ -242,8 +242,8 @@ export default function DoctorDashboardPage() {
               
               {queue.length > 2 && (
                 <div className="mt-auto pt-5">
-                  <p className="text-[13px] text-slate-500 font-medium bg-slate-50 p-3 rounded-lg border border-slate-100">
-                    <span className="font-bold text-slate-700">Upcoming:</span> {queue[2].token} - {queue[2].name}
+                  <p className="text-[13px] text-slate-500 font-medium bg-slate-950 p-3 rounded-lg border border-slate-800">
+                    <span className="font-bold text-slate-300">Upcoming:</span> {queue[2].token} - {queue[2].name}
                   </p>
                 </div>
               )}
@@ -256,24 +256,24 @@ export default function DoctorDashboardPage() {
           <motion.div 
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="bg-white rounded-[20px] shadow-sm border border-slate-100 p-6 flex flex-col h-full"
+            className="bg-slate-900 rounded-[20px] shadow-none border border-slate-800 p-6 flex flex-col h-full"
           >
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-[18px] font-bold text-slate-800">Connected Assistant</h3>
-              <button onClick={() => setShowInviteModal(true)} className="px-4 py-2 bg-[#2F80ED]/10 text-[#2F80ED] text-sm font-bold rounded-lg hover:bg-[#2F80ED] hover:text-white transition-colors flex items-center gap-1.5">
+              <h3 className="text-[18px] font-bold text-slate-200">Connected Assistant</h3>
+              <button onClick={() => setShowInviteModal(true)} className="px-4 py-2 bg-sky-500/10 text-sky-400 text-sm font-bold rounded-lg hover:bg-sky-600 hover:text-white transition-colors flex items-center gap-1.5">
                 <Plus size={16} /> Invite
               </button>
             </div>
             
             <div className="flex flex-col gap-3">
               {connectedAssistants.map((ast) => (
-                <div key={ast.id} className="flex items-center justify-between bg-slate-50 p-4 rounded-[12px] border border-slate-100 group transition-colors hover:border-slate-200">
+                <div key={ast.id} className="flex items-center justify-between bg-slate-950 p-4 rounded-[12px] border border-slate-800 group transition-colors hover:border-slate-700">
                   <div className="flex items-center gap-3">
                     <div className={`w-[40px] h-[40px] rounded-full ${ast.bg}/20 ${ast.color} font-bold flex items-center justify-center text-sm shrink-0`}>
                       {ast.name.charAt(0)}
                     </div>
                     <div>
-                      <h4 className="text-[15px] font-bold text-slate-800 leading-tight">{ast.name}</h4>
+                      <h4 className="text-[15px] font-bold text-slate-200 leading-tight">{ast.name}</h4>
                       <span className={`text-[13px] ${ast.color} font-medium flex items-center gap-1.5 mt-0.5`}>
                         {!ast.isPending && ast.status.includes('Online') && <span className={`w-1.5 h-1.5 rounded-full ${ast.bg} animate-pulse`}></span>}
                         {ast.status}
@@ -295,11 +295,11 @@ export default function DoctorDashboardPage() {
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white rounded-[20px] shadow-sm border border-slate-100 p-6"
+          className="bg-slate-900 rounded-[20px] shadow-none border border-slate-800 p-6"
         >
           <div className="flex justify-between items-center mb-6">
-            <h3 className="text-[18px] font-bold text-slate-800">Weekly Patient Flow</h3>
-            <select className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-sm font-medium text-slate-700 outline-none">
+            <h3 className="text-[18px] font-bold text-slate-200">Weekly Patient Flow</h3>
+            <select className="bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-sm font-medium text-slate-300 outline-none">
               <option>This Week</option>
               <option>Last Week</option>
             </select>
@@ -322,11 +322,11 @@ export default function DoctorDashboardPage() {
       </div>
 
       {/* Assistant Activity Log */}
-      <h2 className="text-[20px] font-bold text-slate-800 pt-4">Live Assistant Activity Log</h2>
-      <div className="w-full bg-white rounded-[20px] shadow-sm border border-slate-100 overflow-hidden relative">
+      <h2 className="text-[20px] font-bold text-slate-200 pt-4">Live Assistant Activity Log</h2>
+      <div className="w-full bg-slate-950/40 backdrop-blur-xl rounded-[20px] shadow-[0_8px_30px_rgba(0,0,0,0.2)] border border-slate-800/60 overflow-hidden relative">
         <div className="h-[400px] overflow-auto custom-scrollbar">
           <table className="w-full text-left border-collapse min-w-[700px]">
-            <thead className="sticky top-0 bg-slate-50/90 backdrop-blur-md z-10 border-b border-slate-200">
+            <thead className="sticky top-0 bg-slate-950/90 backdrop-blur-md z-10 border-b border-slate-700">
               <tr className="text-[13px] text-slate-500 font-semibold h-[50px] uppercase tracking-wider">
                 <th className="px-6 py-3 font-semibold">Time</th>
                 <th className="px-6 py-3 font-semibold">Assistant Name</th>
@@ -337,14 +337,14 @@ export default function DoctorDashboardPage() {
             </thead>
             <tbody className="text-[14px]">
               {activityLog.map((log, i) => (
-                <tr key={i} className="border-b border-slate-100 hover:bg-slate-50 transition-colors h-[56px]">
+                <tr key={i} className="border-b border-slate-800/50 hover:bg-slate-800/30 transition-colors h-[56px]">
                   <td className="px-6 py-3 font-medium text-slate-500 whitespace-nowrap">{log.time}</td>
-                  <td className="px-6 py-3 font-semibold text-slate-700 flex items-center gap-3 whitespace-nowrap">
-                    <div className="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-[11px] font-bold shrink-0">{log.name.charAt(0)}</div>
+                  <td className="px-6 py-3 font-semibold text-slate-300 flex items-center gap-3 whitespace-nowrap">
+                    <div className="w-7 h-7 rounded-full bg-slate-800 flex items-center justify-center text-[11px] font-bold shrink-0">{log.name.charAt(0)}</div>
                     {log.name}
                   </td>
-                  <td className="px-6 py-3 font-medium text-slate-800 whitespace-nowrap">{log.action}</td>
-                  <td className="px-6 py-3 font-bold text-slate-700 whitespace-nowrap">{log.token}</td>
+                  <td className="px-6 py-3 font-medium text-slate-200 whitespace-nowrap">{log.action}</td>
+                  <td className="px-6 py-3 font-bold text-slate-300 whitespace-nowrap">{log.token}</td>
                   <td className={`px-6 py-3 font-bold text-right whitespace-nowrap ${log.color}`}>{log.status}</td>
                 </tr>
               ))}
@@ -361,11 +361,11 @@ export default function DoctorDashboardPage() {
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="w-full max-w-[720px] bg-white rounded-[24px] shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
+              className="w-full max-w-[720px] bg-slate-900 rounded-[24px] shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
             >
-              <div className="px-6 md:px-8 py-5 border-b border-slate-100 flex items-center justify-between sticky top-0 bg-white z-10 shrink-0">
-                <h2 className="text-[20px] font-bold text-slate-800">Invite Assistant</h2>
-                <button onClick={() => setShowInviteModal(false)} className="p-2 text-slate-400 hover:text-slate-600 bg-slate-50 hover:bg-slate-100 rounded-full transition-colors">
+              <div className="px-6 md:px-8 py-5 border-b border-slate-800 flex items-center justify-between sticky top-0 bg-slate-900 z-10 shrink-0">
+                <h2 className="text-[20px] font-bold text-slate-200">Invite Assistant</h2>
+                <button onClick={() => setShowInviteModal(false)} className="p-2 text-slate-500 hover:text-slate-300 bg-slate-950 hover:bg-slate-800 rounded-full transition-colors">
                   <X size={20} />
                 </button>
               </div>
@@ -373,63 +373,63 @@ export default function DoctorDashboardPage() {
               <div className="p-6 md:p-8 overflow-y-auto custom-scrollbar">
                 <div className="grid grid-cols-2 gap-4 mb-6">
                   <div className="col-span-2 md:col-span-1">
-                    <label className="text-[13px] font-semibold text-slate-700 block mb-1.5">Assistant id (Optional)</label>
+                    <label className="text-[13px] font-semibold text-slate-300 block mb-1.5">Assistant id (Optional)</label>
                     <input 
                       type="text" 
                       value={inviteId}
                       onChange={(e) => setInviteId(e.target.value.replace(/\D/g, ''))}
                       maxLength={12} 
                       placeholder="12-digit number"
-                      className="w-full h-[50px] border border-slate-200 rounded-[12px] px-4 text-[14px] focus:outline-none focus:border-[#2F80ED]" 
+                      className="w-full h-[50px] bg-slate-950 text-slate-200 border border-slate-700 rounded-[12px] px-4 text-[14px] focus:outline-none focus:border-sky-500 placeholder-slate-600" 
                     />
                   </div>
                   <div className="col-span-2 md:col-span-1">
-                    <label className="text-[13px] font-semibold text-slate-700 block mb-1.5">Email Address *</label>
+                    <label className="text-[13px] font-semibold text-slate-300 block mb-1.5">Email Address *</label>
                     <input 
                       type="email" 
                       value={inviteEmail}
                       onChange={(e) => setInviteEmail(e.target.value)}
                       placeholder="assistant@email.com"
-                      className="w-full h-[50px] border border-slate-200 rounded-[12px] px-4 text-[14px] focus:outline-none focus:border-[#2F80ED]" 
+                      className="w-full h-[50px] bg-slate-950 text-slate-200 border border-slate-700 rounded-[12px] px-4 text-[14px] focus:outline-none focus:border-sky-500 placeholder-slate-600" 
                     />
                   </div>
                   <div className="col-span-2 md:col-span-2">
-                    <label className="text-[13px] font-semibold text-slate-700 block mb-1.5">Role *</label>
+                    <label className="text-[13px] font-semibold text-slate-300 block mb-1.5">Role *</label>
                     <select 
                       value={inviteRole}
                       onChange={(e) => setInviteRole(e.target.value)}
-                      className="w-full h-[50px] border border-slate-200 rounded-[12px] px-4 text-[14px] focus:outline-none focus:border-[#2F80ED] bg-white appearance-none"
+                      className="w-full h-[50px] bg-slate-950 text-slate-200 border border-slate-700 rounded-[12px] px-4 text-[14px] focus:outline-none focus:border-sky-500 appearance-none"
                     >
-                      <option>Front Desk / Receptionist</option>
-                      <option>Clinic Manager</option>
+                      <option className="bg-slate-900 text-slate-200">Front Desk / Receptionist</option>
+                      <option className="bg-slate-900 text-slate-200">Clinic Manager</option>
                     </select>
                   </div>
                 </div>
 
                 <div className="mb-6">
-                  <h3 className="text-[16px] font-bold text-slate-800 mb-3">Permissions</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 bg-slate-50 p-5 rounded-[16px] border border-slate-100">
-                    <div className="col-span-1 md:col-span-2"><h4 className="text-[12px] font-bold text-slate-400 uppercase tracking-wider">Management</h4></div>
+                  <h3 className="text-[16px] font-bold text-slate-200 mb-3">Permissions</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 bg-slate-950 p-5 rounded-[16px] border border-slate-800">
+                    <div className="col-span-1 md:col-span-2"><h4 className="text-[12px] font-bold text-slate-500 uppercase tracking-wider">Management</h4></div>
                     <PermissionToggle label="Appointment Mgmt" active={permissions.apt} onClick={() => togglePermission('apt')} />
                     <PermissionToggle label="Queue Management" active={permissions.queue} onClick={() => togglePermission('queue')} />
                     <PermissionToggle label="Walk-in Patients" active={permissions.walkin} onClick={() => togglePermission('walkin')} />
                     <PermissionToggle label="Payments" active={permissions.pay} onClick={() => togglePermission('pay')} />
                     
-                    <div className="col-span-1 md:col-span-2 mt-2"><h4 className="text-[12px] font-bold text-slate-400 uppercase tracking-wider">Clinical (Disabled by default)</h4></div>
+                    <div className="col-span-1 md:col-span-2 mt-2"><h4 className="text-[12px] font-bold text-slate-500 uppercase tracking-wider">Clinical (Disabled by default)</h4></div>
                     <PermissionToggle label="Prescriptions" active={permissions.presc} onClick={() => togglePermission('presc')} />
                     <PermissionToggle label="Medical Records" active={permissions.medrec} onClick={() => togglePermission('medrec')} />
                   </div>
                 </div>
               </div>
 
-              <div className="px-6 md:px-8 py-5 border-t border-slate-100 bg-slate-50 flex items-center justify-end gap-3 sticky bottom-0 z-10 shrink-0">
-                <button onClick={() => setShowInviteModal(false)} className="px-6 py-2.5 text-slate-600 font-semibold rounded-[12px] hover:bg-slate-200 transition-colors">
+              <div className="px-6 md:px-8 py-5 border-t border-slate-800 bg-slate-950 flex items-center justify-end gap-3 sticky bottom-0 z-10 shrink-0">
+                <button onClick={() => setShowInviteModal(false)} className="px-6 py-2.5 text-slate-500 font-semibold rounded-[12px] hover:bg-slate-800 transition-colors">
                   Cancel
                 </button>
                 <button 
                   onClick={handleSendInvite}
                   disabled={isInviting}
-                  className="px-6 py-2.5 bg-[#2F80ED] hover:bg-[#2563EB] text-white font-bold rounded-[12px] transition-colors shadow-md flex items-center gap-2"
+                  className="px-6 py-2.5 bg-sky-600 hover:bg-sky-500 text-white font-bold rounded-[12px] transition-colors shadow-none flex items-center gap-2"
                 >
                   {isInviting ? <span className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></span> : 'Send Invite'}
                 </button>
@@ -445,9 +445,9 @@ export default function DoctorDashboardPage() {
 const PermissionToggle = ({ label, active, onClick }: { label: string, active: boolean, onClick: () => void }) => {
   return (
     <div className="flex items-center justify-between py-1 cursor-pointer group" onClick={onClick}>
-      <span className="text-[14px] font-medium text-slate-700 group-hover:text-slate-900 transition-colors">{label}</span>
-      <button className="text-slate-400 focus:outline-none">
-        {active ? <ToggleRight size={32} className="text-[#2F80ED]" strokeWidth={1.5} /> : <ToggleLeft size={32} strokeWidth={1.5} />}
+      <span className="text-[14px] font-medium text-slate-300 group-hover:text-slate-100 transition-colors">{label}</span>
+      <button className="text-slate-500 focus:outline-none">
+        {active ? <ToggleRight size={32} className="text-sky-400" strokeWidth={1.5} /> : <ToggleLeft size={32} strokeWidth={1.5} />}
       </button>
     </div>
   );

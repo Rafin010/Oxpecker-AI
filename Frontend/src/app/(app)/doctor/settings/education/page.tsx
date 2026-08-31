@@ -84,9 +84,9 @@ export default function EducationSettingsPage() {
       <Toaster position="top-center" />
       
       {/* Header */}
-      <div className="bg-white rounded-[24px] shadow-sm border border-slate-200 p-6 lg:p-8">
+      <div className="bg-slate-900 rounded-[24px] shadow-none border border-slate-700 p-6 lg:p-8">
         <div>
-          <h1 className="text-2xl font-extrabold text-slate-800 tracking-tight flex items-center gap-3">
+          <h1 className="text-2xl font-extrabold text-slate-200 tracking-tight flex items-center gap-3">
             Education & Certifications
           </h1>
           <p className="text-slate-500 mt-1">Manage your educational background and official medical credentials.</p>
@@ -96,9 +96,9 @@ export default function EducationSettingsPage() {
       <div className="flex flex-col gap-8">
         
         {/* Medical Credentials Verification (BMDC) */}
-        <div className="bg-white rounded-[24px] shadow-sm border border-slate-200 overflow-hidden w-full">
-          <div className="p-6 border-b border-slate-100 bg-[#2F80ED]/5">
-            <h3 className="text-[16px] font-bold text-slate-800 flex items-center gap-2">
+        <div className="bg-slate-900 rounded-[24px] shadow-none border border-slate-700 overflow-hidden w-full">
+          <div className="p-6 border-b border-slate-800 bg-[#2F80ED]/5">
+            <h3 className="text-[16px] font-bold text-slate-200 flex items-center gap-2">
               <ShieldCheck size={20} className="text-[#2F80ED]" /> Primary Medical Credentials (BMDC)
             </h3>
             <p className="text-[13px] text-slate-500 mt-1 leading-snug">To practice on the platform, your primary medical credentials must be verified by the Super Admin.</p>
@@ -126,9 +126,9 @@ export default function EducationSettingsPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-[13px] font-semibold text-slate-600 mb-1.5 flex justify-between items-center">
+                <label className="block text-[13px] font-semibold text-slate-500 mb-1.5 flex justify-between items-center">
                   <span>BMDC Registration Number</span>
-                  {bmdcStatus === "pending" && <Lock size={12} className="text-slate-400" />}
+                  {bmdcStatus === "pending" && <Lock size={12} className="text-slate-500" />}
                 </label>
                 <input 
                   type="text" 
@@ -136,14 +136,14 @@ export default function EducationSettingsPage() {
                   onChange={(e) => setBmdcReg(e.target.value)}
                   disabled={bmdcStatus === "pending"}
                   placeholder="e.g. A-12345"
-                  className="w-full h-[48px] bg-slate-50 border border-slate-200 rounded-xl px-4 text-[14px] text-slate-800 focus:outline-none focus:border-[#2F80ED] disabled:opacity-60 disabled:cursor-not-allowed transition-all"
+                  className="w-full h-[48px] bg-slate-950 border border-slate-700 rounded-xl px-4 text-[14px] text-slate-200 focus:outline-none focus:border-[#2F80ED] disabled:opacity-60 disabled:cursor-not-allowed transition-all"
                 />
               </div>
 
               <div>
-                <label className="block text-[13px] font-semibold text-slate-600 mb-1.5 flex justify-between items-center">
+                <label className="block text-[13px] font-semibold text-slate-500 mb-1.5 flex justify-between items-center">
                   <span>Upload Certificate (PDF/JPG)</span>
-                  {bmdcStatus === "pending" && <Lock size={12} className="text-slate-400" />}
+                  {bmdcStatus === "pending" && <Lock size={12} className="text-slate-500" />}
                 </label>
                 
                 <input 
@@ -159,19 +159,19 @@ export default function EducationSettingsPage() {
                   onClick={() => bmdcStatus !== "pending" && certInputRef.current?.click()}
                   className={`w-full border-2 border-dashed rounded-[16px] p-6 flex flex-col items-center justify-center transition-all ${
                     bmdcStatus === "pending" 
-                      ? "border-slate-200 bg-slate-50 opacity-60 cursor-not-allowed" 
-                      : "border-slate-300 bg-slate-50 hover:bg-[#2F80ED]/5 hover:border-[#2F80ED] cursor-pointer"
+                      ? "border-slate-700 bg-slate-950 opacity-60 cursor-not-allowed" 
+                      : "border-slate-600 bg-slate-950 hover:bg-[#2F80ED]/5 hover:border-[#2F80ED] cursor-pointer"
                   }`}
                 >
                   {certificateFile ? (
                     <div className="flex flex-col items-center">
                       <FileText size={32} className="text-[#22C55E] mb-2" />
-                      <span className="text-[13px] font-bold text-slate-700 text-center">{certificateFile.name}</span>
+                      <span className="text-[13px] font-bold text-slate-300 text-center">{certificateFile.name}</span>
                     </div>
                   ) : (
                     <div className="flex flex-col items-center">
-                      <UploadCloud size={24} className="text-slate-400 mb-2" />
-                      <span className="text-[14px] font-bold text-slate-700">Click to upload document</span>
+                      <UploadCloud size={24} className="text-slate-500 mb-2" />
+                      <span className="text-[14px] font-bold text-slate-300">Click to upload document</span>
                     </div>
                   )}
                 </div>
@@ -181,7 +181,7 @@ export default function EducationSettingsPage() {
             {bmdcStatus !== "pending" && (
               <button 
                 onClick={handleSubmitBMDC}
-                className="w-full md:w-auto px-8 py-3.5 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl shadow-lg transition-all active:scale-[0.98] flex items-center justify-center gap-2"
+                className="w-full md:w-auto px-8 py-3.5 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl shadow-none transition-all active:scale-[0.98] flex items-center justify-center gap-2"
               >
                 <ShieldCheck size={18} />
                 Submit Medical Credentials
@@ -192,17 +192,17 @@ export default function EducationSettingsPage() {
         </div>
 
         {/* Education Background */}
-        <div className="bg-white rounded-[24px] shadow-sm border border-slate-200 overflow-hidden w-full">
-          <div className="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+        <div className="bg-slate-900 rounded-[24px] shadow-none border border-slate-700 overflow-hidden w-full">
+          <div className="p-6 border-b border-slate-800 flex justify-between items-center bg-slate-950">
             <div>
-              <h3 className="text-[16px] font-bold text-slate-800 flex items-center gap-2">
+              <h3 className="text-[16px] font-bold text-slate-200 flex items-center gap-2">
                 <GraduationCap size={20} className="text-[#2F80ED]" /> Educational Background
               </h3>
               <p className="text-[13px] text-slate-500 mt-1">List your degrees and qualifications.</p>
             </div>
             <button 
               onClick={() => setShowAddForm(!showAddForm)}
-              className="px-4 py-2 bg-[#2F80ED]/10 text-[#2F80ED] hover:bg-[#2F80ED]/20 font-bold rounded-lg transition-colors flex items-center gap-2 text-[13px]"
+              className="px-4 py-2 bg-sky-500/10 text-[#2F80ED] hover:bg-[#2F80ED]/20 font-bold rounded-lg transition-colors flex items-center gap-2 text-[13px]"
             >
               <Plus size={16} /> Add New
             </button>
@@ -216,45 +216,45 @@ export default function EducationSettingsPage() {
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
-                  className="bg-slate-50 border border-slate-200 p-6 rounded-[16px] mb-6"
+                  className="bg-slate-950 border border-slate-700 p-6 rounded-[16px] mb-6"
                 >
-                  <h4 className="text-[14px] font-bold text-slate-800 mb-4">Add New Degree</h4>
+                  <h4 className="text-[14px] font-bold text-slate-200 mb-4">Add New Degree</h4>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
-                      <label className="block text-[12px] font-semibold text-slate-600 mb-1">Degree Name</label>
+                      <label className="block text-[12px] font-semibold text-slate-500 mb-1">Degree Name</label>
                       <input 
                         type="text" 
                         placeholder="e.g. MBBS, FCPS"
                         value={newEducation.degree}
                         onChange={(e) => setNewEducation({...newEducation, degree: e.target.value})}
-                        className="w-full h-[40px] bg-white border border-slate-200 rounded-lg px-3 text-[13px] focus:outline-none focus:border-[#2F80ED]"
+                        className="w-full h-[40px] bg-slate-900 border border-slate-700 rounded-lg px-3 text-[13px] focus:outline-none focus:border-[#2F80ED]"
                       />
                     </div>
                     <div>
-                      <label className="block text-[12px] font-semibold text-slate-600 mb-1">Institution</label>
+                      <label className="block text-[12px] font-semibold text-slate-500 mb-1">Institution</label>
                       <input 
                         type="text" 
                         placeholder="e.g. Dhaka Medical College"
                         value={newEducation.institution}
                         onChange={(e) => setNewEducation({...newEducation, institution: e.target.value})}
-                        className="w-full h-[40px] bg-white border border-slate-200 rounded-lg px-3 text-[13px] focus:outline-none focus:border-[#2F80ED]"
+                        className="w-full h-[40px] bg-slate-900 border border-slate-700 rounded-lg px-3 text-[13px] focus:outline-none focus:border-[#2F80ED]"
                       />
                     </div>
                     <div>
-                      <label className="block text-[12px] font-semibold text-slate-600 mb-1">Passing Year</label>
+                      <label className="block text-[12px] font-semibold text-slate-500 mb-1">Passing Year</label>
                       <input 
                         type="text" 
                         placeholder="e.g. 2015"
                         value={newEducation.year}
                         onChange={(e) => setNewEducation({...newEducation, year: e.target.value})}
-                        className="w-full h-[40px] bg-white border border-slate-200 rounded-lg px-3 text-[13px] focus:outline-none focus:border-[#2F80ED]"
+                        className="w-full h-[40px] bg-slate-900 border border-slate-700 rounded-lg px-3 text-[13px] focus:outline-none focus:border-[#2F80ED]"
                       />
                     </div>
                   </div>
                   <div className="mt-4 flex justify-end gap-3">
                     <button 
                       onClick={() => setShowAddForm(false)}
-                      className="px-5 py-2 text-slate-600 hover:bg-slate-100 font-bold rounded-lg text-[13px]"
+                      className="px-5 py-2 text-slate-500 hover:bg-slate-800 font-bold rounded-lg text-[13px]"
                     >
                       Cancel
                     </button>
@@ -277,13 +277,13 @@ export default function EducationSettingsPage() {
             ) : (
               <div className="space-y-4">
                 {educationList.map((edu) => (
-                  <div key={edu.id} className="group p-5 border border-slate-100 bg-white hover:border-slate-300 hover:shadow-md rounded-[16px] transition-all flex justify-between items-center">
+                  <div key={edu.id} className="group p-5 border border-slate-800 bg-slate-900 hover:border-slate-600 hover:shadow-none rounded-[16px] transition-all flex justify-between items-center">
                     <div className="flex gap-4 items-start">
-                      <div className="w-10 h-10 bg-[#2F80ED]/10 rounded-full flex items-center justify-center shrink-0">
+                      <div className="w-10 h-10 bg-sky-500/10 rounded-full flex items-center justify-center shrink-0">
                         <GraduationCap size={18} className="text-[#2F80ED]" />
                       </div>
                       <div>
-                        <h4 className="text-[15px] font-bold text-slate-800 flex items-center gap-2">
+                        <h4 className="text-[15px] font-bold text-slate-200 flex items-center gap-2">
                           {edu.degree}
                           {edu.status === 'Verified' ? (
                             <span className="text-[10px] uppercase font-bold bg-[#22C55E]/10 text-[#22C55E] px-2 py-0.5 rounded-full flex items-center gap-1">
@@ -300,7 +300,7 @@ export default function EducationSettingsPage() {
                     </div>
                     <button 
                       onClick={() => handleRemoveEducation(edu.id)}
-                      className="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors opacity-0 group-hover:opacity-100"
+                      className="w-8 h-8 flex items-center justify-center text-slate-500 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors opacity-0 group-hover:opacity-100"
                     >
                       <Trash2 size={16} />
                     </button>

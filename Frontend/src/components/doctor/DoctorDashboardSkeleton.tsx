@@ -6,7 +6,7 @@ export function DoctorDashboardSkeleton() {
       {/* Stats Cards Skeleton */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {[...Array(4)].map((_, i) => (
-          <div key={i} className="bg-white rounded-xl border border-slate-200/80 p-5">
+          <div key={i} className="bg-slate-900 rounded-xl border border-slate-700/80 p-5">
             <div className="flex items-start justify-between mb-4">
               <div className="w-11 h-11 rounded-xl skeleton-pulse" />
               <div className="w-14 h-6 rounded-full skeleton-pulse" />
@@ -22,7 +22,7 @@ export function DoctorDashboardSkeleton() {
       {/* Main Content Skeleton */}
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
         {/* Table Skeleton */}
-        <div className="xl:col-span-2 bg-white rounded-xl border border-slate-200/80 p-5">
+        <div className="xl:col-span-2 bg-slate-900 rounded-xl border border-slate-700/80 p-5">
           <div className="flex items-center justify-between mb-5">
             <div className="h-5 w-36 rounded skeleton-pulse" />
             <div className="h-8 w-24 rounded-lg skeleton-pulse" />
@@ -43,11 +43,11 @@ export function DoctorDashboardSkeleton() {
         </div>
 
         {/* Appointments Skeleton */}
-        <div className="bg-white rounded-xl border border-slate-200/80 p-5">
+        <div className="bg-slate-900 rounded-xl border border-slate-700/80 p-5">
           <div className="h-5 w-40 rounded skeleton-pulse mb-5" />
           <div className="space-y-3">
             {[...Array(4)].map((_, i) => (
-              <div key={i} className="p-3 rounded-xl border border-slate-100">
+              <div key={i} className="p-3 rounded-xl border border-slate-800">
                 <div className="flex items-center gap-3 mb-2">
                   <div className="w-8 h-8 rounded-full skeleton-pulse" />
                   <div className="flex-1 space-y-1">

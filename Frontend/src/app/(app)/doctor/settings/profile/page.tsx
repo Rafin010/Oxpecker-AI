@@ -124,10 +124,10 @@ export default function ProfileSettingsPage() {
       <Toaster position="top-center" />
       
       {/* Header & Verification Bar */}
-      <div className="bg-white rounded-[24px] shadow-sm border border-slate-200 p-6 lg:p-8">
+      <div className="bg-slate-900 rounded-[24px] shadow-none border border-slate-700 p-6 lg:p-8">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
           <div>
-            <h1 className="text-2xl font-extrabold text-slate-800 tracking-tight flex items-center gap-3">
+            <h1 className="text-2xl font-extrabold text-slate-200 tracking-tight flex items-center gap-3">
               Public Profile 
               {isGreen && <BadgeCheck size={28} className="text-[#22C55E]" />}
             </h1>
@@ -136,12 +136,12 @@ export default function ProfileSettingsPage() {
 
           <div className="w-full md:w-[350px]">
             <div className="flex justify-between items-end mb-2">
-              <span className="text-[13px] font-bold text-slate-600 uppercase tracking-wider">Profile Verification</span>
+              <span className="text-[13px] font-bold text-slate-500 uppercase tracking-wider">Profile Verification</span>
               <span className={`text-[20px] font-extrabold ${isGreen ? 'text-[#22C55E]' : isYellow ? 'text-[#F59E0B]' : 'text-slate-500'}`}>
                 {verificationScore}%
               </span>
             </div>
-            <div className="h-3 w-full bg-slate-100 rounded-full overflow-hidden">
+            <div className="h-3 w-full bg-slate-800 rounded-full overflow-hidden">
               <motion.div 
                 initial={{ width: 0 }}
                 animate={{ width: `${verificationScore}%` }}
@@ -151,7 +151,7 @@ export default function ProfileSettingsPage() {
                     ? 'bg-emerald-500' 
                     : isYellow 
                       ? 'bg-amber-400' 
-                      : 'bg-slate-300'
+                      : 'bg-slate-700'
                 }`}
               />
             </div>
@@ -164,11 +164,11 @@ export default function ProfileSettingsPage() {
       <div className="flex flex-col gap-8">
         
         {/* Full Page Width: Public Profile Form */}
-        <div className="bg-white rounded-[24px] shadow-sm border border-slate-200 overflow-hidden w-full">
+        <div className="bg-slate-900 rounded-[24px] shadow-none border border-slate-700 overflow-hidden w-full">
           
-          <div className="p-6 border-b border-slate-100 flex flex-col sm:flex-row items-center gap-6 bg-slate-50">
+          <div className="p-6 border-b border-slate-800 flex flex-col sm:flex-row items-center gap-6 bg-slate-950">
             <div className="relative group shrink-0">
-              <div className="w-[100px] h-[100px] rounded-full overflow-hidden border-4 border-white shadow-md bg-slate-200 relative">
+              <div className="w-[100px] h-[100px] rounded-full overflow-hidden border-4 border-white shadow-none bg-slate-800 relative">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={formData.avatar} alt="Profile" className="w-full h-full object-cover" />
                 {isGreen && (
@@ -177,7 +177,7 @@ export default function ProfileSettingsPage() {
               </div>
             </div>
             <div className="text-center sm:text-left flex-1">
-              <h3 className="text-[18px] font-bold text-slate-800 flex items-center justify-center sm:justify-start gap-2">
+              <h3 className="text-[18px] font-bold text-slate-200 flex items-center justify-center sm:justify-start gap-2">
                 Public Photo 
               </h3>
               <p className="text-[13px] text-slate-500 mt-1 mb-4">Recommended size: 400x400px (JPG or PNG).</p>
@@ -191,7 +191,7 @@ export default function ProfileSettingsPage() {
                 />
                 <button 
                   onClick={() => avatarInputRef.current?.click()}
-                  className="px-5 py-2 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 text-[13px] font-bold rounded-xl transition-colors shadow-sm flex items-center gap-2"
+                  className="px-5 py-2 bg-slate-900 border border-slate-700 hover:bg-slate-950 text-slate-300 text-[13px] font-bold rounded-xl transition-colors shadow-none flex items-center gap-2"
                 >
                   <Camera size={14}/> Change Photo
                 </button>
@@ -208,26 +208,26 @@ export default function ProfileSettingsPage() {
           <div className="p-6 lg:p-8 space-y-6">
             {/* Basic Info */}
             <div>
-              <h4 className="text-[15px] font-bold text-slate-800 mb-4 flex items-center gap-2">
+              <h4 className="text-[15px] font-bold text-slate-200 mb-4 flex items-center gap-2">
                 <User size={18} className="text-[#2F80ED]" /> Basic Information
               </h4>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                 <div className="md:col-span-1">
-                  <label className="block text-[13px] font-semibold text-slate-600 mb-1.5 ml-1">Full Name</label>
+                  <label className="block text-[13px] font-semibold text-slate-500 mb-1.5 ml-1">Full Name</label>
                   <input 
                     type="text" 
                     value={formData.name}
                     onChange={(e) => setFormData({...formData, name: e.target.value})}
-                    className="w-full h-[48px] bg-slate-50 border border-slate-200 rounded-xl px-4 text-[14px] text-slate-800 focus:outline-none focus:border-[#2F80ED] focus:bg-white transition-all"
+                    className="w-full h-[48px] bg-slate-950 border border-slate-700 rounded-xl px-4 text-[14px] text-slate-200 focus:outline-none focus:border-[#2F80ED] focus:bg-slate-900 transition-all"
                   />
                 </div>
                 
                 <div className="md:col-span-1">
-                  <label className="block text-[13px] font-semibold text-slate-600 mb-1.5 ml-1">Gender</label>
+                  <label className="block text-[13px] font-semibold text-slate-500 mb-1.5 ml-1">Gender</label>
                   <select 
                     value={formData.gender}
                     onChange={(e) => setFormData({...formData, gender: e.target.value})}
-                    className="w-full h-[48px] bg-slate-50 border border-slate-200 rounded-xl px-4 text-[14px] text-slate-800 focus:outline-none focus:border-[#2F80ED] focus:bg-white transition-all"
+                    className="w-full h-[48px] bg-slate-950 border border-slate-700 rounded-xl px-4 text-[14px] text-slate-200 focus:outline-none focus:border-[#2F80ED] focus:bg-slate-900 transition-all"
                   >
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
@@ -236,11 +236,11 @@ export default function ProfileSettingsPage() {
                 </div>
 
                 <div className="md:col-span-1">
-                  <label className="block text-[13px] font-semibold text-slate-600 mb-1.5 ml-1">Specialization</label>
+                  <label className="block text-[13px] font-semibold text-slate-500 mb-1.5 ml-1">Specialization</label>
                   <select 
                     value={formData.specialization}
                     onChange={(e) => setFormData({...formData, specialization: e.target.value})}
-                    className="w-full h-[48px] bg-slate-50 border border-slate-200 rounded-xl px-4 text-[14px] text-slate-800 focus:outline-none focus:border-[#2F80ED] focus:bg-white transition-all"
+                    className="w-full h-[48px] bg-slate-950 border border-slate-700 rounded-xl px-4 text-[14px] text-slate-200 focus:outline-none focus:border-[#2F80ED] focus:bg-slate-900 transition-all"
                   >
                     {specializations.map(spec => (
                       <option key={spec} value={spec}>{spec}</option>
@@ -249,64 +249,64 @@ export default function ProfileSettingsPage() {
                 </div>
 
                 <div className="md:col-span-3">
-                  <label className="block text-[13px] font-semibold text-slate-600 mb-1.5 ml-1">Professional Bio</label>
+                  <label className="block text-[13px] font-semibold text-slate-500 mb-1.5 ml-1">Professional Bio</label>
                   <textarea 
                     value={formData.bio}
                     onChange={(e) => setFormData({...formData, bio: e.target.value})}
-                    className="w-full min-h-[100px] bg-slate-50 border border-slate-200 rounded-xl p-4 text-[14px] text-slate-800 focus:outline-none focus:border-[#2F80ED] focus:bg-white transition-all resize-none"
+                    className="w-full min-h-[100px] bg-slate-950 border border-slate-700 rounded-xl p-4 text-[14px] text-slate-200 focus:outline-none focus:border-[#2F80ED] focus:bg-slate-900 transition-all resize-none"
                   />
                 </div>
               </div>
             </div>
 
-            <div className="h-[1px] w-full bg-slate-100"></div>
+            <div className="h-[1px] w-full bg-slate-800"></div>
 
             {/* Consultation & Contact */}
             <div>
-              <h4 className="text-[15px] font-bold text-slate-800 mb-4 flex items-center gap-2">
+              <h4 className="text-[15px] font-bold text-slate-200 mb-4 flex items-center gap-2">
                 <Phone size={18} className="text-[#2F80ED]" /> Contact & Fees
               </h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
-                  <label className="block text-[13px] font-semibold text-slate-600 mb-1.5 ml-1">Consultation Fee (BDT)</label>
+                  <label className="block text-[13px] font-semibold text-slate-500 mb-1.5 ml-1">Consultation Fee (BDT)</label>
                   <input 
                     type="text" 
                     value={formData.consultationFee}
                     onChange={(e) => setFormData({...formData, consultationFee: e.target.value})}
-                    className="w-full h-[48px] bg-slate-50 border border-slate-200 rounded-xl px-4 text-[14px] text-slate-800 focus:outline-none focus:border-[#2F80ED] focus:bg-white transition-all"
+                    className="w-full h-[48px] bg-slate-950 border border-slate-700 rounded-xl px-4 text-[14px] text-slate-200 focus:outline-none focus:border-[#2F80ED] focus:bg-slate-900 transition-all"
                   />
                 </div>
                 <div>
-                  <label className="block text-[13px] font-semibold text-slate-600 mb-1.5 ml-1 flex items-center gap-1.5">
+                  <label className="block text-[13px] font-semibold text-slate-500 mb-1.5 ml-1 flex items-center gap-1.5">
                       Public Phone Number
                   </label>
                   <input 
                     type="text" 
                     value={formData.phone}
                     onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                    className="w-full h-[48px] bg-slate-50 border border-slate-200 rounded-xl px-4 text-[14px] text-slate-800 focus:outline-none focus:border-[#2F80ED] focus:bg-white transition-all"
+                    className="w-full h-[48px] bg-slate-950 border border-slate-700 rounded-xl px-4 text-[14px] text-slate-200 focus:outline-none focus:border-[#2F80ED] focus:bg-slate-900 transition-all"
                   />
                 </div>
                 <div>
-                  <label className="block text-[13px] font-semibold text-slate-600 mb-1.5 ml-1 flex items-center gap-1.5">
+                  <label className="block text-[13px] font-semibold text-slate-500 mb-1.5 ml-1 flex items-center gap-1.5">
                     <Globe size={14} className="text-[#1877F2]" /> Facebook Profile
                   </label>
                   <input 
                     type="text" 
                     value={formData.facebook}
                     onChange={(e) => setFormData({...formData, facebook: e.target.value})}
-                    className="w-full h-[48px] bg-slate-50 border border-slate-200 rounded-xl px-4 text-[14px] text-slate-800 focus:outline-none focus:border-[#2F80ED] focus:bg-white transition-all"
+                    className="w-full h-[48px] bg-slate-950 border border-slate-700 rounded-xl px-4 text-[14px] text-slate-200 focus:outline-none focus:border-[#2F80ED] focus:bg-slate-900 transition-all"
                   />
                 </div>
                 <div>
-                  <label className="block text-[13px] font-semibold text-slate-600 mb-1.5 ml-1 flex items-center gap-1.5">
+                  <label className="block text-[13px] font-semibold text-slate-500 mb-1.5 ml-1 flex items-center gap-1.5">
                     <Link size={14} className="text-[#0A66C2]" /> LinkedIn Profile
                   </label>
                   <input 
                     type="text" 
                     value={formData.linkedin}
                     onChange={(e) => setFormData({...formData, linkedin: e.target.value})}
-                    className="w-full h-[48px] bg-slate-50 border border-slate-200 rounded-xl px-4 text-[14px] text-slate-800 focus:outline-none focus:border-[#2F80ED] focus:bg-white transition-all"
+                    className="w-full h-[48px] bg-slate-950 border border-slate-700 rounded-xl px-4 text-[14px] text-slate-200 focus:outline-none focus:border-[#2F80ED] focus:bg-slate-900 transition-all"
                   />
                 </div>
               </div>
@@ -316,7 +316,7 @@ export default function ProfileSettingsPage() {
               <button 
                 onClick={handleSaveProfile}
                 disabled={isSaving}
-                className="w-full sm:w-auto px-8 py-3 bg-slate-800 hover:bg-slate-700 text-white text-[14px] font-bold rounded-xl shadow-lg shadow-slate-800/20 transition-all flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-8 py-3 bg-slate-800 hover:bg-slate-700 text-white text-[14px] font-bold rounded-xl shadow-none shadow-slate-800/20 transition-all flex items-center justify-center gap-2"
               >
                 {isSaving ? (
                   <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
@@ -331,9 +331,9 @@ export default function ProfileSettingsPage() {
         </div>
 
         {/* Identity Document Verification (Full Width Panel) */}
-        <div className="bg-white rounded-[24px] shadow-sm border border-slate-200 overflow-hidden w-full xl:w-1/2">
-          <div className="p-6 border-b border-slate-100 bg-[#8B5CF6]/5">
-            <h3 className="text-[16px] font-bold text-slate-800 flex items-center gap-2">
+        <div className="bg-slate-900 rounded-[24px] shadow-none border border-slate-700 overflow-hidden w-full xl:w-1/2">
+          <div className="p-6 border-b border-slate-800 bg-[#8B5CF6]/5">
+            <h3 className="text-[16px] font-bold text-slate-200 flex items-center gap-2">
               <IdCard size={20} className="text-[#8B5CF6]" /> Identity Verification
             </h3>
             <p className="text-[13px] text-slate-500 mt-1 leading-snug">Verify your identity to increase trust and receive the verified profile badge.</p>
@@ -361,15 +361,15 @@ export default function ProfileSettingsPage() {
 
             <div className="space-y-4">
               <div>
-                <label className="block text-[13px] font-semibold text-slate-600 mb-1.5 flex justify-between items-center">
+                <label className="block text-[13px] font-semibold text-slate-500 mb-1.5 flex justify-between items-center">
                   <span>Document Type</span>
-                  {idStatus === "pending" && <Lock size={12} className="text-slate-400" />}
+                  {idStatus === "pending" && <Lock size={12} className="text-slate-500" />}
                 </label>
                 <select 
                   value={idType}
                   onChange={(e) => setIdType(e.target.value)}
                   disabled={idStatus === "pending"}
-                  className="w-full h-[48px] bg-slate-50 border border-slate-200 rounded-xl px-4 text-[14px] text-slate-800 focus:outline-none focus:border-[#8B5CF6] disabled:opacity-60 disabled:cursor-not-allowed transition-all"
+                  className="w-full h-[48px] bg-slate-950 border border-slate-700 rounded-xl px-4 text-[14px] text-slate-200 focus:outline-none focus:border-[#8B5CF6] disabled:opacity-60 disabled:cursor-not-allowed transition-all"
                 >
                   <option value="Government ID">Government ID (NID)</option>
                   <option value="Passport">Passport</option>
@@ -378,9 +378,9 @@ export default function ProfileSettingsPage() {
               </div>
 
               <div>
-                <label className="block text-[13px] font-semibold text-slate-600 mb-1.5 flex justify-between items-center">
+                <label className="block text-[13px] font-semibold text-slate-500 mb-1.5 flex justify-between items-center">
                   <span>Upload {idType} (PDF/JPG)</span>
-                  {idStatus === "pending" && <Lock size={12} className="text-slate-400" />}
+                  {idStatus === "pending" && <Lock size={12} className="text-slate-500" />}
                 </label>
                 
                 <input 
@@ -396,20 +396,20 @@ export default function ProfileSettingsPage() {
                   onClick={() => idStatus !== "pending" && idInputRef.current?.click()}
                   className={`w-full border-2 border-dashed rounded-[16px] p-6 flex flex-col items-center justify-center transition-all ${
                     idStatus === "pending" 
-                      ? "border-slate-200 bg-slate-50 opacity-60 cursor-not-allowed" 
-                      : "border-slate-300 bg-slate-50 hover:bg-[#8B5CF6]/5 hover:border-[#8B5CF6] cursor-pointer"
+                      ? "border-slate-700 bg-slate-950 opacity-60 cursor-not-allowed" 
+                      : "border-slate-600 bg-slate-950 hover:bg-[#8B5CF6]/5 hover:border-[#8B5CF6] cursor-pointer"
                   }`}
                 >
                   {idFile ? (
                     <div className="flex flex-col items-center">
                       <FileText size={32} className="text-[#22C55E] mb-2" />
-                      <span className="text-[13px] font-bold text-slate-700 text-center">{idFile.name}</span>
+                      <span className="text-[13px] font-bold text-slate-300 text-center">{idFile.name}</span>
                       <span className="text-[11px] text-slate-500 mt-1">Ready to upload</span>
                     </div>
                   ) : (
                     <div className="flex flex-col items-center">
-                      <UploadCloud size={32} className="text-slate-400 mb-3" />
-                      <span className="text-[14px] font-bold text-slate-700">Click to upload document</span>
+                      <UploadCloud size={32} className="text-slate-500 mb-3" />
+                      <span className="text-[14px] font-bold text-slate-300">Click to upload document</span>
                       <span className="text-[12px] text-slate-500 mt-1">Clear copy required (Max 5MB)</span>
                     </div>
                   )}
@@ -420,7 +420,7 @@ export default function ProfileSettingsPage() {
             {idStatus !== "pending" && (
               <button 
                 onClick={handleSubmitID}
-                className="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-3.5 rounded-xl shadow-lg transition-all active:scale-[0.98] flex items-center justify-center gap-2"
+                className="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-3.5 rounded-xl shadow-none transition-all active:scale-[0.98] flex items-center justify-center gap-2"
               >
                 <IdCard size={18} />
                 Submit Identity Document
@@ -430,7 +430,7 @@ export default function ProfileSettingsPage() {
             {idStatus === "pending" && (
               <button 
                 disabled
-                className="w-full bg-slate-100 text-slate-400 font-bold py-3.5 rounded-xl border border-slate-200 cursor-not-allowed flex items-center justify-center gap-2"
+                className="w-full bg-slate-800 text-slate-500 font-bold py-3.5 rounded-xl border border-slate-700 cursor-not-allowed flex items-center justify-center gap-2"
               >
                 <Lock size={16} /> Locked During Review
               </button>

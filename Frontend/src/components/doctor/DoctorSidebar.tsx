@@ -50,12 +50,6 @@ const navCategories = [
       { label: "Medicine Inventory", href: "/doctor/dashboard/medicines", icon: Pill },
       { label: "Messages", href: "/doctor/dashboard/messages", icon: MessageSquare },
     ]
-  },
-  {
-    title: "System",
-    items: [
-      { label: "Settings", href: "/doctor/settings", icon: Settings },
-    ]
   }
 ];
 
@@ -89,7 +83,7 @@ export function DoctorSidebar({ isOpen, onClose }: DoctorSidebarProps) {
       <aside
         className={`
           fixed lg:relative inset-y-0 left-0 z-50
-          ${isCollapsed ? "lg:w-[80px]" : "lg:w-[280px]"} w-[280px] bg-slate-50 border-r border-slate-200
+          ${isCollapsed ? "lg:w-[80px]" : "lg:w-[240px]"} w-[240px] bg-transparent border-none
           flex flex-col h-full
           transform transition-all duration-300 ease-in-out
           ${isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
@@ -98,35 +92,56 @@ export function DoctorSidebar({ isOpen, onClose }: DoctorSidebarProps) {
         {/* Collapse Toggle Button (Desktop Only) */}
         <button
           onClick={() => setIsCollapsed(!isCollapsed)}
-          className="hidden lg:flex absolute top-6 -right-3.5 w-7 h-7 bg-white border border-slate-200 rounded-full items-center justify-center text-slate-400 hover:text-sky-600 hover:border-sky-200 shadow-sm z-50 transition-colors"
+          className="hidden lg:flex absolute top-6 -right-3.5 w-7 h-7 bg-slate-900 border border-slate-800 rounded-full items-center justify-center text-slate-500 hover:text-sky-400 hover:border-sky-200 shadow-none z-50 transition-colors"
         >
           {isCollapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
         </button>
         
         {/* Logo Section */}
-        <div className={`h-16 px-4 flex items-center ${isCollapsed ? 'lg:justify-center justify-between' : 'justify-between'} border-b border-slate-200 shrink-0 bg-white`}>
+        <div className={`h-16 px-4 flex items-center ${isCollapsed ? 'lg:justify-center justify-between' : 'justify-between'} border-none shrink-0 bg-transparent`}>
           <Link href="/doctor/dashboard" className={`flex items-center gap-2.5 ${isCollapsed ? 'lg:justify-center' : ''}`}>
-            <Image
-              src="/images/Oxpecker_Full.png"  
-              alt="Oxpecker AI"  
-              width={140}
-              height={36}
-              className={`object-contain ${isCollapsed ? 'hidden lg:block' : 'block'}`}
-            />
+            {isCollapsed ? (
+              <Image
+                src="/images/Oxpecker_icon.png"  
+                alt="Oxpecker AI"  
+                width={36}
+                height={36}
+                className="object-contain hidden lg:block transition-all duration-300"
+              />
+            ) : (
+              <Image
+                src="/images/Oxpecker_full_size.png"  
+                alt="Oxpecker AI"  
+                width={140}
+                height={36}
+                className="object-contain block transition-all duration-300"
+              />
+            )}
+            
+            {/* Mobile logo always full */}
+            {isCollapsed && (
+              <Image
+                src="/images/Oxpecker_full_size.png"  
+                alt="Oxpecker AI"  
+                width={140}
+                height={36}
+                className="object-contain lg:hidden block transition-all duration-300"
+              />
+            )}
           </Link>
           <button
             onClick={onClose}
-            className="lg:hidden p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"  
+            className="lg:hidden p-1.5 text-slate-500 hover:text-slate-300 hover:bg-slate-800 rounded-lg transition-colors"  
           >
             <X size={18} />
           </button>
         </div>
         
         {/* Navigation */}
-        <nav className="flex-1 overflow-y-auto px-4 py-6 space-y-6 scrollbar-hide bg-slate-50">
+        <nav className="flex-1 overflow-y-auto px-4 py-6 space-y-6 scrollbar-hide bg-transparent">
           {navCategories.map((category, idx) => (
             <div key={idx} className="space-y-1">
-              <div className={`px-2 pb-2 text-xs font-bold text-slate-400 uppercase tracking-wider ${isCollapsed ? 'lg:hidden' : 'block'}`}>
+              <div className={`px-2 text-xs font-bold text-slate-500 uppercase tracking-wider overflow-hidden whitespace-nowrap transition-all duration-300 ${isCollapsed ? 'lg:opacity-0 lg:h-0' : 'opacity-100 pb-2 h-auto'}`}>
                 {category.title}
               </div>
               {category.items.map((item) => {
@@ -137,23 +152,23 @@ export function DoctorSidebar({ isOpen, onClose }: DoctorSidebarProps) {
                     href={item.href}
                     onClick={onClose}
                     className={`
-                      relative flex items-center gap-3 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 group
-                      ${isCollapsed ? 'lg:justify-center lg:px-0 px-3' : 'px-3'}
-                      ${active ? "text-sky-700" : "text-slate-600 hover:text-slate-900"}
+                      relative flex items-center py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 group
+                      ${isCollapsed ? 'lg:justify-center lg:px-0 lg:gap-0 px-3 gap-3' : 'px-3 gap-3'}
+                      ${active ? "text-sky-400" : "text-slate-500 hover:text-slate-200"}
                     `}
                     title={isCollapsed ? item.label : undefined}
                   >
                     {active && (
                       <motion.div 
                         layoutId="doctor-active-nav"
-                        className="absolute inset-0 bg-white rounded-xl shadow-sm border border-slate-200/60"
+                        className="absolute inset-0 bg-slate-900 rounded-xl shadow-none border border-slate-800/60"
                         initial={false}
                         transition={{ type: "spring", stiffness: 350, damping: 30 }}
                       />
                     )}
-                    <item.icon size={18} strokeWidth={active ? 2.5 : 2} className={`shrink-0 relative z-10 ${active ? "text-sky-600" : "text-slate-400 group-hover:text-slate-600"}`} />
-                    <span className={`flex-1 relative z-10 ${isCollapsed ? 'lg:hidden' : 'block'}`}>{item.label}</span>
-                    {active && <ChevronRight size={14} className={`text-sky-400 relative z-10 ${isCollapsed ? 'lg:hidden' : 'block'}`} />}
+                    <item.icon size={18} strokeWidth={active ? 2.5 : 2} className={`shrink-0 relative z-10 ${active ? "text-sky-600" : "text-slate-500 group-hover:text-slate-300"}`} />
+                    <span className={`relative z-10 overflow-hidden whitespace-nowrap transition-all duration-300 ${isCollapsed ? 'lg:w-0 lg:opacity-0' : 'flex-1 opacity-100'}`}>{item.label}</span>
+                    {active && <ChevronRight size={14} className={`text-sky-400 relative z-10 transition-all duration-300 ${isCollapsed ? 'lg:w-0 lg:opacity-0 lg:scale-0' : 'w-auto opacity-100 scale-100'}`} />}
                   </Link>
                 );
               })}
@@ -161,38 +176,32 @@ export function DoctorSidebar({ isOpen, onClose }: DoctorSidebarProps) {
           ))}
         </nav>
         
-        {/* Bottom Section */}
-        <div className="px-4 pb-4 space-y-2 shrink-0 border-t border-slate-200 pt-4 bg-white">
-          {/* Doctor Access Badge */}
-          <div className={`flex items-center justify-center gap-2 px-3 py-2 bg-slate-50 border border-slate-100 rounded-lg ${isCollapsed ? 'lg:hidden' : 'block'}`}>
-            <Lock size={13} className="text-slate-400" />
-            <span className="text-[11px] text-slate-500 font-bold uppercase tracking-wider">Doctor Access Only</span>
-          </div>
-          
-          {/* Doctor Profile */}
-          <div className={`flex items-center gap-3 bg-white rounded-xl border border-slate-100 shadow-sm ${isCollapsed ? 'lg:p-2 lg:justify-center p-3' : 'p-3'}`}>
-            <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold text-sm shrink-0 border border-emerald-200">
-              {user?.name?.charAt(0) || "D"}
-            </div>
-            <div className={`flex-1 min-w-0 ${isCollapsed ? 'lg:hidden' : 'block'}`}>
-              <p className="text-sm font-extrabold text-slate-900 truncate">{user?.name || "Dr. User"}</p>
-              <div className="flex items-center gap-1 mt-0.5">
-                <ShieldCheck size={12} className="text-emerald-500" />
-                <span className="text-xs text-slate-500 font-semibold">Verified</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Logout */}
-          <button
-            onClick={logout}
-            className={`flex items-center gap-3 py-2.5 mt-2 rounded-xl text-sm font-bold text-slate-500 hover:bg-rose-50 hover:text-rose-600 transition-colors w-full
-            ${isCollapsed ? 'lg:justify-center lg:px-0 px-3' : 'px-3'}
+        {/* Bottom Section: Fixed Settings & Logout */}
+        <div className="px-3 pb-4 space-y-1 shrink-0 border-transparent pt-4 bg-transparent">
+          <Link
+            href="/doctor/settings"
+            onClick={onClose}
+            title={isCollapsed ? "Settings" : undefined}
+            className={`
+              relative flex items-center py-3 rounded-xl border border-transparent transition-all duration-200 group
+              ${isActive("/doctor/settings") ? "bg-slate-900 border-sky-500/30" : "hover:bg-slate-900 hover:border-slate-800/60"}
+              ${isCollapsed ? 'lg:justify-center lg:px-0 lg:gap-0 px-3 gap-3' : 'px-3 gap-3'}
             `}
-            title={isCollapsed ? "Logout" : undefined}
           >
-            <LogOut size={18} strokeWidth={2} className="shrink-0" />
-            <span className={`${isCollapsed ? 'lg:hidden' : 'block'}`}>Sign Out</span>
+            <Settings size={20} strokeWidth={isActive("/doctor/settings") ? 2.5 : 2} className={`shrink-0 ${isActive("/doctor/settings") ? "text-sky-400" : "text-slate-400 group-hover:text-slate-200"}`} />
+            <span className={`font-bold overflow-hidden whitespace-nowrap transition-all duration-300 ${isActive("/doctor/settings") ? "text-slate-100" : "text-slate-400 group-hover:text-slate-200"} ${isCollapsed ? 'lg:w-0 lg:opacity-0' : 'flex-1 opacity-100'}`}>Settings</span>
+          </Link>
+          
+          <button
+            onClick={() => { logout(); onClose(); }}
+            title={isCollapsed ? "Logout" : undefined}
+            className={`
+              w-full relative flex items-center py-3 rounded-xl border border-transparent transition-all duration-200 group hover:bg-rose-500/10 hover:border-rose-500/20
+              ${isCollapsed ? 'lg:justify-center lg:px-0 lg:gap-0 px-3 gap-3' : 'px-3 gap-3'}
+            `}
+          >
+            <LogOut size={20} className="shrink-0 text-slate-500 group-hover:text-rose-400" />
+            <span className={`font-bold overflow-hidden whitespace-nowrap text-slate-400 group-hover:text-rose-400 transition-all duration-300 ${isCollapsed ? 'lg:w-0 lg:opacity-0' : 'flex-1 text-left opacity-100'}`}>Logout</span>
           </button>
         </div>
       </aside>

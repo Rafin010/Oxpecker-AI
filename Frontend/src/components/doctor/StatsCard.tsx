@@ -17,7 +17,7 @@ export function StatsCard({ label, value, change, icon: Icon, accentColor, iconB
 
   return (
     <div
-      className="doctor-stat-card bg-white rounded-xl border border-slate-200/80 p-5 cursor-default"
+      className="doctor-stat-card bg-slate-900 rounded-xl border border-slate-700/80 p-5 cursor-default"
       style={{ "--stat-accent": accentColor } as React.CSSProperties}
     >
       <div className="flex items-start justify-between mb-4">
@@ -40,7 +40,7 @@ export function StatsCard({ label, value, change, icon: Icon, accentColor, iconB
       </div>
 
       <div>
-        <p className="text-2xl font-bold text-slate-800 tracking-tight">
+        <p className="text-2xl font-bold text-slate-200 tracking-tight">
           {typeof value === "number" ? <StatsCounter value={value} /> : value}
         </p>
         <p className="text-[13px] text-slate-500 mt-1">{label}</p>

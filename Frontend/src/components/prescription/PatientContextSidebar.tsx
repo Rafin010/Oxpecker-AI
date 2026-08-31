@@ -39,38 +39,40 @@ export function PatientContextSidebar({ isDesktop = false }: { isDesktop?: boole
   return (
     <div className={`flex gap-4 w-full mb-2 ${isDesktop ? 'flex-col' : 'flex-col lg:flex-row'}`}>
       {/* Patient Profile Card */}
-      <div className={`bg-white rounded-[12px] shadow-sm border border-slate-200 p-4 shrink-0 ${isDesktop ? 'w-full' : 'w-full lg:w-[350px]'}`}>
+      <div className={`bg-slate-900 rounded-[12px] shadow-sm border border-slate-700 p-4 shrink-0 ${isDesktop ? 'w-full' : 'w-full lg:w-[350px]'}`}>
         <div className="flex items-center gap-3 mb-3">
-          <div className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center border border-slate-200 overflow-hidden shrink-0">
-            <User size={20} className="text-slate-400" />
+          <div className="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center border border-slate-700 overflow-hidden shrink-0">
+            <User size={20} className="text-slate-500" />
           </div>
           <div className="flex-1 min-w-0">
-            <h3 className="font-bold text-slate-800 text-[15px] truncate">{typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('patientName') || "Rahim Uddin" : "Rahim Uddin"}</h3>
+            <h3 className="font-bold text-slate-100 text-[15px] truncate">{typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('patientName') || "Rahim Uddin" : "Rahim Uddin"}</h3>
             <p className="text-[12px] text-slate-500 font-medium">{patientId || "No ID"}</p>
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-2 mb-3">
-          <div className="bg-slate-50 rounded-lg p-2 border border-slate-100 flex flex-col justify-center">
-            <p className="text-[9px] text-slate-500 uppercase font-semibold mb-0.5">Blood</p>
-            <p className="font-bold text-slate-800 text-[12px]">O+ (Pos)</p>
+        <div className="grid grid-cols-2 gap-2.5 mb-4">
+          <div className="bg-slate-900 border border-slate-800 rounded-xl p-2.5 flex flex-col justify-center relative overflow-hidden group hover:border-red-500/30 transition-colors shadow-sm">
+            <div className="absolute left-0 top-0 bottom-0 w-1 bg-red-500/50 group-hover:bg-red-500 transition-colors"></div>
+            <p className="text-[9px] text-slate-400 uppercase font-bold tracking-wider mb-0.5 ml-1">Blood</p>
+            <p className="font-bold text-slate-100 text-[13px] ml-1">O+ (Pos)</p>
           </div>
-          <div className="bg-slate-50 rounded-lg p-2 border border-slate-100 flex flex-col justify-center">
-            <p className="text-[9px] text-slate-500 uppercase font-semibold mb-0.5">WT/BMI</p>
-            <p className="font-bold text-slate-800 text-[12px]">76kg/24.2</p>
+          <div className="bg-slate-900 border border-slate-800 rounded-xl p-2.5 flex flex-col justify-center relative overflow-hidden group hover:border-emerald-500/30 transition-colors shadow-sm">
+            <div className="absolute left-0 top-0 bottom-0 w-1 bg-emerald-500/50 group-hover:bg-emerald-500 transition-colors"></div>
+            <p className="text-[9px] text-slate-400 uppercase font-bold tracking-wider mb-0.5 ml-1">WT/BMI</p>
+            <p className="font-bold text-slate-100 text-[13px] ml-1">76kg/24.2</p>
           </div>
         </div>
 
         {/* Critical Info */}
         <div className={`grid ${isDesktop ? 'grid-cols-1' : 'grid-cols-2'} gap-2`}>
-          <div className="flex items-start gap-1.5 bg-red-50 text-red-700 p-2 rounded-lg border border-red-100">
+          <div className="flex items-start gap-1.5 bg-red-900/30 text-red-400 p-2 rounded-lg border border-red-900/50">
             <AlertTriangle size={14} className="mt-0.5 shrink-0" />
             <div>
               <p className="text-[10px] font-bold uppercase tracking-wider mb-0.5">Allergies</p>
               <p className="text-[11px] font-medium leading-tight line-clamp-1">Penicillin, Peanuts</p>
             </div>
           </div>
-          <div className="flex items-start gap-1.5 bg-blue-50 text-blue-700 p-2 rounded-lg border border-blue-100">
+          <div className="flex items-start gap-1.5 bg-sky-900/30 text-sky-400 p-2 rounded-lg border border-sky-900/50">
             <Activity size={14} className="mt-0.5 shrink-0" />
             <div>
               <p className="text-[10px] font-bold uppercase tracking-wider mb-0.5">Chronic</p>
@@ -81,29 +83,29 @@ export function PatientContextSidebar({ isDesktop = false }: { isDesktop?: boole
       </div>
 
       {/* Medical Timeline */}
-      <div className="bg-white rounded-[12px] shadow-sm border border-slate-200 p-4 flex-1 flex flex-col">
-        <h3 className="font-bold text-slate-800 text-[13px] mb-4 flex items-center gap-1.5">
-          <Clock size={14} className="text-[#2F80ED]" />
+      <div className="bg-slate-900 rounded-[12px] shadow-sm border border-slate-700 p-4 flex-1 flex flex-col">
+        <h3 className="font-bold text-slate-100 text-[13px] mb-4 flex items-center gap-1.5">
+          <Clock size={14} className="text-sky-400" />
           Medical Timeline & Reports
         </h3>
         
         <div className={`flex-1 overflow-x-auto custom-scrollbar ${isDesktop ? 'pb-2' : 'pb-1'}`}>
-          <div className={`flex items-start ${isDesktop ? 'flex-col gap-4 pl-4 border-l-2 border-slate-100 ml-2' : 'gap-4 min-w-max'}`}>
+          <div className={`flex items-start ${isDesktop ? 'flex-col gap-4 pl-4 border-l-2 border-slate-800 ml-2' : 'gap-4 min-w-max'}`}>
             
             {/* Timeline Item 1: Current Appt */}
             <div className={`flex relative ${isDesktop ? 'flex-col w-full' : 'flex-col min-w-[140px]'}`}>
               {isDesktop ? (
-                <div className="absolute -left-[26px] top-0.5 w-3 h-3 rounded-full bg-[#6DDA6E] border-[3px] border-white shadow-sm" />
+                <div className="absolute -left-[26px] top-0 w-3 h-3 rounded-full bg-emerald-500 border-[3px] border-slate-950 shadow-sm" />
               ) : (
                 <>
-                  <div className="absolute top-1 -left-2 w-[calc(100%+16px)] h-0.5 bg-slate-100 -z-10" />
-                  <div className="w-3 h-3 rounded-full bg-[#6DDA6E] border-[2px] border-white shadow-sm mb-2" />
+                  <div className="absolute top-1 -left-2 w-[calc(100%+16px)] h-0.5 bg-slate-800 -z-10" />
+                  <div className="w-3 h-3 rounded-full bg-emerald-500 border-[2px] border-slate-950 shadow-sm mb-2" />
                 </>
               )}
-              <p className="text-[10px] font-bold text-[#6DDA6E] mb-1">Current Appt</p>
-              <div className="bg-slate-50 border border-slate-200 rounded-lg p-2 hover:border-[#6DDA6E]/50 transition-colors cursor-pointer group">
-                <p className="text-[11px] font-bold text-slate-800 mb-0.5 group-hover:text-[#6DDA6E] transition-colors leading-tight">Prescribing...</p>
-                <p className="text-[10px] text-slate-500">Dr. Patient</p>
+              <p className="text-[10px] font-bold text-emerald-400 mb-1">Current Appt</p>
+              <div className="bg-slate-800/40 border border-slate-700/60 rounded-xl p-2.5 hover:bg-slate-800 hover:border-[#6DDA6E]/60 transition-all cursor-pointer shadow-sm group">
+                <p className="text-[12px] font-bold text-slate-200 mb-0.5 group-hover:text-emerald-400 transition-colors leading-tight">Prescribing...</p>
+                <p className="text-[11px] text-slate-500">Dr. Patient</p>
               </div>
             </div>
 
@@ -111,14 +113,14 @@ export function PatientContextSidebar({ isDesktop = false }: { isDesktop?: boole
             {currentTestReports.map((report, idx) => (
               <div key={report.id} className={`flex relative ${isDesktop ? 'flex-col w-full' : 'flex-col min-w-[140px]'}`}>
                 {isDesktop ? (
-                  <div className="absolute -left-[26px] top-0.5 w-3 h-3 rounded-full bg-[#2F80ED] border-[3px] border-white shadow-sm" />
+                  <div className="absolute -left-[26px] top-0 w-3 h-3 rounded-full bg-sky-600 border-[3px] border-slate-950 shadow-sm" />
                 ) : (
                   <>
-                    <div className="absolute top-1 -left-2 w-[calc(100%+16px)] h-0.5 bg-slate-100 -z-10" />
-                    <div className="w-3 h-3 rounded-full bg-[#2F80ED] border-[2px] border-white shadow-sm mb-2" />
+                    <div className="absolute top-1 -left-2 w-[calc(100%+16px)] h-0.5 bg-slate-800 -z-10" />
+                    <div className="w-3 h-3 rounded-full bg-sky-600 border-[2px] border-slate-950 shadow-sm mb-2" />
                   </>
                 )}
-                <p className="text-[10px] font-bold text-[#2F80ED] mb-1">{report.date}</p>
+                <p className="text-[10px] font-bold text-sky-400 mb-1">{report.date}</p>
                 <div 
                   onClick={() => {
                     toast.success("Opening Past History");
@@ -131,16 +133,16 @@ export function PatientContextSidebar({ isDesktop = false }: { isDesktop?: boole
                       isReport: true
                     });
                   }}
-                  className="bg-slate-50 border border-slate-200 rounded-lg p-2 hover:border-[#2F80ED]/50 transition-colors cursor-pointer group"
+                  className="bg-slate-800/40 border border-slate-700/60 rounded-xl p-2.5 hover:bg-slate-800 hover:border-sky-500/60 transition-all cursor-pointer shadow-sm group"
                 >
-                  <div className="flex items-center gap-1.5 mb-0.5 justify-between">
+                  <div className="flex items-center gap-1.5 mb-1 justify-between">
                     <div className="flex items-center gap-1.5">
-                      <FileText size={12} className="text-slate-400 group-hover:text-[#2F80ED]" />
-                      <p className="text-[11px] font-bold text-slate-800 group-hover:text-[#2F80ED] transition-colors leading-tight line-clamp-1">{report.name}</p>
+                      <FileText size={14} className="text-slate-500 group-hover:text-sky-400" />
+                      <p className="text-[12px] font-bold text-slate-200 group-hover:text-sky-400 transition-colors leading-tight line-clamp-1">{report.name}</p>
                     </div>
-                    <Eye size={12} className="text-[#2F80ED] opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <Eye size={14} className="text-sky-400 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </div>
-                  <p className="text-[10px] text-slate-500 line-clamp-1">{report.summary}</p>
+                  <p className="text-[11px] text-slate-500 line-clamp-1">{report.summary}</p>
                 </div>
               </div>
             ))}
@@ -148,11 +150,11 @@ export function PatientContextSidebar({ isDesktop = false }: { isDesktop?: boole
             {/* Static Old Timeline Item */}
             <div className={`flex relative ${isDesktop ? 'flex-col w-full' : 'flex-col min-w-[140px]'}`}>
               {isDesktop ? (
-                <div className="absolute -left-[26px] top-0.5 w-3 h-3 rounded-full bg-slate-300 border-[3px] border-white shadow-sm" />
+                <div className="absolute -left-[26px] top-0 w-3 h-3 rounded-full bg-slate-300 border-[3px] border-slate-950 shadow-sm" />
               ) : (
                 <>
-                  <div className="absolute top-1 -left-2 w-full h-0.5 bg-slate-100 -z-10" />
-                  <div className="w-3 h-3 rounded-full bg-slate-300 border-[2px] border-white shadow-sm mb-2" />
+                  <div className="absolute top-1 -left-2 w-full h-0.5 bg-slate-800 -z-10" />
+                  <div className="w-3 h-3 rounded-full bg-slate-300 border-[2px] border-slate-950 shadow-sm mb-2" />
                 </>
               )}
               <p className="text-[10px] font-bold text-slate-500 mb-1">05 Aug 2025</p>
@@ -168,16 +170,16 @@ export function PatientContextSidebar({ isDesktop = false }: { isDesktop?: boole
                     isReport: false
                   });
                 }}
-                className="bg-slate-50 border border-slate-200 rounded-lg p-2 hover:border-slate-300 transition-colors cursor-pointer group"
+                className="bg-slate-800/40 border border-slate-700/60 rounded-xl p-2.5 hover:bg-slate-800 hover:border-slate-500/60 transition-all cursor-pointer shadow-sm group"
               >
-                <div className="flex items-center gap-1.5 mb-0.5 justify-between">
+                <div className="flex items-center gap-1.5 mb-1 justify-between">
                   <div className="flex items-center gap-1.5">
-                    <Pill size={12} className="text-slate-400" />
-                    <p className="text-[11px] font-bold text-slate-800 leading-tight">Previous Rx</p>
+                    <Pill size={14} className="text-slate-500" />
+                    <p className="text-[12px] font-bold text-slate-200 leading-tight">Previous Rx</p>
                   </div>
-                  <Eye size={12} className="text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <Eye size={14} className="text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
-                <p className="text-[10px] text-slate-500 line-clamp-1">Dr. Aminul Islam</p>
+                <p className="text-[11px] text-slate-500 line-clamp-1">Dr. Aminul Islam</p>
               </div>
             </div>
 
@@ -194,44 +196,44 @@ export function PatientContextSidebar({ isDesktop = false }: { isDesktop?: boole
               initial={{ opacity: 0, scale: 0.95, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 10 }}
-              className="bg-white w-[95vw] md:w-[80vw] lg:w-[1200px] h-[95vh] md:h-[90vh] rounded-2xl shadow-2xl overflow-hidden flex flex-col"
+              className="bg-slate-900 w-[95vw] md:w-[80vw] lg:w-[1200px] h-[95vh] md:h-[90vh] rounded-2xl shadow-2xl overflow-hidden flex flex-col"
             >
-              <div className="bg-slate-50 border-b border-slate-200 px-6 py-4 flex items-center justify-between shrink-0">
+              <div className="bg-slate-950 border-b border-slate-700 px-6 py-4 flex items-center justify-between shrink-0">
                 <div>
-                  <h2 className="text-lg font-bold text-slate-800">{selectedHistory.type}</h2>
+                  <h2 className="text-lg font-bold text-slate-100">{selectedHistory.type}</h2>
                   <p className="text-sm font-medium text-slate-500">{selectedHistory.date}</p>
                 </div>
                 <button 
                   onClick={closeHistory}
-                  className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-200 rounded-xl transition-colors"
+                  className="p-2 text-slate-500 hover:text-slate-600 hover:bg-slate-200 rounded-xl transition-colors"
                 >
                   <X size={20} />
                 </button>
               </div>
               <div className="p-6 overflow-y-auto custom-scrollbar">
-                <div className="grid grid-cols-2 gap-4 mb-4 border-b border-slate-100 pb-4">
+                <div className="grid grid-cols-2 gap-4 mb-4 border-b border-slate-800 pb-4">
                   <div>
                     <h4 className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Doctor / Source</h4>
-                    <p className="font-semibold text-slate-800 text-[14px]">{selectedHistory.doctor}</p>
+                    <p className="font-semibold text-slate-100 text-[14px]">{selectedHistory.doctor}</p>
                   </div>
                   <div>
                     <h4 className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Status / Diagnosis</h4>
-                    <p className="font-semibold text-slate-800 text-[14px]">{selectedHistory.diagnosis}</p>
+                    <p className="font-semibold text-slate-100 text-[14px]">{selectedHistory.diagnosis}</p>
                   </div>
                 </div>
                 <div className="mb-6">
                   <h4 className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Details / Report Content</h4>
-                  <p className="text-[14px] text-slate-700 leading-relaxed bg-slate-50 p-4 rounded-xl border border-slate-100">{selectedHistory.details}</p>
+                  <p className="text-[14px] text-slate-200 leading-relaxed bg-slate-950 p-4 rounded-xl border border-slate-800">{selectedHistory.details}</p>
                 </div>
 
                 {/* AI Summarization Section */}
                 {selectedHistory.isReport && (
-                  <div className="   rounded-xl border border-blue-100 p-5 mt-4">
+                  <div className="   rounded-xl border border-sky-900/50 p-5 mt-4">
                     <div className="flex items-center gap-3 mb-3">
-                      <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
-                        <Bot size={16} />
+                      <div className="w-8 h-8 rounded-full bg-[#0a0a0a] border border-slate-700 overflow-hidden flex items-center justify-center shrink-0">
+                        <img src="/dr-pekr.jpg" alt="Dr. pekr" className="w-full h-full object-contain p-0 scale-90" />
                       </div>
-                      <h4 className="font-bold text-slate-800">AI Report Analysis</h4>
+                      <h4 className="font-bold text-slate-100">Dr. pekr Report Analysis</h4>
                     </div>
                     
                     {!aiSummary && !aiLoading && (
@@ -239,13 +241,13 @@ export function PatientContextSidebar({ isDesktop = false }: { isDesktop?: boole
                     )}
                     
                     {aiLoading && (
-                      <div className="flex items-center gap-2 text-blue-600 text-sm font-medium mb-4">
+                      <div className="flex items-center gap-2 text-sky-400 text-sm font-medium mb-4">
                         <Loader2 size={16} className="animate-spin" /> Analyzing report...
                       </div>
                     )}
                     
                     {aiSummary && (
-                      <div className="bg-white rounded-lg p-4 text-sm text-slate-700 leading-relaxed shadow-sm border border-slate-200 mb-4">
+                      <div className="bg-slate-900 rounded-lg p-4 text-sm text-slate-200 leading-relaxed shadow-sm border border-slate-700 mb-4">
                         {aiSummary}
                       </div>
                     )}
@@ -254,7 +256,7 @@ export function PatientContextSidebar({ isDesktop = false }: { isDesktop?: boole
                       <button 
                         onClick={() => handleGenerateAISummary(selectedHistory.details)}
                         disabled={aiLoading}
-                        className="w-full flex items-center justify-center gap-2 bg-[#2F80ED] hover:bg-[#256bbd] text-white font-bold text-sm px-4 py-2.5 rounded-lg transition-colors disabled:opacity-50"
+                        className="w-full flex items-center justify-center gap-2 bg-sky-600 hover:bg-sky-500 text-white font-bold text-sm px-4 py-2.5 rounded-lg transition-colors disabled:opacity-50"
                       >
                         <Bot size={16} /> Generate AI Summary
                       </button>
